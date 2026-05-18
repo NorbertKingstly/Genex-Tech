@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GeNeX Chat Profile</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Outfit',sans-serif;
+}
+
+:root{
+    --bg:#000;
+    --text:white;
+    --nav:#0b0b0b;
+    --card:#101010;
+    --card2:#151515;
+    --border:#222;
+    --green:#39ff14;
+    --muted:#aaa;
+}
+
+body.light-mode{
+    --bg:#f4f4f4;
+    --text:#111;
+    --nav:#ffffff;
+    --card:#ffffff;
+    --card2:#f7f7f7;
+    --border:#ddd;
+    --green:#39ff14;
+    --muted:#555;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    min-height:100vh;
+}
+
+.profile-card{
+    width:430px;
+    max-width:90%;
+    margin:70px auto;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:28px;
+    padding:35px;
+    text-align:center;
+    box-shadow:0 0 45px rgba(57,255,20,0.25);
+}
+
+body.light-mode .profile-card{
+    box-shadow:0 0 35px rgba(0,0,0,0.12);
+}
+
+.profile-card img{
+    width:155px;
+    height:155px;
+    border-radius:50%;
+    border:4px solid var(--green);
+    object-fit:cover;
+}
+
+.profile-card h1{
+    color:var(--green);
+    margin-top:22px;
+    font-size:36px;
+}
+
+.status{
+    margin-top:8px;
+    color:var(--muted);
+    font-size:15px;
+}
+
+.profile-bar{
+    margin-top:24px;
+    background:var(--card2);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:16px;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.profile-bar:hover{
+    border-color:var(--green);
+}
+
+.profile-bar h3{
+    color:var(--green);
+    font-size:22px;
+}
+
+.profile-bar p{
+    color:var(--muted);
+    margin-top:5px;
+    font-size:14px;
+}
+
+.btns{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin-top:28px;
+}
+
+.btn{
+    background:var(--green);
+    color:black;
+    text-decoration:none;
+    padding:14px;
+    border-radius:30px;
+    font-weight:800;
+    border:none;
+    cursor:pointer;
+    font-size:15px;
+}
+
+.full{
+    grid-column:1/3;
+}
+
+.dark-btn{
+    background:var(--card2);
+    color:var(--text);
+    border:1px solid var(--border);
+}
+
+.red-btn{
+    background:#251010;
+    color:#ff4d4d;
+    border:1px solid #4a1d1d;
+}
+
+.mute-active{
+    background:#152515;
+    color:var(--green);
+    border:1px solid var(--green);
+}
+
+.block-active{
+    background:var(--green);
+    color:black;
+    border:1px solid var(--green);
+}
+
+body.light-mode .red-btn{
+    background:#fff0f0;
+    color:#ff3333;
+    border-color:#ffb3b3;
+}
+
+body.light-mode .mute-active{
+    background:#eaffea;
+    color:#1c9b00;
+    border-color:var(--green);
+}
+
+@media(max-width:600px){
+    .profile-card{
+        margin:40px auto;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="profile-card">
+
+    <img id="profileImage">
+
+    <h1 id="profileName"></h1>
+
+    <p class="status" id="profileStatus"></p>
+
+    <div class="profile-bar" id="profileBar">
+        <h3>Profile</h3>
+        <p>Open full profile page</p>
+    </div>
+
+    <div class="btns">
+
+        <a id="messageBtn" href="chat.html" class="btn full">
+            Message
+        </a>
+
+        <button id="followBtn" class="btn dark-btn" onclick="toggleFollow()">
+            Unfollow
+        </button>
+
+        <button id="muteBtn" class="btn dark-btn" onclick="toggleMute()">
+            Mute Profile
+        </button>
+
+        <button id="blockBtn" class="btn red-btn" onclick="toggleBlock()">
+            Block
+        </button>
+
+        <button class="btn red-btn" onclick="reportUser()">
+            Report
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+function applyTheme(){
+    var theme = localStorage.getItem("genexTheme");
+
+    if(theme == "light"){
+        document.body.classList.add("light-mode");
+    }
+    else{
+        document.body.classList.remove("light-mode");
+    }
+}
+
+applyTheme();
+
+var users = {
+
+    arun:{
+        name:"Arun",
+        image:"https://i.pinimg.com/736x/9b/2c/9e/9b2c9ebcade406ceb9ee20063e88332c.jpg",
+        status:"online"
+    },
+
+    praveen:{
+        name:"Praveen",
+        image:"https://i.pinimg.com/736x/8c/ec/d8/8cecd8323cb1bd0d50e67c20daacc078.jpg",
+        status:"offline"
+    },
+
+    khaleel:{
+        name:"Khaleel",
+        image:"https://i.pinimg.com/736x/1d/90/f4/1d90f4cf24c5bc6362e88b3199d690d5.jpg",
+        status:"offline"
+    },
+
+    kalai:{
+        name:"Kalai",
+        image:"https://i.pinimg.com/736x/d8/ce/17/d8ce170ff9a9ab7e8c7e496aec03db33.jpg",
+        status:"offline"
+    },
+
+    norbert:{
+        name:"Norbert",
+        image:"https://i.pinimg.com/736x/bf/a4/23/bfa42356138c4e4cb30e407ccf9b6bec.jpg",
+        status:"offline"
+    }
+};
+
+var params = new URLSearchParams(window.location.search);
+
+var userKey = params.get("user") || "arun";
+
+var user = users[userKey];
+
+var isFollowing = true;
+var isMuted = false;
+var isBlocked = false;
+
+document.getElementById("profileImage").src = user.image;
+
+document.getElementById("profileName").innerText = user.name;
+
+document.getElementById("profileStatus").innerText = user.status;
+
+document.getElementById("messageBtn").href = "chat.html?user=" + userKey;
+
+document.getElementById("profileBar").onclick = function(){
+    window.location.href = "followers-profile.html?user=" + userKey;
+};
+
+function toggleFollow(){
+    var btn = document.getElementById("followBtn");
+
+    if(isFollowing == true){
+        isFollowing = false;
+        btn.innerText = "Follow";
+    }
+    else{
+        isFollowing = true;
+        btn.innerText = "Unfollow";
+    }
+}
+
+function toggleMute(){
+    var btn = document.getElementById("muteBtn");
+
+    if(isMuted == false){
+        isMuted = true;
+        btn.innerText = "Unmute";
+        btn.classList.add("mute-active");
+    }
+    else{
+        isMuted = false;
+        btn.innerText = "Mute Profile";
+        btn.classList.remove("mute-active");
+    }
+}
+
+function toggleBlock(){
+    var btn = document.getElementById("blockBtn");
+
+    if(isBlocked == false){
+        isBlocked = true;
+        btn.innerText = "Unblock";
+        btn.classList.add("block-active");
+    }
+    else{
+        isBlocked = false;
+        btn.innerText = "Block";
+        btn.classList.remove("block-active");
+    }
+}
+
+function reportUser(){
+    alert(user.name + " reported");
+}
+</script>
+
+</body>
+</html>

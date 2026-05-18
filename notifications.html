@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GeNeX Notifications</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Outfit',sans-serif;
+}
+
+:root{
+    --bg:#000;
+    --text:white;
+    --nav:#0b0b0b;
+    --card:#101010;
+    --card2:#151515;
+    --border:#222;
+    --green:#39ff14;
+    --muted:#aaa;
+}
+
+body.light,
+body.light-mode{
+    --bg:#f4f4f4;
+    --text:#111;
+    --nav:#ffffff;
+    --card:#ffffff;
+    --card2:#f7f7f7;
+    --border:#ddd;
+    --green:#39ff14;
+    --muted:#555;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+}
+
+.navbar{
+    height:78px;
+    background:var(--nav);
+    border-bottom:1px solid var(--green);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 55px;
+    position:sticky;
+    top:0;
+    z-index:999;
+}
+
+.logo{
+    color:var(--green);
+    font-size:34px;
+    font-weight:900;
+    text-decoration:none;
+}
+
+.home-btn{
+    background:var(--green);
+    color:black;
+    padding:10px 22px;
+    border-radius:30px;
+    text-decoration:none;
+    font-weight:800;
+}
+
+.container{
+    width:760px;
+    max-width:94%;
+    margin:32px auto;
+}
+
+.title-row h1{
+    color:var(--green);
+    font-size:36px;
+    margin-bottom:20px;
+}
+
+.tabs{
+    display:flex;
+    gap:10px;
+    margin-bottom:20px;
+    flex-wrap:wrap;
+}
+
+.tabs button{
+    background:var(--card);
+    color:var(--text);
+    border:1px solid var(--border);
+    padding:10px 18px;
+    border-radius:25px;
+    cursor:pointer;
+    font-weight:800;
+}
+
+.tabs button.active,
+.tabs button:hover{
+    background:var(--green);
+    color:black;
+    border-color:var(--green);
+}
+
+.notification{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:15px;
+    margin-bottom:12px;
+    display:grid;
+    grid-template-columns:55px 1fr 90px;
+    gap:14px;
+    align-items:center;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.notification.no-thumb{
+    grid-template-columns:55px 1fr;
+}
+
+.notification:hover{
+    background:var(--card2);
+    border-color:var(--green);
+}
+
+.dp-box{
+    position:relative;
+}
+
+.dp{
+    width:52px;
+    height:52px;
+    border-radius:50%;
+    object-fit:cover;
+    border:2px solid var(--green);
+}
+
+.icon-badge{
+    position:absolute;
+    right:-4px;
+    bottom:-3px;
+    width:23px;
+    height:23px;
+    border-radius:50%;
+    background:var(--green);
+    color:black;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:13px;
+    font-weight:800;
+    border:2px solid var(--card);
+}
+
+.text h3{
+    color:var(--text);
+    font-size:16px;
+    margin-bottom:5px;
+    line-height:1.4;
+}
+
+.text h3 span{
+    color:var(--green);
+}
+
+.text p{
+    color:var(--muted);
+    font-size:13px;
+}
+
+.post-thumb{
+    width:70px;
+    height:70px;
+    border-radius:12px;
+    object-fit:cover;
+    background:var(--card2);
+    border:1px solid var(--border);
+}
+
+.empty{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:22px;
+    padding:35px;
+    text-align:center;
+    color:var(--muted);
+    margin-top:20px;
+}
+
+@media(max-width:650px){
+    .navbar{
+        padding:0 18px;
+    }
+
+    .logo{
+        font-size:29px;
+    }
+
+    .home-btn{
+        padding:9px 13px;
+        font-size:13px;
+    }
+
+    .notification,
+    .notification.no-thumb{
+        grid-template-columns:50px 1fr;
+    }
+
+    .post-thumb{
+        display:none;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <a href="ProjectFRE.html" class="logo">GeNeX</a>
+    <a href="ProjectFRE.html" class="home-btn">← Home</a>
+</div>
+
+<div class="container">
+
+    <div class="title-row">
+        <h1>Notifications</h1>
+    </div>
+
+    <div class="tabs">
+        <button class="active" onclick="filterNoti('all',this)">All</button>
+        <button onclick="filterNoti('like',this)">Likes</button>
+        <button onclick="filterNoti('comment',this)">Comments</button>
+        <button onclick="filterNoti('follow',this)">Follows</button>
+    </div>
+
+    <div id="notificationArea"></div>
+
+</div>
+
+<script>
+var currentFilter = "all";
+
+function applyTheme(){
+    var savedTheme = localStorage.getItem("genexTheme");
+
+    if(savedTheme == "light"){
+        document.body.classList.add("light");
+        document.body.classList.add("light-mode");
+    }
+    else{
+        document.body.classList.remove("light");
+        document.body.classList.remove("light-mode");
+    }
+}
+
+applyTheme();
+
+var notifications = [
+    {
+        type:"like",
+        key:"arun",
+        user:"Arun",
+        image:"https://i.pinimg.com/736x/9b/2c/9e/9b2c9ebcade406ceb9ee20063e88332c.jpg",
+        message:"liked your post",
+        time:"2m ago",
+        thumb:"https://i.pinimg.com/736x/6c/98/58/6c985826696085dca8d1927ebf548c93.jpg"
+    },
+    {
+        type:"comment",
+        key:"praveen",
+        user:"Praveen",
+        image:"https://i.pinimg.com/736x/8c/ec/d8/8cecd8323cb1bd0d50e67c20daacc078.jpg",
+        message:"commented on your blog",
+        time:"10m ago",
+        thumb:""
+    },
+    {
+        type:"follow",
+        key:"khaleel",
+        user:"Khaleel",
+        image:"https://i.pinimg.com/736x/1d/90/f4/1d90f4cf24c5bc6362e88b3199d690d5.jpg",
+        message:"started following you",
+        time:"30m ago",
+        thumb:""
+    },
+    {
+        type:"like",
+        key:"kalai",
+        user:"Kalai",
+        image:"https://i.pinimg.com/736x/d8/ce/17/d8ce170ff9a9ab7e8c7e496aec03db33.jpg",
+        message:"liked your post",
+        time:"1h ago",
+        thumb:"https://i.pinimg.com/736x/3b/90/99/3b9099967d6de26aa22256efb6efb515.jpg"
+    }
+];
+
+localStorage.setItem("gennexNotifications", JSON.stringify(notifications));
+
+function openProfile(key){
+    window.location.href = "followers-profile.html?user=" + key;
+}
+
+function getIcon(type){
+    if(type == "like"){
+        return "♥";
+    }
+    else if(type == "comment"){
+        return "●";
+    }
+    else{
+        return "+";
+    }
+}
+
+function loadNotifications(){
+    var area = document.getElementById("notificationArea");
+    area.innerHTML = "";
+
+    var count = 0;
+
+    for(var i = 0; i < notifications.length; i++){
+        var n = notifications[i];
+
+        if(currentFilter == "all" || n.type == currentFilter){
+            count++;
+
+            var box = document.createElement("div");
+
+            if(n.thumb && n.thumb != ""){
+                box.className = "notification";
+            }
+            else{
+                box.className = "notification no-thumb";
+            }
+
+            box.setAttribute("onclick","openProfile('" + n.key + "')");
+
+            var rightSide = "";
+
+            if(n.thumb && n.thumb != ""){
+                rightSide =
+                '<img class="post-thumb" src="' + n.thumb + '" onerror="this.style.display=\'none\'; this.closest(\'.notification\').classList.add(\'no-thumb\');">';
+            }
+
+            box.innerHTML =
+            '<div class="dp-box">' +
+                '<img class="dp" src="' + n.image + '">' +
+                '<div class="icon-badge">' + getIcon(n.type) + '</div>' +
+            '</div>' +
+
+            '<div class="text">' +
+                '<h3><span>' + n.user + '</span> ' + n.message + '</h3>' +
+                '<p>' + n.time + '</p>' +
+            '</div>' +
+
+            rightSide;
+
+            area.appendChild(box);
+        }
+    }
+
+    if(count == 0){
+        area.innerHTML = '<div class="empty">No notifications found</div>';
+    }
+}
+
+function filterNoti(type,btn){
+    currentFilter = type;
+
+    var buttons = document.querySelectorAll(".tabs button");
+
+    for(var i = 0; i < buttons.length; i++){
+        buttons[i].classList.remove("active");
+    }
+
+    btn.classList.add("active");
+
+    loadNotifications();
+}
+
+loadNotifications();
+</script>
+
+</body>
+</html>

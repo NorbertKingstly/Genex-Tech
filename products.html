@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GeNeX Products</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Outfit',sans-serif;
+}
+
+:root{
+    --bg:#000;
+    --text:white;
+    --nav:#0b0b0b;
+    --card:#101010;
+    --card2:#151515;
+    --border:#222;
+    --green:#39ff14;
+    --muted:#aaa;
+    --input:#101010;
+    --comment:#0b0b0b;
+}
+
+body.light,
+body.light-mode{
+    --bg:#f4f4f4;
+    --text:#111;
+    --nav:#ffffff;
+    --card:#ffffff;
+    --card2:#f7f7f7;
+    --border:#ddd;
+    --green:#39ff14;
+    --muted:#555;
+    --input:#ffffff;
+    --comment:#f7f7f7;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    transition:0.3s;
+}
+
+.navbar{
+    height:78px;
+    background:var(--nav);
+    border-bottom:1px solid var(--green);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 55px;
+    position:sticky;
+    top:0;
+    z-index:999;
+}
+
+.logo{
+    color:var(--green);
+    font-size:34px;
+    font-weight:900;
+    text-decoration:none;
+}
+
+.nav-right{
+    display:flex;
+    gap:12px;
+    align-items:center;
+}
+
+.home-btn{
+    background:var(--green);
+    color:black;
+    padding:10px 22px;
+    border-radius:30px;
+    text-decoration:none;
+    font-weight:800;
+    border:none;
+    cursor:pointer;
+}
+
+.hero{
+    padding:35px 55px 20px;
+}
+
+.hero h1{
+    color:var(--green);
+    font-size:42px;
+    margin-bottom:10px;
+}
+
+.hero p{
+    color:var(--muted);
+    font-size:16px;
+    line-height:1.6;
+}
+
+.search-box{
+    padding:0 55px 22px;
+}
+
+.search-box input{
+    width:100%;
+    padding:15px;
+    border-radius:18px;
+    border:1px solid var(--border);
+    background:var(--input);
+    color:var(--text);
+    outline:none;
+    font-size:15px;
+}
+
+.category-bar{
+    display:flex;
+    gap:12px;
+    padding:0 55px 25px;
+    flex-wrap:wrap;
+}
+
+.category-bar button{
+    background:var(--card);
+    color:var(--text);
+    border:1px solid var(--border);
+    padding:10px 18px;
+    border-radius:25px;
+    cursor:pointer;
+    font-weight:800;
+}
+
+.category-bar button:hover,
+.category-bar button.active{
+    background:var(--green);
+    color:black;
+    border-color:var(--green);
+}
+
+.products{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:24px;
+    padding:0 55px 50px;
+}
+
+.card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:24px;
+    overflow:hidden;
+    transition:0.25s;
+}
+
+.card:hover{
+    transform:translateY(-4px);
+    border-color:var(--green);
+    box-shadow:0 0 25px rgba(57,255,20,0.18);
+}
+
+.img-box{
+    height:280px;
+    background:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:18px;
+}
+
+.img-box img{
+    max-width:100%;
+    max-height:100%;
+    object-fit:contain;
+}
+
+.info{
+    padding:18px;
+}
+
+.tag{
+    display:inline-block;
+    background:#162816;
+    color:var(--green);
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:800;
+    margin-bottom:10px;
+}
+
+body.light .tag,
+body.light-mode .tag{
+    background:#eaffea;
+}
+
+.info h2{
+    color:var(--text);
+    font-size:22px;
+    margin-bottom:10px;
+    line-height:1.35;
+}
+
+.price{
+    color:var(--green);
+    font-size:26px;
+    font-weight:900;
+    margin-bottom:10px;
+}
+
+.desc{
+    color:var(--muted);
+    font-size:15px;
+    line-height:1.6;
+    margin-bottom:14px;
+}
+
+.review,
+.pro,
+.con,
+.discuss{
+    background:var(--card2);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:12px;
+    margin-bottom:14px;
+}
+
+.review h4,
+.pro h4,
+.discuss h4{
+    color:var(--green);
+    margin-bottom:7px;
+}
+
+.con h4{
+    color:#ff5c5c;
+    margin-bottom:7px;
+}
+
+.review p,
+.pro p,
+.con p{
+    color:var(--muted);
+    font-size:14px;
+    line-height:1.5;
+}
+
+.procon{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.comment-list{
+    max-height:105px;
+    overflow-y:auto;
+    margin-bottom:10px;
+    padding-right:5px;
+}
+
+.comment{
+    background:var(--comment);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:9px;
+    margin-bottom:8px;
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.5;
+}
+
+.comment-input-row{
+    display:flex;
+    gap:8px;
+}
+
+.comment-input-row input{
+    flex:1;
+    padding:11px;
+    border-radius:20px;
+    border:1px solid var(--border);
+    background:var(--bg);
+    color:var(--text);
+    outline:none;
+}
+
+.comment-input-row button{
+    background:var(--green);
+    color:black;
+    border:none;
+    padding:10px 17px;
+    border-radius:20px;
+    font-weight:800;
+    cursor:pointer;
+}
+
+.wish-btn{
+    width:100%;
+    background:var(--card2);
+    color:var(--text);
+    border:1px solid var(--border);
+    padding:14px;
+    border-radius:30px;
+    font-weight:800;
+    font-size:15px;
+    cursor:pointer;
+    margin-bottom:10px;
+}
+
+.buy-btn{
+    width:100%;
+    background:var(--green);
+    color:black;
+    border:none;
+    padding:14px;
+    border-radius:30px;
+    font-weight:800;
+    font-size:16px;
+    cursor:pointer;
+}
+
+.note{
+    color:var(--muted);
+    font-size:12px;
+    margin-top:10px;
+    text-align:center;
+}
+
+@media(max-width:850px){
+
+    .products{
+        grid-template-columns:1fr;
+        padding-left:20px;
+        padding-right:20px;
+    }
+
+    .hero,
+    .search-box,
+    .category-bar{
+        padding-left:20px;
+        padding-right:20px;
+    }
+
+    .navbar{
+        padding:0 18px;
+    }
+
+    .logo{
+        font-size:29px;
+    }
+
+    .home-btn{
+        padding:9px 13px;
+        font-size:13px;
+    }
+
+    .procon{
+        grid-template-columns:1fr;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+
+    <a href="ProjectFRE.html" class="logo">GeNeX</a>
+
+    <div class="nav-right">
+        <a href="wishlist.html" class="home-btn">Wishlist</a>
+        <a href="ProjectFRE.html" class="home-btn">← Home</a>
+    </div>
+
+</div>
+
+<div class="hero">
+
+    <h1>Trusted Tech Products</h1>
+
+    <p>
+        Product image, review, pros, cons,
+        discussion and direct Amazon buy link.
+    </p>
+
+</div>
+
+<div class="search-box">
+
+    <input type="text"
+    id="searchInput"
+    placeholder="Search phone, laptop, keyboard..."
+    onkeyup="searchProducts()">
+
+</div>
+
+<div class="category-bar">
+
+    <button class="active"
+    onclick="filterCategory('all',this)">
+    All
+    </button>
+
+    <button onclick="filterCategory('phone',this)">
+    Phones
+    </button>
+
+    <button onclick="filterCategory('laptop',this)">
+    Laptops
+    </button>
+
+    <button onclick="filterCategory('keyboard',this)">
+    Keyboard
+    </button>
+
+    <button onclick="filterCategory('storage',this)">
+    Storage
+    </button>
+
+</div>
+
+<div class="products" id="productArea"></div>
+
+<script>
+
+var currentCategory = "all";
+
+function applyTheme(){
+
+    var savedTheme =
+    localStorage.getItem("genexTheme");
+
+    if(savedTheme == "light"){
+
+        document.body.classList.add("light");
+        document.body.classList.add("light-mode");
+
+    }
+    else{
+
+        document.body.classList.remove("light");
+        document.body.classList.remove("light-mode");
+
+    }
+}
+
+var products = [
+
+{
+    name:"OnePlus 15R 5G",
+    category:"phone",
+    price:"₹42,999",
+    image:"https://m.media-amazon.com/images/I/61AsNTuJ6mL._SL1500_.jpg",
+    link:"https://amzn.in/d/0gok3ZeL",
+    desc:"12GB RAM, 256GB storage, Snapdragon 8 Gen 5.",
+    review:"Gaming and battery ku strong option.",
+    pro:"165Hz display, big battery.",
+    con:"Price konjam premium.",
+    comments:[
+        "Arun: Battery semma bro.",
+        "Praveen: Gaming ku nalla irukum."
+    ]
+},
+
+{
+    name:"Samsung Galaxy S25 Ultra",
+    category:"phone",
+    price:"₹1,19,999",
+    image:"https://m.media-amazon.com/images/I/71tl8pu4fKL._SL1500_.jpg",
+    link:"https://amzn.in/d/0crF9slB",
+    desc:"200MP camera flagship phone.",
+    review:"Camera and premium feel mass.",
+    pro:"Camera king.",
+    con:"Price very high.",
+    comments:[
+        "Norbert: Camera beast.",
+        "Khaleel: Premium feel."
+    ]
+},
+
+{
+    name:"ASUS TUF Gaming A15",
+    category:"laptop",
+    price:"₹67,999",
+    image:"https://m.media-amazon.com/images/I/81nPkLHN3vL._SL1500_.jpg",
+    link:"https://amzn.in/d/0ieHZ0GO",
+    desc:"RTX gaming laptop with Ryzen processor.",
+    review:"Gaming and editing ku best.",
+    pro:"RTX graphics.",
+    con:"Weight konjam adhigam.",
+    comments:[
+        "Arun: FPS semma.",
+        "Praveen: RGB mass."
+    ]
+},
+
+{
+    name:"Redragon K630 Keyboard",
+    category:"keyboard",
+    price:"₹3,299",
+    image:"https://m.media-amazon.com/images/I/619t8CVd03L._SL1500_.jpg",
+    link:"https://amzn.in/d/07NjPbzM",
+    desc:"Compact mechanical keyboard.",
+    review:"Gaming setup ku semma.",
+    pro:"Mechanical feel.",
+    con:"Numpad illa.",
+    comments:[
+        "Norbert: Desk clean ah irukum."
+    ]
+}
+
+];
+
+function openAmazon(link){
+
+    window.open(link,"_blank");
+}
+
+function addToWishlist(index){
+
+    var p = products[index];
+
+    var wishlist =
+    JSON.parse(localStorage.getItem("genexWishlist"))
+    || [];
+
+    var already =
+    wishlist.some(function(item){
+
+        return item.name == p.name;
+
+    });
+
+    if(already){
+
+        alert("Already in wishlist");
+        return;
+    }
+
+    wishlist.push({
+
+        name:p.name,
+        category:p.category,
+        price:p.price,
+        image:p.image,
+        link:p.link,
+        desc:p.desc,
+        review:p.review
+
+    });
+
+    localStorage.setItem(
+        "genexWishlist",
+        JSON.stringify(wishlist)
+    );
+
+    alert("Added to wishlist");
+}
+
+function loadProducts(){
+
+    var area =
+    document.getElementById("productArea");
+
+    var searchText =
+    document.getElementById("searchInput")
+    .value
+    .toLowerCase();
+
+    area.innerHTML = "";
+
+    for(var i=0;i<products.length;i++){
+
+        var p = products[i];
+
+        var matchCategory =
+        currentCategory == "all" ||
+        p.category == currentCategory;
+
+        var matchSearch =
+        p.name.toLowerCase().includes(searchText) ||
+        p.desc.toLowerCase().includes(searchText);
+
+        if(matchCategory && matchSearch){
+
+            var commentsHTML = "";
+
+            for(var j=0;j<p.comments.length;j++){
+
+                commentsHTML +=
+                '<div class="comment">' +
+                p.comments[j] +
+                '</div>';
+            }
+
+            var card =
+            document.createElement("div");
+
+            card.className = "card";
+
+            card.innerHTML =
+
+            '<div class="img-box">' +
+            '<img src="' + p.image + '">' +
+            '</div>' +
+
+            '<div class="info">' +
+
+            '<span class="tag">' +
+            p.category.toUpperCase() +
+            '</span>' +
+
+            '<h2>' + p.name + '</h2>' +
+
+            '<div class="price">' +
+            p.price +
+            '</div>' +
+
+            '<p class="desc">' +
+            p.desc +
+            '</p>' +
+
+            '<div class="review">' +
+            '<h4>GeNeX Review</h4>' +
+            '<p>' + p.review + '</p>' +
+            '</div>' +
+
+            '<div class="procon">' +
+
+            '<div class="pro">' +
+            '<h4>Pros</h4>' +
+            '<p>' + p.pro + '</p>' +
+            '</div>' +
+
+            '<div class="con">' +
+            '<h4>Cons</h4>' +
+            '<p>' + p.con + '</p>' +
+            '</div>' +
+
+            '</div>' +
+
+            '<div class="discuss">' +
+
+            '<h4>Discussion</h4>' +
+
+            '<div class="comment-list">' +
+            commentsHTML +
+            '</div>' +
+
+            '</div>' +
+
+            '<button class="wish-btn" onclick="addToWishlist(' + i + ')">' +
+            '♡ Add to Wishlist' +
+            '</button>' +
+
+            '<button class="buy-btn" onclick="openAmazon(\'' + p.link + '\')">' +
+            'Buy on Amazon' +
+            '</button>' +
+
+            '<div class="note">' +
+            'Check Amazon for live price.' +
+            '</div>' +
+
+            '</div>';
+
+            area.appendChild(card);
+        }
+    }
+}
+
+function filterCategory(category,btn){
+
+    currentCategory = category;
+
+    var buttons =
+    document.querySelectorAll(".category-bar button");
+
+    for(var i=0;i<buttons.length;i++){
+
+        buttons[i].classList.remove("active");
+
+    }
+
+    btn.classList.add("active");
+
+    loadProducts();
+}
+
+function searchProducts(){
+
+    loadProducts();
+}
+
+applyTheme();
+loadProducts();
+
+</script>
+
+</body>
+</html>

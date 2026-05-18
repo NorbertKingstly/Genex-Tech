@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GeNeX Blog Feed</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Outfit',sans-serif;
+}
+
+:root{
+    --bg:#000;
+    --text:white;
+    --nav:#0b0b0b;
+    --card:#101010;
+    --card2:#151515;
+    --border:#222;
+    --green:#39ff14;
+    --muted:#aaa;
+}
+
+body.light,
+body.light-mode{
+    --bg:#f4f4f4;
+    --text:#111;
+    --nav:#ffffff;
+    --card:#ffffff;
+    --card2:#f7f7f7;
+    --border:#ddd;
+    --green:#39ff14;
+    --muted:#555;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    transition:0.3s;
+}
+
+.navbar{
+    height:78px;
+    background:var(--nav);
+    border-bottom:1px solid var(--green);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 55px;
+    position:sticky;
+    top:0;
+    z-index:99;
+}
+
+.logo{
+    color:var(--green);
+    font-size:34px;
+    font-weight:900;
+    text-decoration:none;
+}
+
+.nav-right{
+    display:flex;
+    gap:10px;
+}
+
+.nav-btn{
+    background:var(--green);
+    color:black;
+    padding:10px 22px;
+    border-radius:30px;
+    text-decoration:none;
+    font-weight:800;
+    font-size:14px;
+}
+
+.feed{
+    max-width:650px;
+    margin:25px auto;
+    padding:0 16px;
+}
+
+.tweet-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:15px;
+    margin-bottom:14px;
+    transition:0.3s;
+}
+
+.tweet-top{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:10px;
+}
+
+.dp{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    object-fit:cover;
+    border:2px solid var(--green);
+    cursor:pointer;
+}
+
+.name{
+    color:var(--green);
+    font-size:15px;
+    font-weight:800;
+    cursor:pointer;
+}
+
+.username{
+    color:var(--muted);
+    font-size:12px;
+    margin-left:4px;
+}
+
+.time{
+    color:var(--muted);
+    font-size:12px;
+    margin-top:2px;
+}
+
+.tweet-text{
+    color:var(--text);
+    font-size:14px;
+    line-height:1.6;
+    margin-top:8px;
+}
+
+.actions{
+    display:flex;
+    justify-content:space-between;
+    margin-top:14px;
+    color:var(--muted);
+    font-size:13px;
+}
+
+.actions span{
+    cursor:pointer;
+}
+
+.actions span:hover{
+    color:var(--green);
+}
+
+.comment-box{
+    display:none;
+    margin-top:12px;
+}
+
+.comment-box input{
+    width:100%;
+    padding:11px;
+    border-radius:12px;
+    border:1px solid var(--border);
+    background:var(--bg);
+    color:var(--text);
+    outline:none;
+    font-size:13px;
+}
+
+.comment-box button{
+    width:100%;
+    margin-top:8px;
+    padding:10px;
+    border:none;
+    border-radius:20px;
+    background:var(--green);
+    color:black;
+    font-weight:800;
+    cursor:pointer;
+    font-size:13px;
+}
+
+.comments{
+    color:var(--text);
+    margin-top:10px;
+    font-size:13px;
+    line-height:1.6;
+}
+
+@media(max-width:700px){
+
+    .navbar{
+        padding:0 18px;
+    }
+
+    .logo{
+        font-size:29px;
+    }
+
+    .nav-btn{
+        padding:9px 13px;
+        font-size:13px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+
+    <a href="ProjectFRE.html" class="logo">GeNeX</a>
+
+    <div class="nav-right">
+        <a href="ProjectFRE.html" class="nav-btn">Home</a>
+    </div>
+
+</div>
+
+<div class="feed" id="feed"></div>
+
+<script>
+
+function applyTheme(){
+
+    var theme = localStorage.getItem("genexTheme");
+
+    if(theme == "light"){
+
+        document.body.classList.add("light");
+        document.body.classList.add("light-mode");
+
+    }
+    else{
+
+        document.body.classList.remove("light");
+        document.body.classList.remove("light-mode");
+
+    }
+}
+
+applyTheme();
+
+var users = {
+
+    arun:{
+        name:"Arun",
+        username:"@arun_tech",
+        image:"https://i.pinimg.com/736x/9b/2c/9e/9b2c9ebcade406ceb9ee20063e88332c.jpg",
+        tweets:[
+            "Laptop vangurathuku specs mattum paatha podhathu. Real usage review dhaan mukkiyam.",
+            "Tech community la honest feedback share pannina dhaan ellarukum useful ah irukum."
+        ]
+    },
+
+    praveen:{
+        name:"Praveen",
+        username:"@praveen_gadgets",
+        image:"https://i.pinimg.com/736x/8c/ec/d8/8cecd8323cb1bd0d50e67c20daacc078.jpg",
+        tweets:[
+            "Budget gadget choose panna build quality and after-sales service check pannanum.",
+            "Review podumbothu pros mattum illa cons um clear ah sollanum."
+        ]
+    },
+
+    khaleel:{
+        name:"Khaleel",
+        username:"@khaleel_reviews",
+        image:"https://i.pinimg.com/736x/1d/90/f4/1d90f4cf24c5bc6362e88b3199d690d5.jpg",
+        tweets:[
+            "Fake product link click panna risk. Verified link mattum share pannunga.",
+            "Product discussion la trust irundha dhaan community grow aagum."
+        ]
+    },
+
+    kalai:{
+        name:"Kalai",
+        username:"@kalai_ui",
+        image:"https://i.pinimg.com/736x/d8/ce/17/d8ce170ff9a9ab7e8c7e496aec03db33.jpg",
+        tweets:[
+            "Frontend la daily small task panna confidence varum.",
+            "UI clean ah irukanumna spacing and color balance romba mukkiyam."
+        ]
+    },
+
+    norbert:{
+        name:"Norbert",
+        username:"@norbert_genex",
+        image:"https://i.pinimg.com/736x/bf/a4/23/bfa42356138c4e4cb30e407ccf9b6bec.jpg",
+        tweets:[
+            "GeNeX oda main goal fake links avoid panni real tech community build panna.",
+            "Frontend project la small small feature add panna portfolio strong aagum."
+        ]
+    }
+};
+
+var tweetFeed = [
+
+    {user:"norbert",tweet:0,time:"Just now"},
+    {user:"khaleel",tweet:0,time:"15m ago"},
+    {user:"arun",tweet:0,time:"30m ago"},
+    {user:"praveen",tweet:0,time:"1h ago"},
+    {user:"kalai",tweet:0,time:"2h ago"},
+    {user:"norbert",tweet:1,time:"3h ago"},
+    {user:"khaleel",tweet:1,time:"4h ago"},
+    {user:"arun",tweet:1,time:"5h ago"},
+    {user:"praveen",tweet:1,time:"6h ago"},
+    {user:"kalai",tweet:1,time:"7h ago"}
+
+];
+
+function getNewTweets(){
+
+    var keys = [
+        "genexUserPosts",
+        "genexPosts",
+        "myPosts",
+        "posts",
+        "userPosts"
+    ];
+
+    var arr = [];
+
+    for(var i=0;i<keys.length;i++){
+
+        var data =
+        JSON.parse(localStorage.getItem(keys[i])) || [];
+
+        for(var j=0;j<data.length;j++){
+
+            arr.push({
+                user:"norbert",
+                text:data[j].text ||
+                data[j].content ||
+                data[j].caption ||
+                data[j].blog || "",
+                time:data[j].time ||
+                data[j].date ||
+                "Just now"
+            });
+
+        }
+    }
+
+    return arr;
+}
+
+function loadFeed(){
+
+    var feed =
+    document.getElementById("feed");
+
+    feed.innerHTML = "";
+
+    var newTweets = getNewTweets();
+
+    for(var n=0;n<newTweets.length;n++){
+
+        createTweet(
+            newTweets[n].user,
+            newTweets[n].text,
+            newTweets[n].time
+        );
+
+    }
+
+    for(var i=0;i<tweetFeed.length;i++){
+
+        var item = tweetFeed[i];
+
+        var user = users[item.user];
+
+        var text =
+        user.tweets[item.tweet];
+
+        createTweet(
+            item.user,
+            text,
+            item.time
+        );
+
+    }
+}
+
+function createTweet(userKey,text,time){
+
+    var user = users[userKey];
+
+    if(text.trim() == ""){
+        return;
+    }
+
+    document.getElementById("feed").innerHTML += `
+
+    <div class="tweet-card">
+
+        <div class="tweet-top">
+
+            <img class="dp"
+            src="${user.image}"
+            onclick="openProfile('${userKey}')">
+
+            <div>
+
+                <div>
+
+                    <span class="name"
+                    onclick="openProfile('${userKey}')">
+                    ${user.name}
+                    </span>
+
+                    <span class="username">
+                    ${user.username}
+                    </span>
+
+                </div>
+
+                <div class="time">
+                ${time}
+                </div>
+
+            </div>
+
+        </div>
+
+        <p class="tweet-text">
+        ${text}
+        </p>
+
+        <div class="actions">
+
+            <span onclick="likeTweet(this)">
+            ♡ Like
+            </span>
+
+            <span onclick="showComment(this)">
+            💬 Comment
+            </span>
+
+            <span onclick="shareTweet()">
+            ↗ Share
+            </span>
+
+        </div>
+
+        <div class="comment-box">
+
+            <input type="text"
+            placeholder="Add a comment...">
+
+            <button onclick="addComment(this)">
+            Post Comment
+            </button>
+
+            <div class="comments"></div>
+
+        </div>
+
+    </div>
+
+    `;
+}
+
+function openProfile(user){
+
+    window.location.href =
+    "followers-profile.html?user=" + user;
+}
+
+function likeTweet(btn){
+
+    if(btn.innerText == "♡ Like"){
+
+        btn.innerText = "♥ Liked";
+        btn.style.color = "#39ff14";
+
+    }
+    else{
+
+        btn.innerText = "♡ Like";
+        btn.style.color = "";
+
+    }
+}
+
+function showComment(btn){
+
+    var card =
+    btn.closest(".tweet-card");
+
+    var box =
+    card.querySelector(".comment-box");
+
+    if(box.style.display == "block"){
+
+        box.style.display = "none";
+
+    }
+    else{
+
+        box.style.display = "block";
+
+        box.querySelector("input").focus();
+
+    }
+}
+
+function addComment(btn){
+
+    var box =
+    btn.closest(".comment-box");
+
+    var input =
+    box.querySelector("input");
+
+    var comments =
+    box.querySelector(".comments");
+
+    if(input.value.trim() == ""){
+
+        alert("Type comment first");
+
+        return;
+    }
+
+    comments.innerHTML +=
+    "<p><b>You:</b> " +
+    input.value +
+    "</p>";
+
+    input.value = "";
+}
+
+function shareTweet(){
+
+    alert("Tweet shared");
+}
+
+loadFeed();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Edit Profile</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Outfit',sans-serif;
+}
+
+:root{
+    --bg:#000;
+    --text:white;
+    --nav:#0b0b0b;
+    --card:#101010;
+    --card2:#151515;
+    --border:#222;
+    --green:#39ff14;
+    --muted:#aaa;
+}
+
+body.light-mode{
+    --bg:#f4f4f4;
+    --text:#111;
+    --nav:#ffffff;
+    --card:#ffffff;
+    --card2:#f7f7f7;
+    --border:#ddd;
+    --green:#39ff14;
+    --muted:#555;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+}
+
+.navbar{
+    width:100%;
+    height:78px;
+    padding:0 55px;
+    background:var(--nav);
+    border-bottom:1px solid var(--green);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    color:var(--green);
+    font-size:34px;
+    font-weight:900;
+    text-decoration:none;
+}
+
+.back-btn{
+    background:var(--green);
+    color:black;
+    padding:10px 24px;
+    border-radius:30px;
+    text-decoration:none;
+    font-weight:800;
+}
+
+.container{
+    width:420px;
+    margin:60px auto;
+    background:var(--card);
+    border:1px solid var(--border);
+    padding:40px;
+    border-radius:20px;
+    box-shadow:0 0 50px rgba(57,255,20,0.25);
+    text-align:center;
+}
+
+body.light-mode .container{
+    box-shadow:0 0 35px rgba(0,0,0,0.12);
+}
+
+.container h1{
+    color:var(--green);
+    margin-bottom:10px;
+    font-size:55px;
+    font-weight:900;
+}
+
+.container h2{
+    margin-bottom:30px;
+    color:var(--text);
+}
+
+.profile-preview{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    object-fit:cover;
+    border:3px solid var(--green);
+    margin-bottom:20px;
+}
+
+input,
+textarea{
+    width:100%;
+    padding:14px;
+    margin-bottom:18px;
+    border-radius:10px;
+    border:1px solid var(--border);
+    background:var(--bg);
+    color:var(--text);
+    outline:none;
+    font-size:15px;
+}
+
+textarea{
+    height:100px;
+    resize:none;
+}
+
+button{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:30px;
+    background:var(--green);
+    color:black;
+    font-size:18px;
+    font-weight:800;
+    cursor:pointer;
+    margin-top:10px;
+}
+
+.back{
+    display:inline-block;
+    margin-top:20px;
+    color:var(--green);
+    text-decoration:none;
+    font-weight:800;
+}
+
+@media(max-width:600px){
+    .navbar{
+        padding:0 18px;
+    }
+
+    .logo{
+        font-size:29px;
+    }
+
+    .back-btn{
+        padding:9px 16px;
+        font-size:14px;
+    }
+
+    .container{
+        width:90%;
+        margin:40px auto;
+        padding:28px;
+    }
+
+    .container h1{
+        font-size:42px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <a href="ProjectFRE.html" class="logo">GeNeX</a>
+    <a href="profile.html" class="back-btn">Back</a>
+</div>
+
+<div class="container">
+
+    <h1>GeNeX</h1>
+    <h2>Edit Profile</h2>
+
+    <img src="IMG_8295.JPG.jpeg" id="preview" class="profile-preview">
+
+    <input type="file" id="profileImage">
+
+    <input type="text" id="username" placeholder="Username">
+
+    <textarea id="bio" placeholder="Write your bio"></textarea>
+
+    <button onclick="saveProfile()">Save Profile</button>
+
+    <a href="profile.html" class="back">Back to Profile</a>
+
+</div>
+
+<script>
+function applyTheme(){
+    var theme = localStorage.getItem("genexTheme");
+
+    if(theme == "light"){
+        document.body.classList.add("light-mode");
+    }
+    else{
+        document.body.classList.remove("light-mode");
+    }
+}
+
+applyTheme();
+
+document.getElementById("username").value =
+localStorage.getItem("profileName") || "Liyo Clevert";
+
+document.getElementById("bio").value =
+localStorage.getItem("profileBio") ||
+"GeNeX creator | Frontend developer | Tech community builder";
+
+var savedImage = localStorage.getItem("profileImage");
+
+if(savedImage){
+    document.getElementById("preview").src = savedImage;
+}
+
+document.getElementById("profileImage").addEventListener("change",function(){
+    var file = this.files[0];
+
+    if(file){
+        var reader = new FileReader();
+
+        reader.onload = function(e){
+            document.getElementById("preview").src = e.target.result;
+            localStorage.setItem("profileImage",e.target.result);
+        };
+
+        reader.readAsDataURL(file);
+    }
+});
+
+function saveProfile(){
+    var username = document.getElementById("username").value.trim();
+    var bio = document.getElementById("bio").value.trim();
+    var image = document.getElementById("preview").src;
+
+    if(username == "" || bio == ""){
+        alert("Fill all details");
+        return;
+    }
+
+    localStorage.setItem("profileName",username);
+    localStorage.setItem("profileUsername","@" + username.toLowerCase().replaceAll(" ","_"));
+    localStorage.setItem("profileBio",bio);
+    localStorage.setItem("profileImage",image);
+
+    alert("Profile updated");
+
+    window.location.href = "profile.html";
+}
+</script>
+
+</body>
+</html>

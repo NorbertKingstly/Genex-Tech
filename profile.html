@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GeNeX Profile</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Outfit',sans-serif;
+}
+
+:root{
+    --bg:#000;
+    --text:white;
+    --nav:#0b0b0b;
+    --card:#101010;
+    --card2:#151515;
+    --border:#222;
+    --muted:#aaa;
+    --muted2:#aaa;
+    --green:#39ff14;
+}
+
+body.light-mode{
+    --bg:#f4f4f4;
+    --text:#111;
+    --nav:#ffffff;
+    --card:#ffffff;
+    --card2:#f7f7f7;
+    --border:#ddd;
+    --muted:#555;
+    --muted2:#555;
+    --green:#39ff14;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+}
+
+.navbar{
+    width:100%;
+    height:78px;
+    background:var(--nav);
+    border-bottom:1px solid var(--green);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 55px;
+}
+
+.logo{
+    color:var(--green);
+    font-size:34px;
+    font-weight:900;
+    letter-spacing:-2px;
+    text-decoration:none;
+}
+
+.home-btn{
+    background:var(--green);
+    color:black;
+    text-decoration:none;
+    padding:10px 24px;
+    border-radius:30px;
+    font-weight:800;
+}
+
+.profile{
+    max-width:1060px;
+    margin:auto;
+    padding:32px 25px;
+}
+
+.profile-top{
+    display:flex;
+    align-items:center;
+    gap:42px;
+    margin-bottom:32px;
+}
+
+.main-dp{
+    width:135px;
+    height:135px;
+    border-radius:50%;
+    object-fit:cover;
+    border:4px solid var(--green);
+}
+
+.profile-info h1{
+    color:var(--green);
+    font-size:36px;
+    margin-bottom:8px;
+}
+
+.username{
+    color:var(--muted2);
+    font-size:14px;
+    margin-bottom:8px;
+}
+
+.bio{
+    color:var(--muted);
+    font-size:16px;
+    line-height:1.6;
+}
+
+.stats{
+    display:flex;
+    gap:42px;
+    margin-top:18px;
+}
+
+.stats h2{
+    color:var(--green);
+    font-size:26px;
+}
+
+.stats p{
+    color:var(--muted2);
+    font-size:15px;
+}
+
+.btn-row{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-top:20px;
+}
+
+.edit-btn{
+    display:inline-block;
+    background:var(--green);
+    color:black;
+    padding:10px 25px;
+    border-radius:30px;
+    text-decoration:none;
+    font-weight:800;
+}
+
+.tabs{
+    border-top:1px solid var(--border);
+    padding-top:20px;
+    margin-bottom:24px;
+    display:flex;
+    justify-content:center;
+    gap:60px;
+}
+
+.tabs span{
+    color:var(--muted2);
+    font-size:17px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.tabs .active{
+    color:var(--green);
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
+}
+
+.grid-post{
+    height:260px;
+    border-radius:15px;
+    overflow:hidden;
+    cursor:pointer;
+    background:var(--card2);
+    border:1px solid var(--border);
+}
+
+.grid-post img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:0.35s;
+}
+
+.grid-post:hover img{
+    transform:scale(1.05);
+    filter:brightness(70%);
+}
+
+.tagged-box{
+    display:none;
+}
+
+.blog-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:22px;
+    padding:18px;
+    margin-bottom:16px;
+}
+
+.blog-card h3{
+    color:var(--green);
+    margin-bottom:8px;
+    font-size:20px;
+}
+
+.blog-card p{
+    color:var(--text);
+    line-height:1.6;
+    font-size:15px;
+}
+
+.popup{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.82);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+    padding:18px;
+}
+
+.popup-box{
+    width:880px;
+    max-width:94vw;
+    height:74vh;
+    max-height:620px;
+    background:var(--card);
+    border:1px solid var(--green);
+    border-radius:22px;
+    display:grid;
+    grid-template-columns:54% 46%;
+    overflow:hidden;
+}
+
+.popup-img-box{
+    background:#000;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.popup-img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+}
+
+.popup-content{
+    padding:26px;
+    overflow-y:auto;
+}
+
+.popup-user{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:24px;
+}
+
+.popup-dp{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    object-fit:cover;
+    border:2px solid var(--green);
+}
+
+.popup-name{
+    color:var(--green);
+    font-size:18px;
+    font-weight:800;
+}
+
+.popup-title{
+    color:var(--text);
+    font-size:23px;
+    font-weight:900;
+    margin-bottom:12px;
+}
+
+.popup-desc{
+    color:var(--muted);
+    font-size:16px;
+    line-height:1.5;
+}
+
+.actions{
+    display:flex;
+    gap:30px;
+    margin-top:30px;
+    font-size:27px;
+}
+
+.action{
+    cursor:pointer;
+    color:var(--text);
+}
+
+.action:hover{
+    color:var(--green);
+}
+
+@media(max-width:900px){
+    .navbar{
+        padding:0 18px;
+    }
+
+    .logo{
+        font-size:29px;
+    }
+
+    .home-btn{
+        padding:9px 13px;
+        font-size:13px;
+    }
+
+    .profile-top{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .stats{
+        justify-content:center;
+    }
+
+    .btn-row{
+        justify-content:center;
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .popup-box{
+        height:90vh;
+        grid-template-columns:1fr;
+    }
+
+    .popup-img-box{
+        height:45vh;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <a href="ProjectFRE.html" class="logo">GeNeX</a>
+    <a href="ProjectFRE.html" class="home-btn">← Home</a>
+</div>
+
+<div class="profile">
+
+    <div class="profile-top">
+
+        <img id="profileImage" class="main-dp" src="IMG_8295.JPG.jpeg">
+
+        <div class="profile-info">
+
+            <h1 id="profileName">Liyo Clevert</h1>
+
+            <p id="profileUsername" class="username">@liyo_clevert</p>
+
+            <p class="bio" id="profileBio">
+                GeNeX creator | Frontend developer | Tech community builder
+            </p>
+
+            <div class="stats">
+                <div>
+                    <h2 id="postCount">0</h2>
+                    <p>Posts</p>
+                </div>
+
+                <div>
+                    <h2>180</h2>
+                    <p>Followers</p>
+                </div>
+
+                <div>
+                    <h2>70</h2>
+                    <p>Following</p>
+                </div>
+            </div>
+
+            <div class="btn-row">
+                <a href="edit-profile.html" class="edit-btn">Edit Profile</a>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="tabs">
+
+        <span id="postsTab" class="active" onclick="showPosts()">▦ Posts</span>
+
+        <span id="taggedTab" onclick="showTagged()">⌘ Tagged</span>
+
+    </div>
+
+    <div class="grid" id="grid"></div>
+
+    <div class="tagged-box" id="taggedBox">
+
+        <div class="blog-card">
+            <h3>No Tagged Posts</h3>
+            <p>Tagged section empty.</p>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="popup" id="popup" onclick="closeOutside(event)">
+
+    <div class="popup-box" onclick="event.stopPropagation()">
+
+        <div class="popup-img-box">
+            <img id="popupImage" class="popup-img">
+        </div>
+
+        <div class="popup-content">
+
+            <div class="popup-user">
+                <img id="popupDp" class="popup-dp">
+                <div id="popupUser" class="popup-name">Liyo Clevert</div>
+            </div>
+
+            <h2 id="popupTitle" class="popup-title"></h2>
+
+            <p id="popupDesc" class="popup-desc"></p>
+
+            <div class="actions">
+                <span class="action" onclick="likePopup(this)">♡</span>
+                <span class="action" onclick="commentPopup()">💬</span>
+                <span class="action" onclick="sharePopup()">↗</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+function applyTheme(){
+    var theme = localStorage.getItem("genexTheme");
+
+    if(theme == "light"){
+        document.body.classList.add("light-mode");
+    }
+    else{
+        document.body.classList.remove("light-mode");
+    }
+}
+
+var defaultAccount = {
+    name:"Liyo Clevert",
+    username:"@liyo_clevert",
+    image:"IMG_8295.JPG.jpeg",
+    bio:"GeNeX creator | Frontend developer | Tech community builder"
+};
+
+function loadProfile(){
+    var name = localStorage.getItem("profileName") || defaultAccount.name;
+    var username = localStorage.getItem("profileUsername") || defaultAccount.username;
+    var image = localStorage.getItem("profileImage") || defaultAccount.image;
+    var bio = localStorage.getItem("profileBio") || defaultAccount.bio;
+
+    document.getElementById("profileImage").src = image;
+    document.getElementById("popupDp").src = image;
+    document.getElementById("profileName").innerText = name;
+    document.getElementById("popupUser").innerText = name;
+    document.getElementById("profileUsername").innerText = username;
+    document.getElementById("profileBio").innerText = bio;
+}
+
+var defaultPosts = [
+    {
+        title:"Still working. Still growing.",
+        image:"https://i.pinimg.com/736x/6c/98/58/6c985826696085dca8d1927ebf548c93.jpg",
+        content:"Late-night edits, small fixes, and one step closer every day."
+    },
+    {
+        title:"Editing mode on.",
+        image:"https://i.pinimg.com/736x/3b/90/99/3b9099967d6de26aa22256efb6efb515.jpg",
+        content:"Trying, learning, improving — that is the whole process."
+    }
+];
+
+var posts = JSON.parse(localStorage.getItem("gennexPosts"));
+
+if(posts == null || posts.length == 0){
+    posts = defaultPosts;
+    localStorage.setItem("gennexPosts", JSON.stringify(posts));
+}
+
+function loadGrid(){
+    var grid = document.getElementById("grid");
+
+    grid.innerHTML = "";
+
+    document.getElementById("postCount").innerText = posts.length;
+
+    for(let i=0; i<posts.length; i++){
+        var card = document.createElement("div");
+        card.className = "grid-post";
+
+        card.innerHTML = '<img src="' + posts[i].image + '">';
+
+        card.onclick = function(){
+            openPopup(i);
+        };
+
+        grid.appendChild(card);
+    }
+}
+
+function openPopup(index){
+    document.getElementById("popup").style.display = "flex";
+    document.getElementById("popupImage").src = posts[index].image;
+    document.getElementById("popupTitle").innerText = posts[index].title;
+    document.getElementById("popupDesc").innerText = posts[index].content;
+}
+
+function closeOutside(event){
+    if(event.target.id == "popup"){
+        document.getElementById("popup").style.display = "none";
+    }
+}
+
+function clearTabs(){
+    document.getElementById("postsTab").classList.remove("active");
+    document.getElementById("taggedTab").classList.remove("active");
+}
+
+function hideSections(){
+    document.getElementById("grid").style.display = "none";
+    document.getElementById("taggedBox").style.display = "none";
+}
+
+function showPosts(){
+    hideSections();
+    clearTabs();
+
+    document.getElementById("grid").style.display = "grid";
+    document.getElementById("postsTab").classList.add("active");
+}
+
+function showTagged(){
+    hideSections();
+    clearTabs();
+
+    document.getElementById("taggedBox").style.display = "block";
+    document.getElementById("taggedTab").classList.add("active");
+}
+
+function likePopup(btn){
+    if(btn.innerText == "♡"){
+        btn.innerText = "♥";
+        btn.style.color = "#39ff14";
+    }
+    else{
+        btn.innerText = "♡";
+        btn.style.color = "var(--text)";
+    }
+}
+
+function commentPopup(){
+    alert("Comment added");
+}
+
+function sharePopup(){
+    alert("Post shared");
+}
+
+applyTheme();
+loadProfile();
+loadGrid();
+</script>
+
+</body>
+</html>

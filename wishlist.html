@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GeNeX Wishlist</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Outfit',sans-serif;
+}
+
+:root{
+    --bg:#000;
+    --text:#fff;
+    --nav:#0b0b0b;
+    --card:#101010;
+    --card2:#151515;
+    --border:#222;
+    --green:#39ff14;
+    --muted:#aaa;
+}
+
+body.light{
+    --bg:#f4f4f4;
+    --text:#111;
+    --nav:#ffffff;
+    --card:#ffffff;
+    --card2:#f7f7f7;
+    --border:#dddddd;
+    --green:#39ff14;
+    --muted:#555;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    transition:0.3s;
+}
+
+.navbar{
+    width:100%;
+    height:76px;
+    background:var(--nav);
+    border-bottom:1px solid var(--green);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 50px;
+    position:sticky;
+    top:0;
+    z-index:999;
+}
+
+.logo{
+    color:var(--green);
+    font-size:34px;
+    font-weight:900;
+    text-decoration:none;
+}
+
+.nav-right{
+    display:flex;
+    gap:12px;
+}
+
+.nav-btn{
+    background:var(--green);
+    color:black;
+    padding:10px 20px;
+    border-radius:30px;
+    text-decoration:none;
+    font-weight:800;
+    font-size:14px;
+}
+
+.page{
+    max-width:1200px;
+    margin:auto;
+    padding:35px 22px 55px;
+}
+
+.hero{
+    background:linear-gradient(135deg,#102510,#050505);
+    border:1px solid var(--green);
+    border-radius:28px;
+    padding:30px;
+    margin-bottom:28px;
+}
+
+body.light .hero{
+    background:linear-gradient(135deg,#eaffea,#ffffff);
+}
+
+.hero h1{
+    color:var(--green);
+    font-size:42px;
+    margin-bottom:10px;
+}
+
+.hero p{
+    color:var(--muted);
+    font-size:16px;
+    line-height:1.7;
+}
+
+.top-bar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:22px;
+    flex-wrap:wrap;
+    gap:15px;
+}
+
+.count{
+    color:var(--muted);
+    font-size:15px;
+}
+
+.clear-btn{
+    background:#1a1a1a;
+    color:#ff6666;
+    border:1px solid #333;
+    padding:11px 18px;
+    border-radius:30px;
+    cursor:pointer;
+    font-weight:800;
+}
+
+body.light .clear-btn{
+    background:#f5f5f5;
+    border-color:#ddd;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+}
+
+.card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:24px;
+    overflow:hidden;
+    transition:0.25s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    border-color:var(--green);
+    box-shadow:0 0 25px rgba(57,255,20,0.15);
+}
+
+.img-box{
+    width:100%;
+    height:260px;
+    background:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:18px;
+    border-bottom:1px solid var(--border);
+}
+
+.img-box img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+}
+
+.card-body{
+    padding:18px;
+}
+
+.tag{
+    display:inline-block;
+    background:#162816;
+    color:var(--green);
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:800;
+    margin-bottom:12px;
+}
+
+.card h3{
+    color:var(--text);
+    font-size:20px;
+    line-height:1.4;
+    margin-bottom:10px;
+}
+
+.price{
+    color:var(--green);
+    font-size:24px;
+    font-weight:900;
+    margin-bottom:14px;
+}
+
+.desc{
+    color:var(--muted);
+    font-size:14px;
+    line-height:1.6;
+    margin-bottom:18px;
+}
+
+.btn-row{
+    display:flex;
+    gap:10px;
+}
+
+.buy-btn,
+.remove-btn{
+    flex:1;
+    border:none;
+    padding:12px;
+    border-radius:30px;
+    cursor:pointer;
+    font-weight:800;
+    font-size:14px;
+}
+
+.buy-btn{
+    background:var(--green);
+    color:black;
+}
+
+.remove-btn{
+    background:var(--card2);
+    color:var(--text);
+    border:1px solid var(--border);
+}
+
+.empty{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:26px;
+    padding:50px 25px;
+    text-align:center;
+}
+
+.empty h2{
+    color:var(--green);
+    font-size:30px;
+    margin-bottom:12px;
+}
+
+@media(max-width:950px){
+    .grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+@media(max-width:650px){
+    .navbar{
+        padding:0 18px;
+    }
+
+    .logo{
+        font-size:28px;
+    }
+
+    .nav-btn{
+        padding:9px 14px;
+        font-size:13px;
+    }
+
+    .hero{
+        padding:24px;
+    }
+
+    .hero h1{
+        font-size:34px;
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .top-bar{
+        align-items:flex-start;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+
+    <a href="ProjectFRE.html" class="logo">GeNeX</a>
+
+    <div class="nav-right">
+        <a href="products.html" class="nav-btn">Products</a>
+        <a href="ProjectFRE.html" class="nav-btn">← Home</a>
+    </div>
+
+</div>
+
+<div class="page">
+
+    <div class="hero">
+        <h1>Your Wishlist</h1>
+        <p>Favourite tech products, gadgets and trusted Amazon finds saved for later purchase.</p>
+    </div>
+
+    <div class="top-bar">
+
+        <div class="count" id="wishlistCount">
+            0 items saved
+        </div>
+
+        <button class="clear-btn" onclick="clearWishlist()">
+            Clear Wishlist
+        </button>
+
+    </div>
+
+    <div id="wishlistArea"></div>
+
+</div>
+
+<script>
+
+function applyTheme(){
+    var theme = localStorage.getItem("genexTheme");
+
+    if(theme == "light"){
+        document.body.classList.add("light");
+    }
+    else{
+        document.body.classList.remove("light");
+    }
+}
+
+applyTheme();
+
+function loadWishlist(){
+
+    var wishlist = JSON.parse(localStorage.getItem("genexWishlist")) || [];
+
+    var area = document.getElementById("wishlistArea");
+
+    var count = document.getElementById("wishlistCount");
+
+    count.innerText = wishlist.length + " items saved";
+
+    area.innerHTML = "";
+
+    if(wishlist.length == 0){
+
+        area.innerHTML =
+        '<div class="empty">' +
+            '<h2>No Wishlist Items</h2>' +
+        '</div>';
+
+        return;
+    }
+
+    area.innerHTML = '<div class="grid" id="grid"></div>';
+
+    var grid = document.getElementById("grid");
+
+    for(var i = 0; i < wishlist.length; i++){
+
+        var p = wishlist[i];
+
+        grid.innerHTML +=
+        '<div class="card">' +
+
+            '<div class="img-box">' +
+                '<img src="' + p.image + '">' +
+            '</div>' +
+
+            '<div class="card-body">' +
+
+                '<span class="tag">' +
+                p.category.toUpperCase() +
+                '</span>' +
+
+                '<h3>' + p.name + '</h3>' +
+
+                '<div class="price">' +
+                p.price +
+                '</div>' +
+
+                '<p class="desc">' +
+                p.desc +
+                '</p>' +
+
+                '<div class="btn-row">' +
+
+                    '<button class="buy-btn" onclick="openProduct(\'' + p.link + '\')">' +
+                    'View Product' +
+                    '</button>' +
+
+                    '<button class="remove-btn" onclick="removeItem(' + i + ')">' +
+                    'Remove' +
+                    '</button>' +
+
+                '</div>' +
+
+            '</div>' +
+
+        '</div>';
+    }
+}
+
+function openProduct(link){
+    window.open(link,"_blank");
+}
+
+function removeItem(index){
+
+    var wishlist = JSON.parse(localStorage.getItem("genexWishlist")) || [];
+
+    wishlist.splice(index,1);
+
+    localStorage.setItem("genexWishlist",JSON.stringify(wishlist));
+
+    loadWishlist();
+}
+
+function clearWishlist(){
+
+    var confirmClear = confirm("Clear full wishlist?");
+
+    if(confirmClear){
+        localStorage.removeItem("genexWishlist");
+        loadWishlist();
+    }
+}
+
+loadWishlist();
+
+</script>
+
+</body>
+</html>

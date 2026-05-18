@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Create Account</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Outfit',sans-serif;
+}
+
+:root{
+    --bg:#000;
+    --text:white;
+    --nav:#0b0b0b;
+    --card:#101010;
+    --card2:#151515;
+    --border:#222;
+    --green:#39ff14;
+    --muted:#aaa;
+}
+
+body.light-mode{
+    --bg:#f4f4f4;
+    --text:#111;
+    --nav:#ffffff;
+    --card:#ffffff;
+    --card2:#f7f7f7;
+    --border:#ddd;
+    --green:#39ff14;
+    --muted:#555;
+}
+
+body{
+    min-height:100vh;
+    background:radial-gradient(circle,#123d12,#0d0d0d 60%);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:var(--text);
+    padding:40px 0;
+}
+
+body.light-mode{
+    background:#f4f4f4;
+}
+
+.container{
+    width:450px;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:25px;
+    padding:35px;
+    box-shadow:0 0 30px rgba(57,255,20,0.25);
+}
+
+body.light-mode .container{
+    box-shadow:0 0 35px rgba(0,0,0,0.12);
+}
+
+.logo{
+    text-align:center;
+    font-size:42px;
+    color:var(--green);
+    font-weight:900;
+    margin-bottom:20px;
+}
+
+h2{
+    text-align:center;
+    margin-bottom:8px;
+    color:var(--text);
+}
+
+.subtitle{
+    text-align:center;
+    color:var(--muted);
+    margin-bottom:25px;
+}
+
+input,
+select{
+    width:100%;
+    padding:15px;
+    margin-bottom:16px;
+    border-radius:12px;
+    border:1px solid var(--border);
+    outline:none;
+    background:var(--bg);
+    color:var(--text);
+    font-size:15px;
+}
+
+input:focus,
+select:focus{
+    border:1px solid var(--green);
+    box-shadow:0 0 10px rgba(57,255,20,0.3);
+}
+
+.phone-box{
+    display:flex;
+    gap:10px;
+}
+
+.country{
+    width:80px;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:30px;
+    background:var(--green);
+    color:black;
+    font-size:17px;
+    font-weight:800;
+    cursor:pointer;
+    margin-top:8px;
+}
+
+button:hover{
+    box-shadow:0 0 20px var(--green);
+}
+
+.rules{
+    margin-top:22px;
+    background:var(--bg);
+    border:1px solid var(--border);
+    padding:18px;
+    border-radius:15px;
+}
+
+body.light-mode .rules{
+    background:var(--card2);
+}
+
+.rules h3{
+    color:var(--green);
+    margin-bottom:12px;
+    font-size:16px;
+}
+
+.rules p{
+    color:var(--muted);
+    margin-bottom:10px;
+    font-size:14px;
+}
+
+.show-pass{
+    color:var(--muted);
+    font-size:14px;
+    margin-top:-5px;
+    margin-bottom:18px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.show-pass input{
+    width:auto;
+    margin:0;
+}
+
+.back{
+    display:block;
+    text-align:center;
+    margin-top:25px;
+    color:var(--green);
+    text-decoration:none;
+    font-weight:800;
+}
+
+.error{
+    color:#ff4d4d;
+    font-size:14px;
+    margin-top:15px;
+    text-align:center;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="logo">GeNeX</div>
+
+    <h2>Create Account</h2>
+
+    <p class="subtitle">
+        Join the GeNeX tech community
+    </p>
+
+    <input type="text"
+           id="fname"
+           placeholder="First Name">
+
+    <input type="text"
+           id="lname"
+           placeholder="Last Name">
+
+    <input type="text"
+           id="username"
+           placeholder="Create unique username">
+
+    <input type="email"
+           id="gmail"
+           placeholder="Enter Gmail">
+
+    <div class="phone-box">
+
+        <select class="country" id="country">
+
+            <option value="+91">+91</option>
+            <option value="+1">+1</option>
+            <option value="+44">+44</option>
+            <option value="+971">+971</option>
+
+        </select>
+
+        <input type="tel"
+               id="phone"
+               maxlength="10"
+               placeholder="Phone Number"
+               oninput="limitPhone(this)">
+
+    </div>
+
+    <input type="password"
+           id="password"
+           placeholder="Create Password">
+
+    <input type="password"
+           id="repassword"
+           placeholder="Retype Password">
+
+    <label class="show-pass">
+
+        <input type="checkbox"
+               onclick="showPassword()">
+
+        Show Password
+
+    </label>
+
+    <button onclick="createAccount()">
+        Create Account
+    </button>
+
+    <div class="rules">
+
+        <h3>Password must contain:</h3>
+
+        <p>• Minimum 8 characters</p>
+
+        <p>• One uppercase letter</p>
+
+        <p>• One lowercase letter</p>
+
+        <p>• One number</p>
+
+        <p>• One special symbol</p>
+
+    </div>
+
+    <div class="error" id="error"></div>
+
+    <a href="login.html" class="back">
+        ⬅ Back to Login
+    </a>
+
+</div>
+
+<script>
+function applyTheme(){
+    var theme = localStorage.getItem("genexTheme");
+
+    if(theme == "light"){
+        document.body.classList.add("light-mode");
+    }
+    else{
+        document.body.classList.remove("light-mode");
+    }
+}
+
+applyTheme();
+
+function limitPhone(input){
+
+    input.value =
+    input.value.replace(/[^0-9]/g,'').slice(0,10);
+}
+
+function showPassword(){
+
+    var pass =
+    document.getElementById("password");
+
+    var repass =
+    document.getElementById("repassword");
+
+    if(pass.type == "password"){
+
+        pass.type = "text";
+        repass.type = "text";
+    }
+
+    else{
+
+        pass.type = "password";
+        repass.type = "password";
+    }
+}
+
+function createAccount(){
+
+    var fname =
+    document.getElementById("fname").value;
+
+    var lname =
+    document.getElementById("lname").value;
+
+    var username =
+    document.getElementById("username").value;
+
+    var gmail =
+    document.getElementById("gmail").value;
+
+    var country =
+    document.getElementById("country").value;
+
+    var phone =
+    document.getElementById("phone").value;
+
+    var password =
+    document.getElementById("password").value;
+
+    var repassword =
+    document.getElementById("repassword").value;
+
+    var error =
+    document.getElementById("error");
+
+    var passwordPattern =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$!%*?&]).{8,}$/;
+
+    if(
+        fname == "" ||
+        lname == "" ||
+        username == "" ||
+        gmail == "" ||
+        phone == "" ||
+        password == "" ||
+        repassword == ""
+    ){
+
+        error.innerHTML =
+        "Please fill all fields";
+
+        return false;
+    }
+
+    if(phone.length != 10){
+
+        error.innerHTML =
+        "Phone number must be 10 digits";
+
+        return false;
+    }
+
+    if(!passwordPattern.test(password)){
+
+        error.innerHTML =
+        "Password format not matched";
+
+        return false;
+    }
+
+    if(password != repassword){
+
+        error.innerHTML =
+        "Passwords do not match";
+
+        return false;
+    }
+
+    localStorage.setItem(
+        "techhiveEmail",
+        gmail
+    );
+
+    localStorage.setItem(
+        "techhivePassword",
+        password
+    );
+
+    localStorage.setItem(
+        "techhiveUsername",
+        username
+    );
+
+    alert("Account Created Successfully");
+
+    window.location.href =
+    "login.html";
+}
+</script>
+
+</body>
+</html>

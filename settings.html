@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GeNeX Settings</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Outfit',sans-serif;
+}
+
+:root{
+    --bg:#000;
+    --text:white;
+    --nav:#0b0b0b;
+    --card:#101010;
+    --card2:#151515;
+    --border:#222;
+    --green:#39ff14;
+    --muted:#aaa;
+}
+
+body.light-mode{
+    --bg:#f4f4f4;
+    --text:#111;
+    --nav:#ffffff;
+    --card:#ffffff;
+    --card2:#f7f7f7;
+    --border:#ddd;
+    --green:#39ff14;
+    --muted:#555;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+}
+
+.navbar{
+    width:100%;
+    height:78px;
+    background:var(--nav);
+    border-bottom:1px solid var(--green);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 55px;
+    position:sticky;
+    top:0;
+    z-index:999;
+}
+
+.logo{
+    color:var(--green);
+    font-size:34px;
+    font-weight:900;
+    text-decoration:none;
+}
+
+.back-btn{
+    background:var(--green);
+    color:black;
+    padding:10px 24px;
+    border-radius:30px;
+    text-decoration:none;
+    font-weight:800;
+}
+
+.container{
+    max-width:950px;
+    margin:35px auto;
+    padding:0 20px;
+}
+
+.card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:24px;
+    padding:26px;
+    margin-bottom:24px;
+}
+
+.card h2{
+    color:var(--green);
+    font-size:28px;
+    margin-bottom:22px;
+}
+
+.account-top{
+    display:flex;
+    align-items:center;
+    gap:22px;
+    margin-bottom:24px;
+}
+
+.account-img{
+    width:110px;
+    height:110px;
+    border-radius:50%;
+    object-fit:cover;
+    border:4px solid var(--green);
+    background:#fff;
+}
+
+.account-name h3{
+    color:var(--green);
+    font-size:28px;
+    margin-bottom:6px;
+}
+
+.account-name p{
+    color:var(--muted);
+    font-size:15px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+}
+
+.input-group{
+    margin-bottom:14px;
+}
+
+.input-group label{
+    display:block;
+    color:var(--muted);
+    font-size:14px;
+    margin-bottom:7px;
+}
+
+input,
+textarea{
+    width:100%;
+    padding:14px;
+    background:var(--bg);
+    border:1px solid var(--border);
+    color:var(--text);
+    border-radius:14px;
+    outline:none;
+    font-size:15px;
+}
+
+textarea{
+    height:120px;
+    resize:none;
+}
+
+.full{
+    grid-column:1/-1;
+}
+
+.btn-row{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-top:10px;
+}
+
+.btn{
+    background:var(--green);
+    color:black;
+    border:none;
+    padding:12px 24px;
+    border-radius:30px;
+    font-weight:800;
+    cursor:pointer;
+    text-decoration:none;
+}
+
+.dark-btn{
+    background:var(--card2);
+    color:var(--text);
+    border:1px solid var(--border);
+}
+
+.setting-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+    padding:18px 0;
+    border-bottom:1px solid var(--border);
+}
+
+.setting-row:last-child{
+    border-bottom:none;
+}
+
+.setting-row h3{
+    font-size:18px;
+    margin-bottom:6px;
+}
+
+.setting-row p{
+    color:var(--muted);
+    font-size:15px;
+}
+
+.switch{
+    position:relative;
+    width:62px;
+    height:34px;
+    flex-shrink:0;
+}
+
+.switch input{
+    display:none;
+}
+
+.slider{
+    position:absolute;
+    inset:0;
+    background:#333;
+    border-radius:30px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.slider:before{
+    content:"";
+    position:absolute;
+    width:26px;
+    height:26px;
+    left:4px;
+    top:4px;
+    background:white;
+    border-radius:50%;
+    transition:0.3s;
+}
+
+.switch input:checked + .slider{
+    background:var(--green);
+}
+
+.switch input:checked + .slider:before{
+    transform:translateX(28px);
+}
+
+.link-box{
+    display:block;
+    text-decoration:none;
+    color:var(--text);
+    background:var(--card2);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:18px;
+    margin-bottom:14px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.link-box:hover{
+    border-color:var(--green);
+    color:var(--green);
+}
+
+.report-form{
+    display:none;
+    margin-top:15px;
+    background:var(--card2);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:18px;
+}
+
+.report-form.active{
+    display:block;
+}
+
+.logout-btn{
+    background:#2b1111;
+    color:#ff5c5c;
+    border:1px solid #5c2222;
+}
+
+@media(max-width:650px){
+    .navbar{
+        padding:0 20px;
+    }
+
+    .logo{
+        font-size:29px;
+    }
+
+    .back-btn{
+        padding:9px 18px;
+        font-size:14px;
+    }
+
+    .account-top{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .full{
+        grid-column:auto;
+    }
+
+    .setting-row{
+        align-items:flex-start;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <a href="ProjectFRE.html" class="logo">GeNeX</a>
+    <a href="ProjectFRE.html" class="back-btn">Back</a>
+</div>
+
+<div class="container">
+
+    <div class="card">
+        <h2>Account Details</h2>
+
+        <div class="account-top">
+            <img id="previewImage" class="account-img" src="IMG_8295.JPG.jpeg">
+
+            <div class="account-name">
+                <h3 id="previewName">Liyo Clevert</h3>
+                <p id="previewUsername">@liyo_clevert</p>
+            </div>
+        </div>
+
+        <div class="form-grid">
+
+            <div class="input-group">
+                <label>Full Name</label>
+                <input type="text" id="profileName">
+            </div>
+
+            <div class="input-group">
+                <label>Username</label>
+                <input type="text" id="profileUsername">
+            </div>
+
+            <div class="input-group">
+                <label>Email</label>
+                <input type="email" id="profileEmail">
+            </div>
+
+            <div class="input-group full">
+                <label>Bio</label>
+                <textarea id="profileBio"></textarea>
+            </div>
+
+        </div>
+
+        <div class="btn-row">
+            <button class="btn" onclick="saveAccount()">Save Changes</button>
+            <a href="profile.html" class="btn dark-btn">View Profile</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Password & Security</h2>
+
+        <div class="form-grid">
+
+            <div class="input-group">
+                <label>Current Password</label>
+                <input type="password" id="currentPassword" placeholder="Enter current password">
+            </div>
+
+            <div class="input-group">
+                <label>New Password</label>
+                <input type="password" id="newPassword" placeholder="Enter new password">
+            </div>
+
+        </div>
+
+        <div class="btn-row">
+            <button class="btn" onclick="changePassword()">Change Password</button>
+            <button class="btn dark-btn" onclick="forgotPassword()">Forgot Password</button>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Appearance</h2>
+
+        <div class="setting-row">
+            <div>
+                <h3>Dark Mode</h3>
+                <p>Turn off to switch GeNeX into white mode.</p>
+            </div>
+
+            <label class="switch">
+                <input type="checkbox" id="darkMode" checked onchange="toggleDarkMode()">
+                <span class="slider"></span>
+            </label>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Privacy & Safety</h2>
+
+        <a href="Privacy.html" class="link-box">Privacy Policy</a>
+        <a href="community-rules.html" class="link-box">Community Rules</a>
+        <a href="user-agreement.html" class="link-box">User Agreement</a>
+
+        <div class="link-box" onclick="openReportBug()">Report Bug</div>
+
+        <div id="reportForm" class="report-form">
+            <input type="text" id="bugTitle" placeholder="Bug title">
+            <textarea id="bugText" placeholder="Explain the issue..."></textarea>
+            <button class="btn" onclick="submitBug()">Submit Bug Report</button>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Danger Zone</h2>
+
+        <div class="setting-row">
+            <div>
+                <h3>Logout</h3>
+                <p>Sign out from your GeNeX account.</p>
+            </div>
+
+            <button class="btn logout-btn" onclick="logoutUser()">Logout</button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+var defaultAccount = {
+    name:"Liyo Clevert",
+    username:"@liyo_clevert",
+    email:"norbertkingstly@gmail.com",
+    image:"IMG_8295.JPG.jpeg",
+    bio:"GeNeX creator | Frontend developer | Tech community builder"
+};
+
+function validValue(value){
+    return value != null &&
+           value != "" &&
+           value != "null" &&
+           value != "undefined";
+}
+
+function getProfileImage(){
+    var image = localStorage.getItem("profileImage");
+
+    if(validValue(image)){
+        return image;
+    }
+
+    var account = JSON.parse(localStorage.getItem("genexAccount"));
+
+    if(account && validValue(account.image)){
+        return account.image;
+    }
+
+    return defaultAccount.image;
+}
+
+function getAccount(){
+    var account = JSON.parse(localStorage.getItem("genexAccount")) || {};
+
+    var name = localStorage.getItem("profileName") || account.name || defaultAccount.name;
+    var username = localStorage.getItem("profileUsername") || account.username || defaultAccount.username;
+    var email = localStorage.getItem("profileEmail") || account.email || defaultAccount.email;
+    var bio = localStorage.getItem("profileBio") || account.bio || defaultAccount.bio;
+    var image = getProfileImage();
+
+    return {
+        name:name,
+        username:username,
+        email:email,
+        image:image,
+        bio:bio
+    };
+}
+
+function syncAccount(account){
+    localStorage.setItem("genexAccount",JSON.stringify(account));
+    localStorage.setItem("profileName",account.name);
+    localStorage.setItem("profileUsername",account.username);
+    localStorage.setItem("profileEmail",account.email);
+    localStorage.setItem("profileImage",account.image);
+    localStorage.setItem("profileBio",account.bio);
+}
+
+function loadAccount(){
+    var account = getAccount();
+
+    document.getElementById("profileName").value = account.name;
+    document.getElementById("profileUsername").value = account.username;
+    document.getElementById("profileEmail").value = account.email;
+    document.getElementById("profileBio").value = account.bio;
+
+    document.getElementById("previewImage").src = account.image;
+    document.getElementById("previewName").innerText = account.name;
+    document.getElementById("previewUsername").innerText = account.username;
+
+    syncAccount(account);
+}
+
+function saveAccount(){
+    var currentAccount = getAccount();
+
+    var username = document.getElementById("profileUsername").value.trim();
+
+    if(username != "" && username.charAt(0) != "@"){
+        username = "@" + username;
+    }
+
+    var account = {
+        name:document.getElementById("profileName").value.trim(),
+        username:username,
+        email:document.getElementById("profileEmail").value.trim(),
+        image:currentAccount.image,
+        bio:document.getElementById("profileBio").value.trim()
+    };
+
+    if(account.name == "" || account.username == "" || account.email == "" || account.bio == ""){
+        alert("Fill all details");
+        return;
+    }
+
+    syncAccount(account);
+
+    document.getElementById("previewImage").src = account.image;
+    document.getElementById("previewName").innerText = account.name;
+    document.getElementById("previewUsername").innerText = account.username;
+
+    alert("Profile updated");
+}
+
+if(localStorage.getItem("genexPassword") == null){
+    localStorage.setItem("genexPassword","123456");
+}
+
+function changePassword(){
+    var current = document.getElementById("currentPassword").value.trim();
+    var newPass = document.getElementById("newPassword").value.trim();
+    var savedPass = localStorage.getItem("genexPassword");
+
+    if(current == "" || newPass == ""){
+        alert("Fill all password fields");
+        return;
+    }
+
+    if(current != savedPass){
+        alert("Current password incorrect");
+        return;
+    }
+
+    localStorage.setItem("genexPassword",newPass);
+    localStorage.setItem("techhivePassword",newPass);
+
+    document.getElementById("currentPassword").value = "";
+    document.getElementById("newPassword").value = "";
+
+    alert("Password updated");
+}
+
+function forgotPassword(){
+    window.location.href = "forgot-password.html";
+}
+
+function toggleDarkMode(){
+    var darkMode = document.getElementById("darkMode");
+
+    if(darkMode.checked){
+        document.body.classList.remove("light-mode");
+        localStorage.setItem("genexTheme","dark");
+    }
+    else{
+        document.body.classList.add("light-mode");
+        localStorage.setItem("genexTheme","light");
+    }
+}
+
+function loadTheme(){
+    var theme = localStorage.getItem("genexTheme");
+
+    if(theme == "light"){
+        document.body.classList.add("light-mode");
+        document.getElementById("darkMode").checked = false;
+    }
+    else{
+        document.body.classList.remove("light-mode");
+        document.getElementById("darkMode").checked = true;
+    }
+}
+
+function openReportBug(){
+    document.getElementById("reportForm").classList.toggle("active");
+}
+
+function submitBug(){
+    var title = document.getElementById("bugTitle").value.trim();
+    var text = document.getElementById("bugText").value.trim();
+
+    if(title == "" || text == ""){
+        alert("Please enter bug title and description.");
+        return;
+    }
+
+    var reports = JSON.parse(localStorage.getItem("genexBugReports")) || [];
+
+    reports.push({
+        title:title,
+        description:text,
+        date:new Date().toLocaleString()
+    });
+
+    localStorage.setItem("genexBugReports",JSON.stringify(reports));
+
+    alert("Bug report submitted successfully.");
+
+    document.getElementById("bugTitle").value = "";
+    document.getElementById("bugText").value = "";
+    document.getElementById("reportForm").classList.remove("active");
+}
+
+function logoutUser(){
+    alert("Logged out successfully.");
+    window.location.href = "index.html";
+}
+
+loadTheme();
+loadAccount();
+</script>
+
+</body>
+</html>

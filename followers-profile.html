@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Followers Profile</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Outfit',sans-serif;
+}
+
+:root{
+    --bg:#000;
+    --text:white;
+    --nav:#0b0b0b;
+    --card:#101010;
+    --card2:#151515;
+    --border:#222;
+    --green:#39ff14;
+    --muted:#aaa;
+}
+
+body.light,
+body.light-mode{
+    --bg:#f4f4f4;
+    --text:#111;
+    --nav:#ffffff;
+    --card:#ffffff;
+    --card2:#f7f7f7;
+    --border:#ddd;
+    --green:#39ff14;
+    --muted:#555;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+}
+
+.navbar{
+    width:100%;
+    height:78px;
+    background:var(--nav);
+    border-bottom:1px solid var(--green);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 55px;
+}
+
+.logo{
+    color:var(--green);
+    font-size:34px;
+    font-weight:900;
+    text-decoration:none;
+}
+
+.nav-right{
+    display:flex;
+    gap:12px;
+}
+
+.nav-btn{
+    background:var(--green);
+    color:#000;
+    padding:10px 22px;
+    border-radius:30px;
+    text-decoration:none;
+    font-weight:800;
+    border:none;
+    cursor:pointer;
+}
+
+.profile{
+    max-width:1050px;
+    margin:auto;
+    padding:30px 20px;
+}
+
+.profile-top{
+    display:flex;
+    align-items:center;
+    gap:40px;
+    margin-bottom:30px;
+}
+
+.main-dp{
+    width:135px;
+    height:135px;
+    border-radius:50%;
+    object-fit:cover;
+    border:4px solid var(--green);
+}
+
+.profile-info h1{
+    color:var(--green);
+    font-size:36px;
+    margin-bottom:8px;
+}
+
+.username{
+    color:var(--muted);
+    margin-bottom:10px;
+}
+
+.bio{
+    color:var(--text);
+    line-height:1.5;
+    font-size:15px;
+}
+
+.stats{
+    display:flex;
+    gap:40px;
+    margin-top:18px;
+}
+
+.stats h2{
+    color:var(--green);
+    font-size:24px;
+}
+
+.stats p{
+    color:var(--muted);
+    font-size:13px;
+}
+
+.btn-row{
+    display:flex;
+    gap:12px;
+    margin-top:20px;
+}
+
+.btn{
+    background:var(--green);
+    color:black;
+    padding:10px 24px;
+    border:none;
+    border-radius:30px;
+    font-weight:800;
+    cursor:pointer;
+    text-decoration:none;
+}
+
+.dark-btn{
+    background:var(--card2);
+    color:var(--text);
+    border:1px solid var(--border);
+}
+
+.tabs{
+    border-top:1px solid var(--border);
+    padding-top:18px;
+    margin-bottom:24px;
+    display:flex;
+    justify-content:center;
+    gap:55px;
+}
+
+.tabs span{
+    color:var(--muted);
+    font-size:16px;
+    font-weight:800;
+    cursor:pointer;
+}
+
+.tabs .active{
+    color:var(--green);
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
+}
+
+.grid-post{
+    height:260px;
+    border-radius:16px;
+    overflow:hidden;
+    cursor:pointer;
+    background:var(--card2);
+    border:1px solid var(--border);
+}
+
+.grid-post img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:0.35s;
+}
+
+.grid-post:hover img{
+    transform:scale(1.05);
+    filter:brightness(70%);
+}
+
+.blog-list{
+    max-width:720px;
+    margin:auto;
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+}
+
+.blog-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:22px;
+    padding:20px;
+}
+
+.blog-top{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:14px;
+}
+
+.blog-top img{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    object-fit:cover;
+    border:2px solid var(--green);
+}
+
+.blog-top h3{
+    color:var(--green);
+    font-size:18px;
+}
+
+.blog-top p{
+    color:var(--muted);
+    font-size:12px;
+}
+
+.blog-text{
+    color:var(--text);
+    line-height:1.6;
+    font-size:15px;
+}
+
+.blog-actions{
+    display:flex;
+    gap:25px;
+    margin-top:16px;
+    color:var(--muted);
+    font-size:14px;
+}
+
+.popup{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.84);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+    padding:18px;
+}
+
+.popup-box{
+    width:880px;
+    max-width:95vw;
+    height:74vh;
+    background:var(--card);
+    border:1px solid var(--green);
+    border-radius:24px;
+    overflow:hidden;
+    display:grid;
+    grid-template-columns:54% 46%;
+}
+
+.popup-img-box{
+    background:#000;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.popup-img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+}
+
+.popup-content{
+    padding:24px;
+    overflow-y:auto;
+}
+
+.popup-user{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:22px;
+}
+
+.popup-dp{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    object-fit:cover;
+    border:2px solid var(--green);
+}
+
+.popup-name{
+    color:var(--green);
+    font-size:18px;
+    font-weight:800;
+}
+
+.popup-title{
+    color:var(--text);
+    font-size:24px;
+    margin-bottom:12px;
+}
+
+.popup-desc{
+    color:var(--text);
+    line-height:1.6;
+    font-size:15px;
+}
+
+.actions{
+    display:flex;
+    gap:28px;
+    margin-top:25px;
+    font-size:28px;
+}
+
+.action{
+    cursor:pointer;
+    color:var(--text);
+}
+
+.action:hover{
+    color:var(--green);
+}
+
+.likes{
+    margin-top:15px;
+    color:var(--muted);
+}
+
+.comment-input{
+    width:100%;
+    margin-top:18px;
+    padding:13px;
+    border-radius:12px;
+    border:1px solid var(--border);
+    background:var(--bg);
+    color:var(--text);
+    outline:none;
+}
+
+.comment-btn{
+    width:100%;
+    margin-top:12px;
+    padding:13px;
+    border:none;
+    border-radius:30px;
+    background:var(--green);
+    color:black;
+    font-weight:900;
+    cursor:pointer;
+}
+
+.comment-list{
+    margin-top:16px;
+    line-height:1.7;
+    color:var(--muted);
+}
+
+@media(max-width:900px){
+
+    .navbar{
+        padding:0 18px;
+    }
+
+    .logo{
+        font-size:29px;
+    }
+
+    .profile-top{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .stats,.btn-row{
+        justify-content:center;
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .popup-box{
+        height:92vh;
+        grid-template-columns:1fr;
+    }
+
+    .popup-img-box{
+        height:45vh;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+
+    <a href="ProjectFRE.html" class="logo">GeNeX</a>
+
+    <div class="nav-right">
+        <button class="nav-btn" onclick="history.back()">← Back</button>
+        <a href="ProjectFRE.html" class="nav-btn">Home</a>
+    </div>
+
+</div>
+
+<div class="profile">
+
+    <div class="profile-top">
+
+        <img id="profileImage" class="main-dp">
+
+        <div class="profile-info">
+
+            <h1 id="profileName"></h1>
+
+            <p id="username" class="username"></p>
+
+            <p id="profileBio" class="bio"></p>
+
+            <div class="stats">
+
+                <div>
+                    <h2 id="postCount"></h2>
+                    <p>Posts</p>
+                </div>
+
+                <div>
+                    <h2 id="followersCount"></h2>
+                    <p>Followers</p>
+                </div>
+
+                <div>
+                    <h2 id="followingCount"></h2>
+                    <p>Following</p>
+                </div>
+
+            </div>
+
+            <div class="btn-row">
+
+                <button class="btn dark-btn" id="followBtn" onclick="toggleFollow()">Following</button>
+
+                <a id="messageBtn" href="chat.html" class="btn">Message</a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="tabs">
+
+        <span id="postTab" class="active" onclick="showTab('posts')">▦ Posts</span>
+
+        <span id="blogTab" onclick="showTab('blogs')">✎ Blog</span>
+
+        <span id="tagTab" onclick="showTab('tagged')">⌘ Tagged</span>
+
+    </div>
+
+    <div id="contentArea"></div>
+
+</div>
+
+<div class="popup" id="popup" onclick="closeOutside(event)">
+
+    <div class="popup-box" onclick="event.stopPropagation()">
+
+        <div class="popup-img-box">
+
+            <img id="popupImage" class="popup-img">
+
+        </div>
+
+        <div class="popup-content">
+
+            <div class="popup-user">
+
+                <img id="popupDp" class="popup-dp">
+
+                <div id="popupUser" class="popup-name"></div>
+
+            </div>
+
+            <h2 id="popupTitle" class="popup-title"></h2>
+
+            <p id="popupDesc" class="popup-desc"></p>
+
+            <div class="actions">
+
+                <span class="action" onclick="likePost(this)">♡</span>
+
+                <span class="action" onclick="focusComment()">💬</span>
+
+                <span class="action" onclick="sharePost()">↗</span>
+
+            </div>
+
+            <div class="likes" id="likeText">0 likes</div>
+
+            <input id="commentInput" class="comment-input" type="text" placeholder="Add a comment...">
+
+            <button class="comment-btn" onclick="addComment()">Post Comment</button>
+
+            <div id="commentList" class="comment-list"></div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+function applyTheme(){
+
+    var theme = localStorage.getItem("genexTheme");
+
+    if(theme == "light"){
+        document.body.classList.add("light");
+        document.body.classList.add("light-mode");
+    }
+    else{
+        document.body.classList.remove("light");
+        document.body.classList.remove("light-mode");
+    }
+}
+
+applyTheme();
+
+var users = {
+
+    arun:{
+        name:"Arun",
+        username:"@arun_tech",
+        image:"https://i.pinimg.com/736x/9b/2c/9e/9b2c9ebcade406ceb9ee20063e88332c.jpg",
+        bio:"Tech lover | Laptop reviews | GeNeX community member",
+        followers:"120",
+        following:"45",
+        posts:[
+            {
+                title:"Laptop review mode",
+                image:"https://i.pinimg.com/736x/41/1c/d8/411cd8f8450d6660bdeae1534e0a2713.jpg",
+                content:"Testing specs, display and performance for honest review."
+            },
+            {
+                title:"Desk setup",
+                image:"https://i.pinimg.com/736x/4e/23/0c/4e230c48fc47206028a3b5dce19df684.jpg",
+                content:"Clean setup makes frontend work feel better."
+            }
+        ],
+        blogs:[
+            "Laptop vangurathuku specs mattum paatha podhathu. Real usage review dhaan mukkiyam.",
+            "Tech community la honest feedback share pannina dhaan ellarukum useful ah irukum."
+        ]
+    },
+
+    praveen:{
+        name:"Praveen",
+        username:"@praveen_gadgets",
+        image:"https://i.pinimg.com/736x/8c/ec/d8/8cecd8323cb1bd0d50e67c20daacc078.jpg",
+        bio:"Gadget finder | Honest product talk | Reviews",
+        followers:"98",
+        following:"39",
+        posts:[
+            {
+                title:"Gadget find",
+                image:"https://i.pinimg.com/736x/fb/40/92/fb4092715bf6a1308ecaa7c5619e1ff7.jpg",
+                content:"Found a useful gadget with good value for money."
+            },
+            {
+                title:"Review day",
+                image:"https://i.pinimg.com/736x/14/54/36/1454367f140f30134226c8100af91122.jpg",
+                content:"Small details matter when choosing tech products."
+            }
+        ],
+        blogs:[
+            "Budget gadget choose panna build quality and after-sales service check pannanum.",
+            "Review podumbothu pros mattum illa cons um clear ah sollanum."
+        ]
+    },
+
+    khaleel:{
+        name:"Khaleel",
+        username:"@khaleel_reviews",
+        image:"https://i.pinimg.com/736x/1d/90/f4/1d90f4cf24c5bc6362e88b3199d690d5.jpg",
+        bio:"Amazon finds | Trusted links only | Tech discussions",
+        followers:"150",
+        following:"64",
+        posts:[
+            {
+                title:"Trusted links only",
+                image:"https://i.pinimg.com/736x/6e/56/05/6e5605635d6d87d17fdfaf48de572f50.jpg",
+                content:"Fake links avoid pannunga. Verified products mattum share pannunga."
+            },
+            {
+                title:"Product talk",
+                image:"https://i.pinimg.com/736x/c9/9b/61/c99b61e8bb43354fcd4f57fe27336a53.jpg",
+                content:"Community la honest ah discuss pannadhu dhaan useful."
+            }
+        ],
+        blogs:[
+            "Fake product link click panna risk. Verified link mattum share pannunga.",
+            "Product discussion la trust irundha dhaan community grow aagum."
+        ]
+    },
+
+    kalai:{
+        name:"Kalai",
+        username:"@kalai_ui",
+        image:"https://i.pinimg.com/736x/d8/ce/17/d8ce170ff9a9ab7e8c7e496aec03db33.jpg",
+        bio:"Frontend learner | UI ideas | Code circle",
+        followers:"87",
+        following:"28",
+        posts:[
+            {
+                title:"Frontend learning",
+                image:"https://i.pinimg.com/736x/73/be/80/73be809c411ce65e5ae71c9f062a9aa9.jpg",
+                content:"Daily small practice makes UI better."
+            },
+            {
+                title:"Code circle",
+                image:"https://i.pinimg.com/736x/1f/d3/6b/1fd36b9a8f7bbed8218a95b7c5145b73.jpg",
+                content:"Ideas discuss panna project improve aagum."
+            }
+        ],
+        blogs:[
+            "Frontend la daily small task panna confidence varum.",
+            "UI clean ah irukanumna spacing and color balance romba mukkiyam."
+        ]
+    },
+
+    norbert:{
+        name:"Norbert",
+        username:"@norbert_genex",
+        image:"https://i.pinimg.com/736x/bf/a4/23/bfa42356138c4e4cb30e407ccf9b6bec.jpg",
+        bio:"GeNeX creator | Frontend developer | Tech community builder",
+        followers:"210",
+        following:"70",
+        posts:[
+            {
+                title:"Building GeNeX",
+                image:"https://i.pinimg.com/736x/37/92/2f/37922ff168ed3934c80f35aed1335033.jpg",
+                content:"Creating a trusted tech community with reviews and discussions."
+            },
+            {
+                title:"Frontend progress",
+                image:"https://i.pinimg.com/736x/31/3d/53/313d53c883bb0bb579775db3d4595e3a.jpg",
+                content:"Every page is getting better step by step."
+            }
+        ],
+        blogs:[
+            "GeNeX oda main goal fake links avoid panni real tech community build panna.",
+            "Frontend project la small small feature add panna portfolio strong aagum."
+        ]
+    }
+};
+
+var params = new URLSearchParams(window.location.search);
+
+var userKey = params.get("user") || "arun";
+
+var user = users[userKey];
+
+var following = true;
+
+var currentPosts = user.posts;
+
+document.getElementById("profileImage").src = user.image;
+
+document.getElementById("popupDp").src = user.image;
+
+document.getElementById("profileName").innerText = user.name;
+
+document.getElementById("popupUser").innerText = user.name;
+
+document.getElementById("username").innerText = user.username;
+
+document.getElementById("profileBio").innerText = user.bio;
+
+document.getElementById("followersCount").innerText = user.followers;
+
+document.getElementById("followingCount").innerText = user.following;
+
+document.getElementById("postCount").innerText = user.posts.length;
+
+document.getElementById("messageBtn").href = "chat.html?user=" + userKey;
+
+function toggleFollow(){
+
+    var btn = document.getElementById("followBtn");
+
+    if(following == true){
+
+        following = false;
+
+        btn.innerText = "Follow";
+
+        btn.classList.remove("dark-btn");
+    }
+    else{
+
+        following = true;
+
+        btn.innerText = "Following";
+
+        btn.classList.add("dark-btn");
+    }
+}
+
+function setActive(tab){
+
+    document.getElementById("postTab").classList.remove("active");
+
+    document.getElementById("blogTab").classList.remove("active");
+
+    document.getElementById("tagTab").classList.remove("active");
+
+    document.getElementById(tab).classList.add("active");
+}
+
+function loadPostGrid(posts){
+
+    var area = document.getElementById("contentArea");
+
+    area.innerHTML = '<div class="grid" id="grid"></div>';
+
+    var grid = document.getElementById("grid");
+
+    for(let i=0;i<posts.length;i++){
+
+        var card = document.createElement("div");
+
+        card.className = "grid-post";
+
+        card.innerHTML = '<img src="'+posts[i].image+'">';
+
+        card.onclick = function(){
+            openPopup(i);
+        };
+
+        grid.appendChild(card);
+    }
+}
+
+function loadBlogs(){
+
+    var area = document.getElementById("contentArea");
+
+    area.innerHTML = '<div class="blog-list" id="blogList"></div>';
+
+    var blogList = document.getElementById("blogList");
+
+    for(var i=0;i<user.blogs.length;i++){
+
+        blogList.innerHTML +=
+        '<div class="blog-card">' +
+
+            '<div class="blog-top">' +
+
+                '<img src="' + user.image + '">' +
+
+                '<div>' +
+
+                    '<h3>' + user.name + '</h3>' +
+
+                    '<p>Blog post · Just now</p>' +
+
+                '</div>' +
+
+            '</div>' +
+
+            '<p class="blog-text">' + user.blogs[i] + '</p>' +
+
+            '<div class="blog-actions">' +
+
+                '<span>♡ Like</span>' +
+
+                '<span>💬 Comment</span>' +
+
+                '<span>↗ Share</span>' +
+
+            '</div>' +
+
+        '</div>';
+    }
+}
+
+function showTab(tab){
+
+    if(tab == "posts"){
+
+        setActive("postTab");
+
+        currentPosts = user.posts;
+
+        loadPostGrid(currentPosts);
+    }
+
+    else if(tab == "blogs"){
+
+        setActive("blogTab");
+
+        loadBlogs();
+    }
+
+    else{
+
+        setActive("tagTab");
+
+        currentPosts = [
+            {
+                title:"Tagged Post",
+                image:user.posts[1].image,
+                content:user.name + " got tagged in a GeNeX community post."
+            }
+        ];
+
+        loadPostGrid(currentPosts);
+    }
+}
+
+function openPopup(index){
+
+    document.getElementById("popup").style.display = "flex";
+
+    document.getElementById("popupImage").src = currentPosts[index].image;
+
+    document.getElementById("popupTitle").innerText = currentPosts[index].title;
+
+    document.getElementById("popupDesc").innerText = currentPosts[index].content;
+
+    document.getElementById("likeText").innerText = "0 likes";
+
+    document.getElementById("commentInput").value = "";
+
+    document.getElementById("commentList").innerHTML = "";
+}
+
+function closeOutside(event){
+
+    if(event.target.id == "popup"){
+
+        document.getElementById("popup").style.display = "none";
+    }
+}
+
+function likePost(btn){
+
+    var likeText = document.getElementById("likeText");
+
+    var count = Number(likeText.innerText.split(" ")[0]);
+
+    if(btn.innerText == "♡"){
+
+        btn.innerText = "♥";
+
+        btn.style.color = "#39ff14";
+
+        count++;
+    }
+    else{
+
+        btn.innerText = "♡";
+
+        btn.style.color = "var(--text)";
+
+        count--;
+    }
+
+    likeText.innerText = count + " likes";
+}
+
+function focusComment(){
+
+    document.getElementById("commentInput").focus();
+}
+
+function addComment(){
+
+    var input = document.getElementById("commentInput");
+
+    if(input.value == ""){
+
+        alert("Type comment first");
+
+        return false;
+    }
+
+    document.getElementById("commentList").innerHTML +=
+    "<p><b>You:</b> " + input.value + "</p>";
+
+    input.value = "";
+}
+
+function sharePost(){
+
+    alert("Post shared");
+}
+
+loadPostGrid(user.posts);
+
+</script>
+
+</body>
+</html>

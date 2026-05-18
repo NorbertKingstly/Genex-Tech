@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GeNeX</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&family=Short+Stack&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#000;color:white;font-family:'Outfit',sans-serif;}
+html{scroll-behavior:smooth;}
+
+.navbar{
+    width:100%;
+    height:78px;
+    background:#0b0b0b;
+    border-bottom:1px solid #39ff14;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 55px;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.logo{
+    color:#39ff14;
+    font-size:34px;
+    font-weight:900;
+    text-decoration:none;
+}
+
+.profile-pic{
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    object-fit:cover;
+    border:2px solid #39ff14;
+}
+
+/* CENTER SLIDING MENU */
+
+.menu-slider{
+    width:100%;
+    background:#050505;
+    border-bottom:1px solid #1f1f1f;
+    padding:12px 20px;
+    position:sticky;
+    top:78px;
+    z-index:999;
+    overflow-x:auto;
+    white-space:nowrap;
+    text-align:center;
+    scrollbar-width:none;
+}
+
+.menu-slider::-webkit-scrollbar{
+    display:none;
+}
+
+.menu-slider a{
+    display:inline-block;
+    color:white;
+    text-decoration:none;
+    background:transparent;
+    border:none;
+    padding:8px 16px;
+    margin:0 4px;
+    font-size:15px;
+    font-weight:800;
+    border-radius:12px;
+    transition:0.25s;
+}
+
+.menu-slider a:hover{
+    background:#39ff14;
+    color:black;
+}
+
+.layout{
+    max-width:950px;
+    margin:auto;
+    padding:25px 18px;
+}
+
+.hero{
+    height:75px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin-bottom:18px;
+}
+
+.hero-text{
+    font-family:'Short Stack',cursive;
+    font-size:32px;
+}
+
+.green{color:#39ff14;}
+.yellow{color:#ffd900;}
+.blue{color:#2b7fff;}
+
+.feed{
+    background:#101010;
+    border:1px solid #1f1f1f;
+    border-radius:24px;
+    padding:18px;
+}
+
+.post{
+    background:#151515;
+    border:1px solid #232323;
+    border-radius:20px;
+    overflow:hidden;
+    margin-bottom:26px;
+    position:relative;
+}
+
+.post-top{
+    padding:15px 18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.left{
+    display:flex;
+    align-items:center;
+    gap:11px;
+}
+
+.dp{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    object-fit:cover;
+    border:2px solid #39ff14;
+}
+
+.user{
+    font-size:16px;
+    font-weight:700;
+}
+
+.time{
+    font-size:12px;
+    color:#888;
+    margin-top:3px;
+}
+
+.dots{
+    font-size:24px;
+    cursor:pointer;
+}
+
+.menu{
+    display:none;
+    position:absolute;
+    top:55px;
+    right:18px;
+    background:#000;
+    border:1px solid #333;
+    border-radius:12px;
+    overflow:hidden;
+    z-index:100;
+}
+
+.menu p{
+    padding:10px 25px;
+    cursor:pointer;
+    font-size:14px;
+}
+
+.menu p:hover{
+    background:#161616;
+    color:#39ff14;
+}
+
+.main-img{
+    width:100%;
+    max-height:560px;
+    object-fit:contain;
+    background:#000;
+    display:block;
+}
+
+.content{
+    padding:16px 18px;
+}
+
+.content h2{
+    color:#39ff14;
+    font-size:21px;
+    margin-bottom:7px;
+}
+
+.content p{
+    color:#ddd;
+    line-height:1.6;
+    font-size:15px;
+}
+
+.actions{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:14px 18px;
+    border-top:1px solid #242424;
+}
+
+.left-actions{
+    display:flex;
+    gap:22px;
+}
+
+.action,.save-icon{
+    font-size:23px;
+    cursor:pointer;
+    color:white;
+}
+
+.action:hover,.save-icon:hover{
+    color:#39ff14;
+}
+
+.likes{
+    padding:0 18px 16px;
+    color:#aaa;
+    font-size:14px;
+}
+
+.page{
+    display:none;
+    padding:65px 60px;
+    min-height:650px;
+}
+
+.page h1{
+    color:#39ff14;
+    font-size:40px;
+    margin-bottom:22px;
+}
+
+.post-input,.post-textarea{
+    width:100%;
+    max-width:650px;
+    padding:14px;
+    border-radius:14px;
+    border:1px solid #333;
+    background:#111;
+    color:white;
+    outline:none;
+    margin-bottom:14px;
+    font-size:15px;
+}
+
+.post-textarea{
+    height:140px;
+    resize:none;
+}
+
+.post-btn{
+    background:#39ff14;
+    color:black;
+    border:none;
+    padding:13px 28px;
+    border-radius:30px;
+    font-size:16px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+@media(max-width:650px){
+    .navbar{
+        padding:0 18px;
+    }
+
+    .logo{
+        font-size:29px;
+    }
+
+    .profile-pic{
+        width:44px;
+        height:44px;
+    }
+
+    .menu-slider{
+        padding:11px 16px;
+        text-align:left;
+    }
+
+    .menu-slider a{
+        padding:9px 16px;
+        font-size:13px;
+    }
+
+    .layout{
+        padding:20px 15px;
+    }
+
+    .hero{
+        height:85px;
+    }
+
+    .hero-text{
+        font-size:24px;
+    }
+
+    .page{
+        padding:45px 20px;
+    }
+}
+
+/* LIGHT MODE */
+
+body.light-mode{
+    background:#f4f4f4;
+    color:#111;
+}
+
+body.light-mode .navbar{
+    background:white;
+    border-bottom:1px solid #39ff14;
+}
+
+body.light-mode .menu-slider{
+    background:#ffffff;
+    border-bottom:1px solid #ddd;
+}
+
+body.light-mode .menu-slider a{
+    color:#111;
+}
+
+body.light-mode .menu-slider a:hover{
+    background:#39ff14;
+    color:black;
+}
+
+body.light-mode .feed{
+    background:white;
+    border-color:#ddd;
+}
+
+body.light-mode .post{
+    background:white;
+    border-color:#ddd;
+}
+
+body.light-mode .content p{
+    color:#333;
+}
+
+body.light-mode .likes{
+    color:#444;
+}
+
+body.light-mode .time{
+    color:#666;
+}
+
+body.light-mode .action,
+body.light-mode .save-icon,
+body.light-mode .user{
+    color:#111;
+}
+
+body.light-mode .menu{
+    background:white;
+    border-color:#ddd;
+}
+
+body.light-mode .menu p{
+    color:#111;
+}
+
+body.light-mode .menu p:hover{
+    background:#39ff14;
+    color:black;
+}
+
+body.light-mode .post-input,
+body.light-mode .post-textarea{
+    background:#f7f7f7;
+    color:#111;
+    border-color:#ddd;
+}
+
+body.light-mode .page{
+    color:#111;
+}
+
+body.light-mode .page h1{
+    color:#39ff14;
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <a href="#" onclick="homeClick()" class="logo">GeNeX</a>
+
+    <a href="profile.html">
+        <img id="topProfile" class="profile-pic" src="https://i.pravatar.cc/300">
+    </a>
+</div>
+
+<div class="menu-slider">
+    <a href="#" onclick="homeClick()">Home</a>
+    <a href="group-community.html">Community</a>
+    <a href="chat.html">Chats</a>
+    <a href="products.html">Products</a>
+    <a href="create-post.html">Post</a>
+    <a href="notifications.html">Notifications</a>
+    <a href="search.html">Search</a>
+    <a href="blog.html">Blog</a>
+    <a href="wishlist.html" class="nav-link">Wishlist</a>
+    <a href="settings.html">Settings</a>
+</div>
+
+<div id="homePage">
+<div class="layout">
+
+    <div class="hero">
+        <h1 class="hero-text">
+            <span class="green">Build.</span>
+            <span class="yellow">Create.</span>
+            <span class="blue">Inspire.</span>
+        </h1>
+    </div>
+
+    <div class="feed">
+        <div id="feedArea"></div>
+    </div>
+
+</div>
+</div>
+
+<div id="products" class="page">
+    <h1>Products</h1>
+    <p>Trusted products will show here.</p>
+</div>
+
+<div id="postPage" class="page">
+    <h1>Create Post</h1>
+
+    <input id="postTitle" class="post-input" type="text" placeholder="Post title">
+
+    <input id="postImage" class="post-input" type="text" placeholder="Image URL">
+
+    <textarea id="postContent" class="post-textarea" placeholder="Post description"></textarea>
+
+    <button class="post-btn" onclick="createPost()">Upload Post</button>
+</div>
+
+<div id="notifications" class="page">
+    <h1>Notifications</h1>
+    <p>No new notifications.</p>
+</div>
+
+<div id="search" class="page">
+    <h1>Search</h1>
+    <input class="post-input" type="text" placeholder="Search GeNeX">
+</div>
+
+<div id="blogs" class="page">
+    <h1>Blogs</h1>
+    <p>Blogs page.</p>
+</div>
+
+<div id="saved" class="page">
+    <h1>Saved</h1>
+    <p>Saved posts will show here.</p>
+</div>
+
+<div id="settings" class="page">
+    <h1>Settings</h1>
+    <p>Settings page.</p>
+</div>
+
+<script>
+
+var profileName = localStorage.getItem("profileName") || "Liyo clevert";
+
+var profileImage = localStorage.getItem("profileImage") || "https://i.pravatar.cc/300";
+
+document.getElementById("topProfile").src = profileImage;
+
+function minutesAgo(min){
+    var date = new Date();
+    date.setMinutes(date.getMinutes() - min);
+    return date.toISOString();
+}
+
+function formatInstaTime(dateText){
+    var postDate = new Date(dateText);
+    var now = new Date();
+
+    var diff = now - postDate;
+    var seconds = Math.floor(diff / 1000);
+    var minutes = Math.floor(seconds / 60);
+    var hours = Math.floor(minutes / 60);
+    var days = Math.floor(hours / 24);
+
+    if(seconds < 60){
+        return "Just now";
+    }
+    else if(minutes < 60){
+        return minutes + "m ago";
+    }
+    else if(hours < 24){
+        return hours + "h ago";
+    }
+    else if(days < 7){
+        return days + "d ago";
+    }
+    else{
+        return postDate.toLocaleDateString("en-IN",{
+            day:"2-digit",
+            month:"short",
+            year:"numeric"
+        });
+    }
+}
+
+function fullDateTime(dateText){
+    var postDate = new Date(dateText);
+
+    return postDate.toLocaleString("en-IN",{
+        day:"2-digit",
+        month:"short",
+        year:"numeric",
+        hour:"2-digit",
+        minute:"2-digit",
+        hour12:true
+    });
+}
+
+var followersUsers = {
+
+    arun:{
+        name:"Arun",
+        image:"https://i.pinimg.com/736x/9b/2c/9e/9b2c9ebcade406ceb9ee20063e88332c.jpg",
+        posts:[
+            {
+                title:"Laptop review mode",
+                image:"https://i.pinimg.com/736x/41/1c/d8/411cd8f8450d6660bdeae1534e0a2713.jpg",
+                content:"Testing specs, display and performance for honest review.",
+                createdAt:minutesAgo(45)
+            }
+        ]
+    },
+
+    praveen:{
+        name:"Praveen",
+        image:"https://i.pinimg.com/736x/8c/ec/d8/8cecd8323cb1bd0d50e67c20daacc078.jpg",
+        posts:[
+            {
+                title:"Phone camera test",
+                image:"https://i.pinimg.com/736x/2e/0e/35/2e0e3514eaf0be2a07c59f54b3cfb174.jpg",
+                content:"Camera quality and battery backup review coming soon.",
+                createdAt:minutesAgo(90)
+            }
+        ]
+    },
+
+    khaleel:{
+        name:"Khaleel",
+        image:"https://i.pinimg.com/736x/1d/90/f4/1d90f4cf24c5bc6362e88b3199d690d5.jpg",
+        posts:[
+            {
+                title:"Amazon tech find",
+                image:"https://i.pinimg.com/736x/b2/39/43/b23943d7256cf5cbf41a1c63a6fe1038.jpg",
+                content:"Useful gadget with trusted product link.",
+                createdAt:minutesAgo(160)
+            }
+        ]
+    },
+
+    kalai:{
+        name:"Kalai",
+        image:"https://i.pinimg.com/736x/d8/ce/17/d8ce170ff9a9ab7e8c7e496aec03db33.jpg",
+        posts:[
+            {
+                title:"Frontend learning",
+                image:"https://i.pinimg.com/736x/73/be/80/73be809c411ce65e5ae71c9f062a9aa9.jpg",
+                content:"Daily small practice makes UI better.",
+                createdAt:minutesAgo(260)
+            }
+        ]
+    }
+};
+
+var defaultMyPosts = [
+    {
+        title:"Building GeNeX",
+        image:"https://i.pinimg.com/736x/37/92/2f/37922ff168ed3934c80f35aed1335033.jpg",
+        content:"Creating a trusted tech community with reviews and discussions.",
+        createdAt:minutesAgo(20)
+    },
+
+    {
+        title:"Frontend grind",
+        image:"https://i.pinimg.com/736x/6c/98/58/6c985826696085dca8d1927ebf548c93.jpg",
+        content:"Small fixes, clean UI, and portfolio-ready project.",
+        createdAt:minutesAgo(120)
+    }
+];
+
+function getMyPosts(){
+    var saved = JSON.parse(localStorage.getItem("gennexPosts"));
+
+    if(saved == null || saved.length == 0){
+        localStorage.setItem("gennexPosts", JSON.stringify(defaultMyPosts));
+        return defaultMyPosts;
+    }
+
+    var onlyImagePosts = [];
+
+    for(var i = 0; i < saved.length; i++){
+        if(saved[i].image && saved[i].image.trim() != ""){
+            if(!saved[i].createdAt){
+                saved[i].createdAt = minutesAgo((i + 1) * 80);
+            }
+            onlyImagePosts.push(saved[i]);
+        }
+    }
+
+    localStorage.setItem("gennexPosts", JSON.stringify(onlyImagePosts));
+
+    return onlyImagePosts;
+}
+
+function saveMyPosts(posts){
+    localStorage.setItem("gennexPosts", JSON.stringify(posts));
+}
+
+function getMixedFeed(){
+    var feed = [];
+    var myPosts = getMyPosts();
+
+    for(var i = 0; i < myPosts.length; i++){
+        if(myPosts[i].image && myPosts[i].image.trim() != ""){
+            feed.push({
+                ownerType:"me",
+                ownerKey:"profile",
+                ownerName:profileName,
+                ownerImage:profileImage,
+                title:myPosts[i].title,
+                image:myPosts[i].image,
+                content:myPosts[i].content,
+                createdAt:myPosts[i].createdAt,
+                originalIndex:i
+            });
+        }
+    }
+
+    for(var key in followersUsers){
+        var user = followersUsers[key];
+
+        for(var j = 0; j < user.posts.length; j++){
+            if(user.posts[j].image && user.posts[j].image.trim() != ""){
+                feed.push({
+                    ownerType:"other",
+                    ownerKey:key,
+                    ownerName:user.name,
+                    ownerImage:user.image,
+                    title:user.posts[j].title,
+                    image:user.posts[j].image,
+                    content:user.posts[j].content,
+                    createdAt:user.posts[j].createdAt,
+                    originalIndex:j
+                });
+            }
+        }
+    }
+
+    feed.sort(function(a,b){
+        return new Date(b.createdAt) - new Date(a.createdAt);
+    });
+
+    return feed;
+}
+
+function loadPosts(){
+    var area = document.getElementById("feedArea");
+    area.innerHTML = "";
+
+    var posts = getMixedFeed();
+
+    for(var i = 0; i < posts.length; i++){
+        var post = document.createElement("div");
+        post.className = "post";
+
+        var profileLink = "";
+
+        if(posts[i].ownerType == "me"){
+            profileLink = "profile.html";
+        }
+        else{
+            profileLink = "followers-profile.html?user=" + posts[i].ownerKey;
+        }
+
+        var deleteMenu = "";
+
+        if(posts[i].ownerType == "me"){
+            deleteMenu =
+            '<div class="dots" onclick="toggleMenu(this)">⋮</div>' +
+            '<div class="menu">' +
+                '<p onclick="deletePost(' + posts[i].originalIndex + ')">Delete</p>' +
+            '</div>';
+        }
+        else{
+            deleteMenu =
+            '<div class="dots" onclick="alert(\'Only your post can delete bro\')">⋮</div>';
+        }
+
+        post.innerHTML =
+        '<div class="post-top">' +
+            '<div class="left">' +
+                '<a href="' + profileLink + '">' +
+                    '<img class="dp" src="' + posts[i].ownerImage + '">' +
+                '</a>' +
+
+                '<div>' +
+                    '<a href="' + profileLink + '" style="color:white;text-decoration:none;">' +
+                        '<div class="user">' + posts[i].ownerName + '</div>' +
+                    '</a>' +
+
+                    '<div class="time" title="' + fullDateTime(posts[i].createdAt) + '">' +
+                        formatInstaTime(posts[i].createdAt) + ' · ' + fullDateTime(posts[i].createdAt) +
+                    '</div>' +
+                '</div>' +
+            '</div>' +
+
+            deleteMenu +
+        '</div>' +
+
+        '<img class="main-img" src="' + posts[i].image + '" onerror="this.closest(\'.post\').remove()">' +
+
+        '<div class="content">' +
+            '<h2>' + posts[i].title + '</h2>' +
+            '<p>' + posts[i].content + '</p>' +
+        '</div>' +
+
+        '<div class="actions">' +
+            '<div class="left-actions">' +
+                '<span class="action" onclick="like(this)">♡</span>' +
+                '<span class="action" onclick="commentPost()">💬</span>' +
+                '<span class="action" onclick="sharePost()">↗</span>' +
+            '</div>' +
+
+            '<span class="save-icon" onclick="savePostBtn(this)">▱</span>' +
+        '</div>' +
+
+        '<div class="likes"><b>0 likes</b></div>';
+
+        area.appendChild(post);
+    }
+}
+
+function hideAllPages(){
+    var pages = document.querySelectorAll(".page");
+
+    pages.forEach(function(page){
+        page.style.display = "none";
+    });
+}
+
+function showPage(pageId){
+    document.getElementById("homePage").style.display = "none";
+    hideAllPages();
+    document.getElementById(pageId).style.display = "block";
+    window.scrollTo(0,0);
+}
+
+function homeClick(){
+    hideAllPages();
+    document.getElementById("homePage").style.display = "block";
+    loadPosts();
+    window.scrollTo(0,0);
+}
+
+function like(btn){
+    var likeText = btn.closest(".post").querySelector(".likes b");
+    var count = Number(likeText.innerText.split(" ")[0]);
+
+    if(btn.innerText == "♡"){
+        btn.innerText = "♥";
+        btn.style.color = "#39ff14";
+        count++;
+    }
+    else{
+        btn.innerText = "♡";
+        btn.style.color = "white";
+        count--;
+    }
+
+    likeText.innerText = count + " likes";
+}
+
+function savePostBtn(btn){
+    if(btn.innerText == "▱"){
+        btn.innerText = "▰";
+        btn.style.color = "#39ff14";
+    }
+    else{
+        btn.innerText = "▱";
+        btn.style.color = "white";
+    }
+}
+
+function commentPost(){
+    var cmt = prompt("Add comment");
+
+    if(cmt){
+        alert("Comment added");
+    }
+}
+
+function sharePost(){
+    alert("Post shared");
+}
+
+function toggleMenu(dot){
+    var menu = dot.nextElementSibling;
+
+    if(menu.style.display == "block"){
+        menu.style.display = "none";
+    }
+    else{
+        menu.style.display = "block";
+    }
+}
+
+function deletePost(index){
+    var posts = getMyPosts();
+    posts.splice(index,1);
+    saveMyPosts(posts);
+    loadPosts();
+}
+
+function createPost(){
+    var title = document.getElementById("postTitle").value.trim();
+    var image = document.getElementById("postImage").value.trim();
+    var content = document.getElementById("postContent").value.trim();
+
+    if(title == "" || image == "" || content == ""){
+        alert("Image post mattum upload agum. Title, Image URL, Description fill pannu.");
+        return false;
+    }
+
+    var posts = getMyPosts();
+
+    posts.unshift({
+        title:title,
+        image:image,
+        content:content,
+        createdAt:new Date().toISOString()
+    });
+
+    saveMyPosts(posts);
+
+    document.getElementById("postTitle").value = "";
+    document.getElementById("postImage").value = "";
+    document.getElementById("postContent").value = "";
+
+    alert("Post uploaded");
+
+    homeClick();
+}
+
+loadPosts();
+/* THEME APPLY */
+
+function applyTheme(){
+
+    var theme = localStorage.getItem("genexTheme");
+
+    if(theme == "light"){
+        document.body.classList.add("light-mode");
+    }
+    else{
+        document.body.classList.remove("light-mode");
+    }
+}
+
+applyTheme();
+
+</script>
+
+</body>
+</html>

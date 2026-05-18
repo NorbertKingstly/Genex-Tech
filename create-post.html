@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Create - GeNeX</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Outfit',sans-serif;
+}
+
+:root{
+    --bg:#000;
+    --text:white;
+    --nav:#0b0b0b;
+    --card:#101010;
+    --card2:#151515;
+    --border:#222;
+    --green:#39ff14;
+    --muted:#aaa;
+}
+
+body.light-mode{
+    --bg:#f4f4f4;
+    --text:#111;
+    --nav:#ffffff;
+    --card:#ffffff;
+    --card2:#f7f7f7;
+    --border:#ddd;
+    --green:#39ff14;
+    --muted:#555;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+}
+
+.navbar{
+    height:78px;
+    background:var(--nav);
+    border-bottom:1px solid var(--green);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 55px;
+}
+
+.logo{
+    color:var(--green);
+    font-size:34px;
+    font-weight:900;
+    text-decoration:none;
+}
+
+.home-btn{
+    background:var(--green);
+    color:black;
+    padding:10px 22px;
+    border-radius:30px;
+    text-decoration:none;
+    font-weight:800;
+}
+
+.container{
+    width:720px;
+    max-width:92%;
+    margin:45px auto;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:28px;
+    padding:25px;
+}
+
+h1{
+    color:var(--green);
+    text-align:center;
+    margin-bottom:22px;
+}
+
+.option-box{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+    margin-bottom:25px;
+}
+
+.option{
+    background:var(--card2);
+    border:1px solid var(--border);
+    border-radius:22px;
+    padding:25px;
+    text-align:center;
+    cursor:pointer;
+}
+
+.option:hover,
+.option.active{
+    border-color:var(--green);
+    background:#182218;
+}
+
+body.light-mode .option:hover,
+body.light-mode .option.active{
+    background:#eaffea;
+}
+
+.option h2{
+    color:var(--green);
+    margin-bottom:8px;
+}
+
+.option p{
+    color:var(--muted);
+    font-size:14px;
+}
+
+.form{
+    display:none;
+}
+
+.form.active{
+    display:block;
+}
+
+input,
+textarea{
+    width:100%;
+    padding:14px;
+    border-radius:14px;
+    border:1px solid var(--border);
+    background:var(--bg);
+    color:var(--text);
+    outline:none;
+    margin-bottom:14px;
+    font-size:15px;
+}
+
+textarea{
+    height:130px;
+    resize:none;
+}
+
+.drop-area{
+    height:290px;
+    border:2px dashed var(--green);
+    border-radius:22px;
+    background:#070707;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    cursor:pointer;
+    margin-bottom:15px;
+    overflow:hidden;
+}
+
+body.light-mode .drop-area{
+    background:#f7f7f7;
+}
+
+.drop-area img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    background:#fff;
+}
+
+.drop-content h2{
+    color:var(--green);
+    margin-bottom:8px;
+}
+
+.drop-content p{
+    color:var(--muted);
+    margin-bottom:15px;
+}
+
+.select-btn{
+    display:inline-block;
+    background:var(--green);
+    color:black;
+    padding:11px 22px;
+    border-radius:25px;
+    font-weight:800;
+}
+
+#postImage{
+    display:none;
+}
+
+.upload-btn{
+    width:100%;
+    background:var(--green);
+    color:black;
+    border:none;
+    padding:15px;
+    border-radius:30px;
+    font-size:17px;
+    font-weight:800;
+    cursor:pointer;
+}
+
+@media(max-width:700px){
+    .navbar{
+        padding:0 22px;
+    }
+
+    .logo{
+        font-size:29px;
+    }
+
+    .option-box{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <a href="ProjectFRE.html" class="logo">GeNeX</a>
+    <a href="ProjectFRE.html" class="home-btn">Home</a>
+</div>
+
+<div class="container">
+
+    <h1>Create</h1>
+
+    <div class="option-box">
+        <div class="option active" id="postOption" onclick="openForm('post')">
+            <h2>Post</h2>
+            <p>Image + Caption</p>
+        </div>
+
+        <div class="option" id="blogOption" onclick="openForm('blog')">
+            <h2>Blog</h2>
+            <p>Text update</p>
+        </div>
+    </div>
+
+    <div id="postForm" class="form active">
+        <input type="text" id="postTitle" placeholder="Post title">
+
+        <div class="drop-area" id="dropArea" onclick="document.getElementById('postImage').click()">
+            <div class="drop-content">
+                <h2>Drag photo here</h2>
+                <p>or select from your folder</p>
+                <span class="select-btn">Select Image</span>
+            </div>
+        </div>
+
+        <input type="file" id="postImage" accept="image/*">
+
+        <textarea id="postCaption" placeholder="Write caption..."></textarea>
+
+        <button class="upload-btn" onclick="uploadPost()">Upload Post</button>
+    </div>
+
+    <div id="blogForm" class="form">
+        <input type="text" id="blogTitle" placeholder="Blog title">
+
+        <textarea id="blogContent" placeholder="Write your blog..."></textarea>
+
+        <button class="upload-btn" onclick="uploadBlog()">Upload Blog</button>
+    </div>
+
+</div>
+
+<script>
+function applyTheme(){
+    var theme = localStorage.getItem("genexTheme");
+
+    if(theme == "light"){
+        document.body.classList.add("light-mode");
+    }
+    else{
+        document.body.classList.remove("light-mode");
+    }
+}
+
+applyTheme();
+
+var selectedImage = "";
+
+function openForm(type){
+
+    document.getElementById("postForm").classList.remove("active");
+    document.getElementById("blogForm").classList.remove("active");
+
+    document.getElementById("postOption").classList.remove("active");
+    document.getElementById("blogOption").classList.remove("active");
+
+    if(type == "post"){
+        document.getElementById("postForm").classList.add("active");
+        document.getElementById("postOption").classList.add("active");
+    }
+    else{
+        document.getElementById("blogForm").classList.add("active");
+        document.getElementById("blogOption").classList.add("active");
+    }
+}
+
+var postImage = document.getElementById("postImage");
+var dropArea = document.getElementById("dropArea");
+
+postImage.addEventListener("change",function(){
+    readImage(this.files[0]);
+});
+
+dropArea.addEventListener("dragover",function(e){
+    e.preventDefault();
+    dropArea.style.background = "#102510";
+});
+
+dropArea.addEventListener("dragleave",function(){
+    if(document.body.classList.contains("light-mode")){
+        dropArea.style.background = "#f7f7f7";
+    }
+    else{
+        dropArea.style.background = "#070707";
+    }
+});
+
+dropArea.addEventListener("drop",function(e){
+    e.preventDefault();
+
+    if(document.body.classList.contains("light-mode")){
+        dropArea.style.background = "#f7f7f7";
+    }
+    else{
+        dropArea.style.background = "#070707";
+    }
+
+    readImage(e.dataTransfer.files[0]);
+});
+
+function readImage(file){
+
+    if(!file){
+        return;
+    }
+
+    if(!file.type.startsWith("image/")){
+        alert("Image file mattum upload pannu bro");
+        return;
+    }
+
+    var reader = new FileReader();
+
+    reader.onload = function(e){
+        selectedImage = e.target.result;
+        dropArea.innerHTML = '<img src="' + selectedImage + '">';
+    }
+
+    reader.readAsDataURL(file);
+}
+
+function uploadPost(){
+
+    var title = document.getElementById("postTitle").value.trim();
+    var caption = document.getElementById("postCaption").value.trim();
+
+    if(title == "" || selectedImage == "" || caption == ""){
+        alert("Title, image, caption fill pannu bro");
+        return;
+    }
+
+    var posts = JSON.parse(localStorage.getItem("gennexPosts")) || [];
+
+    posts.unshift({
+        type:"post",
+        title:title,
+        image:selectedImage,
+        content:caption,
+        createdAt:new Date().toISOString()
+    });
+
+    localStorage.setItem("gennexPosts",JSON.stringify(posts));
+
+    alert("Post uploaded bro");
+
+    window.location.href = "ProjectFRE.html";
+}
+
+function uploadBlog(){
+
+    var title = document.getElementById("blogTitle").value.trim();
+    var content = document.getElementById("blogContent").value.trim();
+
+    if(title == "" || content == ""){
+        alert("Blog title and content fill pannu bro");
+        return;
+    }
+
+    var blogs = JSON.parse(localStorage.getItem("gennexBlogs")) || [];
+
+    blogs.unshift({
+        type:"blog",
+        title:title,
+        content:content,
+        createdAt:new Date().toISOString()
+    });
+
+    localStorage.setItem("gennexBlogs",JSON.stringify(blogs));
+
+    alert("Blog uploaded bro");
+
+    window.location.href = "ProjectFRE.html";
+}
+
+</script>
+
+</body>
+</html>

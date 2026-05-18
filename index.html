@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>GeNeX Login</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Outfit',sans-serif;
+}
+
+:root{
+    --bg:#000;
+    --text:white;
+    --nav:#0b0b0b;
+    --card:#101010;
+    --card2:#151515;
+    --border:#222;
+    --green:#39ff14;
+    --muted:#aaa;
+}
+
+body.light-mode{
+    --bg:#f4f4f4;
+    --text:#111;
+    --nav:#ffffff;
+    --card:#ffffff;
+    --card2:#f7f7f7;
+    --border:#ddd;
+    --green:#39ff14;
+    --muted:#555;
+}
+
+body{
+    height:100vh;
+    background:radial-gradient(circle,#123d12,#0d0d0d 60%);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:var(--text);
+}
+
+body.light-mode{
+    background:#f4f4f4;
+}
+
+.container{
+    width:430px;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:25px;
+    padding:35px;
+    box-shadow:0 0 30px rgba(57,255,20,0.25);
+}
+
+body.light-mode .container{
+    box-shadow:0 0 35px rgba(0,0,0,0.12);
+}
+
+.logo{
+    text-align:center;
+    font-size:42px;
+    color:var(--green);
+    font-weight:900;
+    margin-bottom:20px;
+}
+
+h2{
+    text-align:center;
+    margin-bottom:8px;
+    color:var(--text);
+}
+
+.subtitle{
+    text-align:center;
+    color:var(--muted);
+    margin-bottom:25px;
+}
+
+input{
+    width:100%;
+    padding:15px;
+    margin-bottom:16px;
+    border-radius:12px;
+    border:1px solid var(--border);
+    outline:none;
+    background:var(--bg);
+    color:var(--text);
+    font-size:15px;
+}
+
+input:focus{
+    border:1px solid var(--green);
+    box-shadow:0 0 10px rgba(57,255,20,0.3);
+}
+
+.show-pass{
+    color:var(--muted);
+    font-size:14px;
+    margin-top:-5px;
+    margin-bottom:18px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.show-pass input{
+    width:auto;
+    margin:0;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:30px;
+    background:var(--green);
+    color:black;
+    font-size:17px;
+    font-weight:800;
+    cursor:pointer;
+    margin-top:8px;
+}
+
+button:hover{
+    box-shadow:0 0 20px var(--green);
+}
+
+.links{
+    margin-top:20px;
+    text-align:center;
+}
+
+.links a{
+    display:block;
+    margin-top:12px;
+    color:var(--green);
+    text-decoration:none;
+    font-size:15px;
+    font-weight:700;
+}
+
+.error{
+    color:#ff4d4d;
+    text-align:center;
+    margin-top:10px;
+    font-size:14px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="logo">GeNeX</div>
+
+    <h2>Welcome Back</h2>
+
+    <p class="subtitle">
+        Login to your GeNeX account
+    </p>
+
+    <input type="text"
+           id="loginUser"
+           placeholder="Username or Gmail">
+
+    <input type="password"
+           id="loginPass"
+           placeholder="Password">
+
+    <label class="show-pass">
+        <input type="checkbox" onclick="showPassword()">
+        Show Password
+    </label>
+
+    <button onclick="loginUser()">
+        Login
+    </button>
+
+    <div class="error" id="error"></div>
+
+    <div class="links">
+
+        <a href="forgot-password.html">
+            Forgot Password?
+        </a>
+
+        <a href="create-account.html">
+            Create New Account
+        </a>
+
+        <a href="ProjectFRE.html">
+            ⬅ Back to Home
+        </a>
+
+    </div>
+
+</div>
+
+<script>
+function applyTheme(){
+    var theme = localStorage.getItem("genexTheme");
+
+    if(theme == "light"){
+        document.body.classList.add("light-mode");
+    }
+    else{
+        document.body.classList.remove("light-mode");
+    }
+}
+
+applyTheme();
+
+function showPassword(){
+
+    var pass = document.getElementById("loginPass");
+
+    if(pass.type == "password"){
+        pass.type = "text";
+    }
+    else{
+        pass.type = "password";
+    }
+}
+
+function loginUser(){
+
+    var username = document.getElementById("loginUser").value.toLowerCase().trim();
+    var password = document.getElementById("loginPass").value;
+    var error = document.getElementById("error");
+
+    var savedUser = localStorage.getItem("techhiveUsername");
+    var savedEmail = localStorage.getItem("techhiveEmail");
+    var savedPass = localStorage.getItem("techhivePassword");
+
+    if(username == "" || password == ""){
+        error.innerHTML = "Please fill all fields";
+        return false;
+    }
+
+    if(savedUser == null || savedEmail == null || savedPass == null){
+        error.innerHTML = "No account found. Please create account first";
+        return false;
+    }
+
+    if((username == savedUser.toLowerCase().trim() || username == savedEmail.toLowerCase().trim()) && password == savedPass){
+
+        alert("Login Successful");
+
+        window.location.href = "ProjectFRE.html";
+    }
+    else{
+        error.innerHTML = "Invalid username or password";
+    }
+}
+</script>
+
+</body>
+</html>
