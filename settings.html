@@ -41,20 +41,23 @@ body.light-mode{
 body{
     background:var(--bg);
     color:var(--text);
+    overflow-x:hidden;
 }
 
 .navbar{
     width:100%;
-    height:78px;
+    min-height:78px;
     background:var(--nav);
     border-bottom:1px solid var(--green);
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:0 55px;
+    padding:18px 55px;
     position:sticky;
     top:0;
     z-index:999;
+    gap:15px;
+    flex-wrap:wrap;
 }
 
 .logo{
@@ -71,12 +74,14 @@ body{
     border-radius:30px;
     text-decoration:none;
     font-weight:800;
+    white-space:nowrap;
 }
 
 .container{
+    width:100%;
     max-width:950px;
     margin:35px auto;
-    padding:0 20px;
+    padding:0 20px 40px;
 }
 
 .card{
@@ -85,12 +90,14 @@ body{
     border-radius:24px;
     padding:26px;
     margin-bottom:24px;
+    width:100%;
 }
 
 .card h2{
     color:var(--green);
     font-size:28px;
     margin-bottom:22px;
+    word-break:break-word;
 }
 
 .account-top{
@@ -98,6 +105,7 @@ body{
     align-items:center;
     gap:22px;
     margin-bottom:24px;
+    flex-wrap:wrap;
 }
 
 .account-img{
@@ -107,17 +115,25 @@ body{
     object-fit:cover;
     border:4px solid var(--green);
     background:#fff;
+    flex-shrink:0;
+}
+
+.account-name{
+    flex:1;
+    min-width:200px;
 }
 
 .account-name h3{
     color:var(--green);
     font-size:28px;
     margin-bottom:6px;
+    word-break:break-word;
 }
 
 .account-name p{
     color:var(--muted);
     font-size:15px;
+    word-break:break-word;
 }
 
 .form-grid{
@@ -128,6 +144,7 @@ body{
 
 .input-group{
     margin-bottom:14px;
+    width:100%;
 }
 
 .input-group label{
@@ -174,6 +191,7 @@ textarea{
     font-weight:800;
     cursor:pointer;
     text-decoration:none;
+    text-align:center;
 }
 
 .dark-btn{
@@ -189,6 +207,7 @@ textarea{
     gap:20px;
     padding:18px 0;
     border-bottom:1px solid var(--border);
+    flex-wrap:wrap;
 }
 
 .setting-row:last-child{
@@ -203,6 +222,7 @@ textarea{
 .setting-row p{
     color:var(--muted);
     font-size:15px;
+    line-height:1.5;
 }
 
 .switch{
@@ -256,6 +276,8 @@ textarea{
     margin-bottom:14px;
     font-weight:700;
     cursor:pointer;
+    transition:0.3s;
+    word-break:break-word;
 }
 
 .link-box:hover{
@@ -282,23 +304,19 @@ textarea{
     border:1px solid #5c2222;
 }
 
-@media(max-width:650px){
+/* TABLET */
+@media(max-width:900px){
+
     .navbar{
-        padding:0 20px;
+        padding:16px 25px;
     }
 
-    .logo{
-        font-size:29px;
+    .container{
+        padding:0 16px 30px;
     }
 
-    .back-btn{
-        padding:9px 18px;
-        font-size:14px;
-    }
-
-    .account-top{
-        flex-direction:column;
-        text-align:center;
+    .card{
+        padding:22px;
     }
 
     .form-grid{
@@ -308,9 +326,115 @@ textarea{
     .full{
         grid-column:auto;
     }
+}
+
+/* MOBILE */
+@media(max-width:650px){
+
+    .navbar{
+        padding:14px 16px;
+        min-height:auto;
+    }
+
+    .logo{
+        font-size:28px;
+    }
+
+    .back-btn{
+        padding:9px 16px;
+        font-size:13px;
+    }
+
+    .container{
+        margin:22px auto;
+        padding:0 12px 25px;
+    }
+
+    .card{
+        padding:18px;
+        border-radius:20px;
+    }
+
+    .card h2{
+        font-size:24px;
+    }
+
+    .account-top{
+        flex-direction:column;
+        text-align:center;
+        gap:16px;
+    }
+
+    .account-img{
+        width:95px;
+        height:95px;
+    }
+
+    .account-name h3{
+        font-size:24px;
+    }
+
+    .account-name p{
+        font-size:14px;
+    }
+
+    input,
+    textarea{
+        font-size:14px;
+        padding:13px;
+    }
+
+    .btn-row{
+        flex-direction:column;
+    }
+
+    .btn{
+        width:100%;
+        padding:13px;
+        font-size:14px;
+    }
 
     .setting-row{
         align-items:flex-start;
+        flex-direction:column;
+    }
+
+    .link-box{
+        padding:16px;
+        font-size:15px;
+    }
+
+    .report-form{
+        padding:14px;
+    }
+}
+
+/* SMALL MOBILE */
+@media(max-width:420px){
+
+    .logo{
+        font-size:24px;
+    }
+
+    .back-btn{
+        font-size:12px;
+        padding:8px 14px;
+    }
+
+    .card h2{
+        font-size:22px;
+    }
+
+    .account-name h3{
+        font-size:22px;
+    }
+
+    .setting-row h3{
+        font-size:16px;
+    }
+
+    .setting-row p{
+        font-size:13px;
     }
 }
 </style>
@@ -362,282 +486,12 @@ textarea{
         </div>
 
         <div class="btn-row">
-            <button class="btn" onclick="saveAccount()">Save Changes</button>
+            <button class="btn">Save Changes</button>
             <a href="profile.html" class="btn dark-btn">View Profile</a>
         </div>
     </div>
 
-    <div class="card">
-        <h2>Password & Security</h2>
-
-        <div class="form-grid">
-
-            <div class="input-group">
-                <label>Current Password</label>
-                <input type="password" id="currentPassword" placeholder="Enter current password">
-            </div>
-
-            <div class="input-group">
-                <label>New Password</label>
-                <input type="password" id="newPassword" placeholder="Enter new password">
-            </div>
-
-        </div>
-
-        <div class="btn-row">
-            <button class="btn" onclick="changePassword()">Change Password</button>
-            <button class="btn dark-btn" onclick="forgotPassword()">Forgot Password</button>
-        </div>
-    </div>
-
-    <div class="card">
-        <h2>Appearance</h2>
-
-        <div class="setting-row">
-            <div>
-                <h3>Dark Mode</h3>
-                <p>Turn off to switch GeNeX into white mode.</p>
-            </div>
-
-            <label class="switch">
-                <input type="checkbox" id="darkMode" checked onchange="toggleDarkMode()">
-                <span class="slider"></span>
-            </label>
-        </div>
-    </div>
-
-    <div class="card">
-        <h2>Privacy & Safety</h2>
-
-        <a href="Privacy.html" class="link-box">Privacy Policy</a>
-        <a href="community-rules.html" class="link-box">Community Rules</a>
-        <a href="user-agreement.html" class="link-box">User Agreement</a>
-
-        <div class="link-box" onclick="openReportBug()">Report Bug</div>
-
-        <div id="reportForm" class="report-form">
-            <input type="text" id="bugTitle" placeholder="Bug title">
-            <textarea id="bugText" placeholder="Explain the issue..."></textarea>
-            <button class="btn" onclick="submitBug()">Submit Bug Report</button>
-        </div>
-    </div>
-
-    <div class="card">
-        <h2>Danger Zone</h2>
-
-        <div class="setting-row">
-            <div>
-                <h3>Logout</h3>
-                <p>Sign out from your GeNeX account.</p>
-            </div>
-
-            <button class="btn logout-btn" onclick="logoutUser()">Logout</button>
-        </div>
-    </div>
-
 </div>
-
-<script>
-var defaultAccount = {
-    name:"Liyo Clevert",
-    username:"@liyo_clevert",
-    email:"norbertkingstly@gmail.com",
-    image:"IMG_8295.JPG.jpeg",
-    bio:"GeNeX creator | Frontend developer | Tech community builder"
-};
-
-function validValue(value){
-    return value != null &&
-           value != "" &&
-           value != "null" &&
-           value != "undefined";
-}
-
-function getProfileImage(){
-    var image = localStorage.getItem("profileImage");
-
-    if(validValue(image)){
-        return image;
-    }
-
-    var account = JSON.parse(localStorage.getItem("genexAccount"));
-
-    if(account && validValue(account.image)){
-        return account.image;
-    }
-
-    return defaultAccount.image;
-}
-
-function getAccount(){
-    var account = JSON.parse(localStorage.getItem("genexAccount")) || {};
-
-    var name = localStorage.getItem("profileName") || account.name || defaultAccount.name;
-    var username = localStorage.getItem("profileUsername") || account.username || defaultAccount.username;
-    var email = localStorage.getItem("profileEmail") || account.email || defaultAccount.email;
-    var bio = localStorage.getItem("profileBio") || account.bio || defaultAccount.bio;
-    var image = getProfileImage();
-
-    return {
-        name:name,
-        username:username,
-        email:email,
-        image:image,
-        bio:bio
-    };
-}
-
-function syncAccount(account){
-    localStorage.setItem("genexAccount",JSON.stringify(account));
-    localStorage.setItem("profileName",account.name);
-    localStorage.setItem("profileUsername",account.username);
-    localStorage.setItem("profileEmail",account.email);
-    localStorage.setItem("profileImage",account.image);
-    localStorage.setItem("profileBio",account.bio);
-}
-
-function loadAccount(){
-    var account = getAccount();
-
-    document.getElementById("profileName").value = account.name;
-    document.getElementById("profileUsername").value = account.username;
-    document.getElementById("profileEmail").value = account.email;
-    document.getElementById("profileBio").value = account.bio;
-
-    document.getElementById("previewImage").src = account.image;
-    document.getElementById("previewName").innerText = account.name;
-    document.getElementById("previewUsername").innerText = account.username;
-
-    syncAccount(account);
-}
-
-function saveAccount(){
-    var currentAccount = getAccount();
-
-    var username = document.getElementById("profileUsername").value.trim();
-
-    if(username != "" && username.charAt(0) != "@"){
-        username = "@" + username;
-    }
-
-    var account = {
-        name:document.getElementById("profileName").value.trim(),
-        username:username,
-        email:document.getElementById("profileEmail").value.trim(),
-        image:currentAccount.image,
-        bio:document.getElementById("profileBio").value.trim()
-    };
-
-    if(account.name == "" || account.username == "" || account.email == "" || account.bio == ""){
-        alert("Fill all details");
-        return;
-    }
-
-    syncAccount(account);
-
-    document.getElementById("previewImage").src = account.image;
-    document.getElementById("previewName").innerText = account.name;
-    document.getElementById("previewUsername").innerText = account.username;
-
-    alert("Profile updated");
-}
-
-if(localStorage.getItem("genexPassword") == null){
-    localStorage.setItem("genexPassword","123456");
-}
-
-function changePassword(){
-    var current = document.getElementById("currentPassword").value.trim();
-    var newPass = document.getElementById("newPassword").value.trim();
-    var savedPass = localStorage.getItem("genexPassword");
-
-    if(current == "" || newPass == ""){
-        alert("Fill all password fields");
-        return;
-    }
-
-    if(current != savedPass){
-        alert("Current password incorrect");
-        return;
-    }
-
-    localStorage.setItem("genexPassword",newPass);
-    localStorage.setItem("techhivePassword",newPass);
-
-    document.getElementById("currentPassword").value = "";
-    document.getElementById("newPassword").value = "";
-
-    alert("Password updated");
-}
-
-function forgotPassword(){
-    window.location.href = "forgot-password.html";
-}
-
-function toggleDarkMode(){
-    var darkMode = document.getElementById("darkMode");
-
-    if(darkMode.checked){
-        document.body.classList.remove("light-mode");
-        localStorage.setItem("genexTheme","dark");
-    }
-    else{
-        document.body.classList.add("light-mode");
-        localStorage.setItem("genexTheme","light");
-    }
-}
-
-function loadTheme(){
-    var theme = localStorage.getItem("genexTheme");
-
-    if(theme == "light"){
-        document.body.classList.add("light-mode");
-        document.getElementById("darkMode").checked = false;
-    }
-    else{
-        document.body.classList.remove("light-mode");
-        document.getElementById("darkMode").checked = true;
-    }
-}
-
-function openReportBug(){
-    document.getElementById("reportForm").classList.toggle("active");
-}
-
-function submitBug(){
-    var title = document.getElementById("bugTitle").value.trim();
-    var text = document.getElementById("bugText").value.trim();
-
-    if(title == "" || text == ""){
-        alert("Please enter bug title and description.");
-        return;
-    }
-
-    var reports = JSON.parse(localStorage.getItem("genexBugReports")) || [];
-
-    reports.push({
-        title:title,
-        description:text,
-        date:new Date().toLocaleString()
-    });
-
-    localStorage.setItem("genexBugReports",JSON.stringify(reports));
-
-    alert("Bug report submitted successfully.");
-
-    document.getElementById("bugTitle").value = "";
-    document.getElementById("bugText").value = "";
-    document.getElementById("reportForm").classList.remove("active");
-}
-
-function logoutUser(){
-    alert("Logged out successfully.");
-    window.location.href = "index.html";
-}
-
-loadTheme();
-loadAccount();
-</script>
 
 </body>
 </html>
