@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -15,6 +16,10 @@
     padding:0;
     box-sizing:border-box;
     font-family:'Outfit',sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
 }
 
 :root{
@@ -48,19 +53,25 @@ body{
     background:var(--bg);
     color:var(--text);
     transition:0.3s;
+    overflow-x:hidden;
+    min-height:100vh;
 }
 
+/* NAVBAR */
+
 .navbar{
-    height:78px;
+    width:100%;
+    min-height:78px;
     background:var(--nav);
     border-bottom:1px solid var(--green);
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:0 55px;
+    padding:15px 55px;
     position:sticky;
     top:0;
     z-index:999;
+    gap:15px;
 }
 
 .logo{
@@ -68,12 +79,15 @@ body{
     font-size:34px;
     font-weight:900;
     text-decoration:none;
+    word-break:break-word;
 }
 
 .nav-right{
     display:flex;
     gap:12px;
     align-items:center;
+    flex-wrap:wrap;
+    justify-content:flex-end;
 }
 
 .home-btn{
@@ -85,7 +99,15 @@ body{
     font-weight:800;
     border:none;
     cursor:pointer;
+    transition:0.3s;
+    white-space:nowrap;
 }
+
+.home-btn:hover{
+    transform:scale(1.03);
+}
+
+/* HERO */
 
 .hero{
     padding:35px 55px 20px;
@@ -95,13 +117,17 @@ body{
     color:var(--green);
     font-size:42px;
     margin-bottom:10px;
+    line-height:1.3;
 }
 
 .hero p{
     color:var(--muted);
     font-size:16px;
-    line-height:1.6;
+    line-height:1.7;
+    max-width:700px;
 }
+
+/* SEARCH */
 
 .search-box{
     padding:0 55px 22px;
@@ -116,7 +142,15 @@ body{
     color:var(--text);
     outline:none;
     font-size:15px;
+    transition:0.3s;
 }
+
+.search-box input:focus{
+    border-color:var(--green);
+    box-shadow:0 0 10px rgba(57,255,20,0.2);
+}
+
+/* CATEGORY */
 
 .category-bar{
     display:flex;
@@ -133,6 +167,7 @@ body{
     border-radius:25px;
     cursor:pointer;
     font-weight:800;
+    transition:0.3s;
 }
 
 .category-bar button:hover,
@@ -142,9 +177,11 @@ body{
     border-color:var(--green);
 }
 
+/* PRODUCTS */
+
 .products{
     display:grid;
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:repeat(2,minmax(0,1fr));
     gap:24px;
     padding:0 55px 50px;
 }
@@ -155,6 +192,7 @@ body{
     border-radius:24px;
     overflow:hidden;
     transition:0.25s;
+    width:100%;
 }
 
 .card:hover{
@@ -162,6 +200,8 @@ body{
     border-color:var(--green);
     box-shadow:0 0 25px rgba(57,255,20,0.18);
 }
+
+/* IMAGE */
 
 .img-box{
     height:280px;
@@ -177,6 +217,8 @@ body{
     max-height:100%;
     object-fit:contain;
 }
+
+/* INFO */
 
 .info{
     padding:18px;
@@ -202,7 +244,8 @@ body.light-mode .tag{
     color:var(--text);
     font-size:22px;
     margin-bottom:10px;
-    line-height:1.35;
+    line-height:1.4;
+    word-wrap:break-word;
 }
 
 .price{
@@ -215,9 +258,11 @@ body.light-mode .tag{
 .desc{
     color:var(--muted);
     font-size:15px;
-    line-height:1.6;
+    line-height:1.7;
     margin-bottom:14px;
 }
+
+/* REVIEW */
 
 .review,
 .pro,
@@ -247,14 +292,18 @@ body.light-mode .tag{
 .con p{
     color:var(--muted);
     font-size:14px;
-    line-height:1.5;
+    line-height:1.6;
 }
+
+/* PRO CON */
 
 .procon{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:10px;
 }
+
+/* COMMENTS */
 
 .comment-list{
     max-height:105px;
@@ -272,15 +321,20 @@ body.light-mode .tag{
     color:var(--muted);
     font-size:13px;
     line-height:1.5;
+    word-wrap:break-word;
 }
+
+/* COMMENT INPUT */
 
 .comment-input-row{
     display:flex;
     gap:8px;
+    width:100%;
 }
 
 .comment-input-row input{
     flex:1;
+    min-width:0;
     padding:11px;
     border-radius:20px;
     border:1px solid var(--border);
@@ -288,6 +342,8 @@ body.light-mode .tag{
     color:var(--text);
     outline:none;
 }
+
+/* BUTTONS */
 
 .comment-input-row button{
     background:var(--green);
@@ -297,6 +353,7 @@ body.light-mode .tag{
     border-radius:20px;
     font-weight:800;
     cursor:pointer;
+    white-space:nowrap;
 }
 
 .wish-btn{
@@ -310,6 +367,7 @@ body.light-mode .tag{
     font-size:15px;
     cursor:pointer;
     margin-bottom:10px;
+    transition:0.3s;
 }
 
 .buy-btn{
@@ -322,6 +380,12 @@ body.light-mode .tag{
     font-weight:800;
     font-size:16px;
     cursor:pointer;
+    transition:0.3s;
+}
+
+.wish-btn:hover,
+.buy-btn:hover{
+    transform:scale(1.02);
 }
 
 .note{
@@ -329,9 +393,12 @@ body.light-mode .tag{
     font-size:12px;
     margin-top:10px;
     text-align:center;
+    line-height:1.5;
 }
 
-@media(max-width:850px){
+/* TABLET */
+
+@media(max-width:1000px){
 
     .products{
         grid-template-columns:1fr;
@@ -347,21 +414,150 @@ body.light-mode .tag{
     }
 
     .navbar{
-        padding:0 18px;
+        padding:15px 20px;
     }
 
     .logo{
-        font-size:29px;
+        font-size:30px;
+    }
+
+    .hero h1{
+        font-size:36px;
+    }
+
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+    .navbar{
+        padding:14px 16px;
+        min-height:auto;
+    }
+
+    .logo{
+        font-size:26px;
+    }
+
+    .nav-right{
+        gap:8px;
     }
 
     .home-btn{
-        padding:9px 13px;
+        padding:9px 14px;
         font-size:13px;
+    }
+
+    .hero{
+        padding-top:28px;
+    }
+
+    .hero h1{
+        font-size:30px;
+    }
+
+    .hero p{
+        font-size:14px;
+    }
+
+    .search-box input{
+        padding:14px;
+        font-size:14px;
+    }
+
+    .category-bar{
+        gap:10px;
+    }
+
+    .category-bar button{
+        padding:9px 15px;
+        font-size:13px;
+    }
+
+    .img-box{
+        height:240px;
+    }
+
+    .info h2{
+        font-size:20px;
+    }
+
+    .price{
+        font-size:24px;
     }
 
     .procon{
         grid-template-columns:1fr;
     }
+
+    .comment-input-row{
+        flex-direction:column;
+    }
+
+    .comment-input-row button{
+        width:100%;
+    }
+
+}
+
+/* EXTRA SMALL */
+
+@media(max-width:480px){
+
+    .navbar{
+        flex-direction:column;
+        justify-content:center;
+        text-align:center;
+    }
+
+    .nav-right{
+        width:100%;
+        justify-content:center;
+    }
+
+    .home-btn{
+        flex:1;
+        text-align:center;
+    }
+
+    .hero,
+    .search-box,
+    .category-bar,
+    .products{
+        padding-left:14px;
+        padding-right:14px;
+    }
+
+    .hero h1{
+        font-size:26px;
+    }
+
+    .info{
+        padding:15px;
+    }
+
+    .info h2{
+        font-size:18px;
+    }
+
+    .price{
+        font-size:22px;
+    }
+
+    .desc,
+    .review p,
+    .pro p,
+    .con p{
+        font-size:13px;
+    }
+
+    .wish-btn,
+    .buy-btn{
+        padding:13px;
+        font-size:14px;
+    }
+
 }
 
 </style>
@@ -371,11 +567,20 @@ body.light-mode .tag{
 
 <div class="navbar">
 
-    <a href="ProjectFRE.html" class="logo">GeNeX</a>
+    <a href="ProjectFRE.html" class="logo">
+        GeNeX
+    </a>
 
     <div class="nav-right">
-        <a href="wishlist.html" class="home-btn">Wishlist</a>
-        <a href="ProjectFRE.html" class="home-btn">← Home</a>
+
+        <a href="wishlist.html" class="home-btn">
+            Wishlist
+        </a>
+
+        <a href="ProjectFRE.html" class="home-btn">
+            ← Home
+        </a>
+
     </div>
 
 </div>
@@ -393,10 +598,12 @@ body.light-mode .tag{
 
 <div class="search-box">
 
-    <input type="text"
-    id="searchInput"
-    placeholder="Search phone, laptop, keyboard..."
-    onkeyup="searchProducts()">
+    <input
+        type="text"
+        id="searchInput"
+        placeholder="Search phone, laptop, keyboard..."
+        onkeyup="searchProducts()"
+    >
 
 </div>
 
@@ -404,23 +611,23 @@ body.light-mode .tag{
 
     <button class="active"
     onclick="filterCategory('all',this)">
-    All
+        All
     </button>
 
     <button onclick="filterCategory('phone',this)">
-    Phones
+        Phones
     </button>
 
     <button onclick="filterCategory('laptop',this)">
-    Laptops
+        Laptops
     </button>
 
     <button onclick="filterCategory('keyboard',this)">
-    Keyboard
+        Keyboard
     </button>
 
     <button onclick="filterCategory('storage',this)">
-    Storage
+        Storage
     </button>
 
 </div>
@@ -671,6 +878,14 @@ function loadProducts(){
 
             area.appendChild(card);
         }
+    }
+
+    if(area.innerHTML == ""){
+
+        area.innerHTML =
+        '<div style="grid-column:1/-1;background:var(--card);padding:30px;border-radius:20px;border:1px solid var(--border);text-align:center;color:var(--muted);">' +
+        'No products found bro.' +
+        '</div>';
     }
 }
 
