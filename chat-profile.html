@@ -42,16 +42,17 @@ body{
     background:var(--bg);
     color:var(--text);
     min-height:100vh;
+    padding:20px;
 }
 
 .profile-card{
-    width:430px;
-    max-width:90%;
-    margin:70px auto;
+    width:100%;
+    max-width:430px;
+    margin:50px auto;
     background:var(--card);
     border:1px solid var(--border);
     border-radius:28px;
-    padding:35px;
+    padding:35px 25px;
     text-align:center;
     box-shadow:0 0 45px rgba(57,255,20,0.25);
 }
@@ -61,8 +62,8 @@ body.light-mode .profile-card{
 }
 
 .profile-card img{
-    width:155px;
-    height:155px;
+    width:140px;
+    height:140px;
     border-radius:50%;
     border:4px solid var(--green);
     object-fit:cover;
@@ -71,7 +72,8 @@ body.light-mode .profile-card{
 .profile-card h1{
     color:var(--green);
     margin-top:22px;
-    font-size:36px;
+    font-size:34px;
+    word-break:break-word;
 }
 
 .status{
@@ -122,6 +124,12 @@ body.light-mode .profile-card{
     border:none;
     cursor:pointer;
     font-size:15px;
+    transition:0.2s;
+    width:100%;
+}
+
+.btn:hover{
+    transform:scale(1.03);
 }
 
 .full{
@@ -164,11 +172,55 @@ body.light-mode .mute-active{
     border-color:var(--green);
 }
 
+/* MOBILE FIX */
+
 @media(max-width:600px){
+
+    body{
+        padding:14px;
+    }
+
     .profile-card{
-        margin:40px auto;
+        margin:20px auto;
+        padding:28px 18px;
+        border-radius:22px;
+    }
+
+    .profile-card img{
+        width:115px;
+        height:115px;
+    }
+
+    .profile-card h1{
+        font-size:28px;
+    }
+
+    .status{
+        font-size:13px;
+    }
+
+    .profile-bar h3{
+        font-size:20px;
+    }
+
+    .profile-bar p{
+        font-size:13px;
+    }
+
+    .btns{
+        grid-template-columns:1fr;
+    }
+
+    .full{
+        grid-column:auto;
+    }
+
+    .btn{
+        font-size:14px;
+        padding:13px;
     }
 }
+
 </style>
 </head>
 
@@ -214,7 +266,9 @@ body.light-mode .mute-active{
 </div>
 
 <script>
+
 function applyTheme(){
+
     var theme = localStorage.getItem("genexTheme");
 
     if(theme == "light"){
@@ -283,51 +337,68 @@ document.getElementById("profileBar").onclick = function(){
 };
 
 function toggleFollow(){
+
     var btn = document.getElementById("followBtn");
 
     if(isFollowing == true){
+
         isFollowing = false;
         btn.innerText = "Follow";
+
     }
     else{
+
         isFollowing = true;
         btn.innerText = "Unfollow";
+
     }
 }
 
 function toggleMute(){
+
     var btn = document.getElementById("muteBtn");
 
     if(isMuted == false){
+
         isMuted = true;
         btn.innerText = "Unmute";
         btn.classList.add("mute-active");
+
     }
     else{
+
         isMuted = false;
         btn.innerText = "Mute Profile";
         btn.classList.remove("mute-active");
+
     }
 }
 
 function toggleBlock(){
+
     var btn = document.getElementById("blockBtn");
 
     if(isBlocked == false){
+
         isBlocked = true;
         btn.innerText = "Unblock";
         btn.classList.add("block-active");
+
     }
     else{
+
         isBlocked = false;
         btn.innerText = "Block";
         btn.classList.remove("block-active");
+
     }
 }
 
 function reportUser(){
+
     alert(user.name + " reported");
 }
+
 </script>
 
 </body>
