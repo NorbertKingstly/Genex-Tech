@@ -4,11 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Edit Profile</title>
+<title>Edit Profile - GeNeX</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 
 <style>
+
 *{
     margin:0;
     padding:0;
@@ -18,13 +19,13 @@
 
 :root{
     --bg:#000;
-    --text:white;
+    --text:#fff;
     --nav:#0b0b0b;
     --card:#101010;
-    --card2:#151515;
-    --border:#222;
+    --card2:#181818;
+    --border:#262626;
     --green:#39ff14;
-    --muted:#aaa;
+    --muted:#9d9d9d;
 }
 
 body.light-mode{
@@ -32,8 +33,8 @@ body.light-mode{
     --text:#111;
     --nav:#ffffff;
     --card:#ffffff;
-    --card2:#f7f7f7;
-    --border:#ddd;
+    --card2:#f2f2f2;
+    --border:#dddddd;
     --green:#39ff14;
     --muted:#555;
 }
@@ -41,17 +42,28 @@ body.light-mode{
 body{
     background:var(--bg);
     color:var(--text);
+    min-height:100vh;
 }
+
+/* NAVBAR */
 
 .navbar{
     width:100%;
     height:78px;
+    background:rgba(0,0,0,0.92);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(57,255,20,0.25);
     padding:0 55px;
-    background:var(--nav);
-    border-bottom:1px solid var(--green);
     display:flex;
     justify-content:space-between;
     align-items:center;
+    position:sticky;
+    top:0;
+    z-index:999;
+}
+
+body.light-mode .navbar{
+    background:rgba(255,255,255,0.92);
 }
 
 .logo{
@@ -59,93 +71,249 @@ body{
     font-size:34px;
     font-weight:900;
     text-decoration:none;
+    letter-spacing:1px;
 }
 
 .back-btn{
     background:var(--green);
     color:black;
-    padding:10px 24px;
-    border-radius:30px;
     text-decoration:none;
+    padding:11px 24px;
+    border-radius:40px;
     font-weight:800;
+    transition:0.25s;
+}
+
+.back-btn:hover{
+    transform:scale(1.05);
+    box-shadow:0 0 25px rgba(57,255,20,0.5);
+}
+
+/* MAIN */
+
+.page{
+    width:100%;
+    padding:55px 20px;
+    display:flex;
+    justify-content:center;
 }
 
 .container{
-    width:420px;
-    margin:60px auto;
+    width:100%;
+    max-width:950px;
     background:var(--card);
     border:1px solid var(--border);
-    padding:40px;
-    border-radius:20px;
-    box-shadow:0 0 50px rgba(57,255,20,0.25);
-    text-align:center;
+    border-radius:35px;
+    overflow:hidden;
+    box-shadow:0 0 60px rgba(57,255,20,0.12);
 }
 
-body.light-mode .container{
-    box-shadow:0 0 35px rgba(0,0,0,0.12);
+.top-banner{
+    height:220px;
+    background:
+    linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.65)),
+    url("https://i.pinimg.com/736x/7d/f8/3b/7df83b3e4a3a3f39fc9db2cbf46f8e39.jpg");
+    background-size:cover;
+    background-position:center;
+    position:relative;
 }
 
-.container h1{
-    color:var(--green);
-    margin-bottom:10px;
-    font-size:55px;
-    font-weight:900;
+.glow{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(to top,rgba(0,0,0,0.7),transparent);
 }
 
-.container h2{
-    margin-bottom:30px;
-    color:var(--text);
+.content{
+    padding:0 40px 40px;
+    position:relative;
+}
+
+.profile-image-box{
+    width:155px;
+    height:155px;
+    border-radius:50%;
+    border:5px solid var(--card);
+    overflow:hidden;
+    position:relative;
+    margin-top:-78px;
+    background:#000;
+    box-shadow:0 0 40px rgba(57,255,20,0.25);
 }
 
 .profile-preview{
-    width:120px;
-    height:120px;
-    border-radius:50%;
+    width:100%;
+    height:100%;
     object-fit:cover;
-    border:3px solid var(--green);
-    margin-bottom:20px;
+}
+
+.edit-image{
+    position:absolute;
+    bottom:8px;
+    right:8px;
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    background:var(--green);
+    color:black;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:18px;
+    font-weight:900;
+    cursor:pointer;
+    border:none;
+}
+
+#profileImage{
+    display:none;
+}
+
+.heading{
+    margin-top:22px;
+    margin-bottom:30px;
+}
+
+.heading h1{
+    font-size:42px;
+    color:var(--green);
+    margin-bottom:6px;
+}
+
+.heading p{
+    color:var(--muted);
+    font-size:15px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:22px;
+}
+
+.input-group{
+    display:flex;
+    flex-direction:column;
+}
+
+.full{
+    grid-column:1/3;
+}
+
+label{
+    margin-bottom:10px;
+    color:var(--green);
+    font-size:14px;
+    font-weight:700;
 }
 
 input,
 textarea{
     width:100%;
-    padding:14px;
-    margin-bottom:18px;
-    border-radius:10px;
-    border:1px solid var(--border);
-    background:var(--bg);
-    color:var(--text);
+    border:none;
     outline:none;
+    background:var(--card2);
+    border:1px solid var(--border);
+    color:var(--text);
+    padding:16px;
+    border-radius:18px;
     font-size:15px;
+    transition:0.25s;
+}
+
+input:focus,
+textarea:focus{
+    border-color:var(--green);
+    box-shadow:0 0 18px rgba(57,255,20,0.18);
 }
 
 textarea{
-    height:100px;
     resize:none;
+    min-height:140px;
 }
 
-button{
-    width:100%;
-    padding:14px;
+.username-preview{
+    margin-top:8px;
+    color:var(--muted);
+    font-size:13px;
+}
+
+.stats{
+    margin-top:30px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+.stat-box{
+    background:var(--card2);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:22px;
+    text-align:center;
+}
+
+.stat-box h2{
+    color:var(--green);
+    font-size:32px;
+    margin-bottom:6px;
+}
+
+.stat-box p{
+    color:var(--muted);
+    font-size:14px;
+}
+
+.actions{
+    margin-top:35px;
+    display:flex;
+    gap:16px;
+}
+
+.save-btn,
+.cancel-btn{
+    flex:1;
     border:none;
-    border-radius:30px;
-    background:var(--green);
-    color:black;
-    font-size:18px;
+    padding:16px;
+    border-radius:40px;
+    font-size:16px;
     font-weight:800;
     cursor:pointer;
-    margin-top:10px;
+    transition:0.25s;
 }
 
-.back{
-    display:inline-block;
-    margin-top:20px;
-    color:var(--green);
-    text-decoration:none;
-    font-weight:800;
+.save-btn{
+    background:var(--green);
+    color:black;
 }
 
-@media(max-width:600px){
+.save-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 0 25px rgba(57,255,20,0.45);
+}
+
+.cancel-btn{
+    background:var(--card2);
+    color:var(--text);
+    border:1px solid var(--border);
+}
+
+.cancel-btn:hover{
+    border-color:var(--green);
+}
+
+.note{
+    margin-top:25px;
+    color:var(--muted);
+    font-size:13px;
+    text-align:center;
+    line-height:1.7;
+}
+
+/* MOBILE */
+
+@media(max-width:800px){
+
     .navbar{
         padding:0 18px;
     }
@@ -155,110 +323,343 @@ button{
     }
 
     .back-btn{
-        padding:9px 16px;
+        padding:10px 16px;
         font-size:14px;
     }
 
-    .container{
-        width:90%;
-        margin:40px auto;
-        padding:28px;
+    .page{
+        padding:25px 12px 35px;
     }
 
-    .container h1{
-        font-size:42px;
+    .container{
+        border-radius:28px;
+    }
+
+    .top-banner{
+        height:170px;
+    }
+
+    .content{
+        padding:0 20px 28px;
+    }
+
+    .profile-image-box{
+        width:125px;
+        height:125px;
+        margin-top:-62px;
+    }
+
+    .heading h1{
+        font-size:32px;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+        gap:16px;
+    }
+
+    .full{
+        grid-column:auto;
+    }
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .actions{
+        flex-direction:column;
     }
 }
+
 </style>
 </head>
 
 <body>
 
 <div class="navbar">
-    <a href="ProjectFRE.html" class="logo">GeNeX</a>
-    <a href="profile.html" class="back-btn">Back</a>
+
+    <a href="ProjectFRE.html" class="logo">
+        GeNeX
+    </a>
+
+    <a href="profile.html" class="back-btn">
+        Back
+    </a>
+
 </div>
+
+<div class="page">
 
 <div class="container">
 
-    <h1>GeNeX</h1>
-    <h2>Edit Profile</h2>
+    <div class="top-banner">
+        <div class="glow"></div>
+    </div>
 
-    <img src="IMG_8295.JPG.jpeg" id="preview" class="profile-preview">
+    <div class="content">
 
-    <input type="file" id="profileImage">
+        <div class="profile-image-box">
 
-    <input type="text" id="username" placeholder="Username">
+            <img src="IMG_8295.JPG.jpeg"
+                 id="preview"
+                 class="profile-preview">
 
-    <textarea id="bio" placeholder="Write your bio"></textarea>
+            <button class="edit-image"
+                    onclick="document.getElementById('profileImage').click()">
+                ✎
+            </button>
 
-    <button onclick="saveProfile()">Save Profile</button>
+        </div>
 
-    <a href="profile.html" class="back">Back to Profile</a>
+        <input type="file"
+               id="profileImage"
+               accept="image/*">
+
+        <div class="heading">
+
+            <h1>Edit Profile</h1>
+
+            <p>
+                Customize your GeNeX profile and make your community page look better.
+            </p>
+
+        </div>
+
+        <div class="form-grid">
+
+            <div class="input-group">
+
+                <label>Username</label>
+
+                <input type="text"
+                       id="username"
+                       placeholder="Enter username"
+                       oninput="updateUsernamePreview()">
+
+                <div class="username-preview"
+                     id="usernamePreview">
+                </div>
+
+            </div>
+
+            <div class="input-group">
+
+                <label>Status</label>
+
+                <input type="text"
+                       id="status"
+                       placeholder="Frontend Developer">
+
+            </div>
+
+            <div class="input-group full">
+
+                <label>Bio</label>
+
+                <textarea id="bio"
+                          placeholder="Write your bio"></textarea>
+
+            </div>
+
+        </div>
+
+        <div class="stats">
+
+            <div class="stat-box">
+                <h2>12</h2>
+                <p>Posts Created</p>
+            </div>
+
+            <div class="stat-box">
+                <h2>1.2K</h2>
+                <p>Followers</p>
+            </div>
+
+            <div class="stat-box">
+                <h2>356</h2>
+                <p>Following</p>
+            </div>
+
+        </div>
+
+        <div class="actions">
+
+            <button class="save-btn"
+                    onclick="saveProfile()">
+                Save Profile
+            </button>
+
+            <button class="cancel-btn"
+                    onclick="window.location.href='profile.html'">
+                Cancel
+            </button>
+
+        </div>
+
+        <div class="note">
+            Your profile changes will be visible across the GeNeX community.
+        </div>
+
+    </div>
+
+</div>
 
 </div>
 
 <script>
+
 function applyTheme(){
+
     var theme = localStorage.getItem("genexTheme");
 
     if(theme == "light"){
+
         document.body.classList.add("light-mode");
+
     }
     else{
+
         document.body.classList.remove("light-mode");
+
     }
 }
 
 applyTheme();
 
+/* LOAD DATA */
+
 document.getElementById("username").value =
-localStorage.getItem("profileName") || "Liyo Clevert";
+localStorage.getItem("profileName") || "Norbert Kingstly";
 
 document.getElementById("bio").value =
 localStorage.getItem("profileBio") ||
-"GeNeX creator | Frontend developer | Tech community builder";
+"GeNeX creator | Frontend Developer | Tech Community Builder";
 
-var savedImage = localStorage.getItem("profileImage");
+document.getElementById("status").value =
+localStorage.getItem("profileStatus") ||
+"Frontend Developer";
+
+var savedImage =
+localStorage.getItem("profileImage");
 
 if(savedImage){
-    document.getElementById("preview").src = savedImage;
+
+    document.getElementById("preview").src =
+    savedImage;
 }
 
-document.getElementById("profileImage").addEventListener("change",function(){
+updateUsernamePreview();
+
+/* IMAGE PREVIEW */
+
+document.getElementById("profileImage")
+.addEventListener("change",function(){
+
     var file = this.files[0];
 
     if(file){
+
         var reader = new FileReader();
 
         reader.onload = function(e){
-            document.getElementById("preview").src = e.target.result;
-            localStorage.setItem("profileImage",e.target.result);
+
+            document.getElementById("preview").src =
+            e.target.result;
+
+            localStorage.setItem(
+                "profileImage",
+                e.target.result
+            );
         };
 
         reader.readAsDataURL(file);
     }
 });
 
-function saveProfile(){
-    var username = document.getElementById("username").value.trim();
-    var bio = document.getElementById("bio").value.trim();
-    var image = document.getElementById("preview").src;
+/* USERNAME PREVIEW */
 
-    if(username == "" || bio == ""){
+function updateUsernamePreview(){
+
+    var username =
+    document.getElementById("username").value
+    .trim()
+    .toLowerCase()
+    .replaceAll(" ","_");
+
+    if(username == ""){
+
+        document.getElementById("usernamePreview")
+        .innerHTML = "";
+
+    }
+    else{
+
+        document.getElementById("usernamePreview")
+        .innerHTML = "@"+username;
+    }
+}
+
+/* SAVE */
+
+function saveProfile(){
+
+    var username =
+    document.getElementById("username")
+    .value.trim();
+
+    var bio =
+    document.getElementById("bio")
+    .value.trim();
+
+    var status =
+    document.getElementById("status")
+    .value.trim();
+
+    var image =
+    document.getElementById("preview").src;
+
+    if(username == "" ||
+       bio == "" ||
+       status == ""){
+
         alert("Fill all details");
+
         return;
     }
 
-    localStorage.setItem("profileName",username);
-    localStorage.setItem("profileUsername","@" + username.toLowerCase().replaceAll(" ","_"));
-    localStorage.setItem("profileBio",bio);
-    localStorage.setItem("profileImage",image);
+    localStorage.setItem(
+        "profileName",
+        username
+    );
 
-    alert("Profile updated");
+    localStorage.setItem(
+        "profileUsername",
+        "@"+username
+        .toLowerCase()
+        .replaceAll(" ","_")
+    );
 
-    window.location.href = "profile.html";
+    localStorage.setItem(
+        "profileBio",
+        bio
+    );
+
+    localStorage.setItem(
+        "profileStatus",
+        status
+    );
+
+    localStorage.setItem(
+        "profileImage",
+        image
+    );
+
+    alert("Profile updated successfully");
+
+    window.location.href =
+    "profile.html";
 }
+
 </script>
 
 </body>
