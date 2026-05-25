@@ -1,19 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
 <title>GeNeX Group Community</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 
 <style>
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
     font-family:'Outfit',sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
 }
 
 :root{
@@ -41,19 +46,24 @@ body.light-mode{
 body{
     background:var(--bg);
     color:var(--text);
+    overflow-x:hidden;
 }
 
+/* NAVBAR */
+
 .navbar{
-    height:78px;
+    width:100%;
+    min-height:78px;
     background:var(--nav);
     border-bottom:1px solid var(--green);
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:0 55px;
+    padding:15px 55px;
     position:sticky;
     top:0;
     z-index:999;
+    gap:15px;
 }
 
 .logo{
@@ -61,6 +71,7 @@ body{
     font-size:34px;
     font-weight:900;
     text-decoration:none;
+    word-break:break-word;
 }
 
 .home-btn{
@@ -70,13 +81,17 @@ body{
     border-radius:30px;
     text-decoration:none;
     font-weight:800;
+    white-space:nowrap;
 }
+
+/* MAIN LAYOUT */
 
 .layout{
     display:grid;
-    grid-template-columns:250px 1fr 280px;
+    grid-template-columns:250px minmax(0,1fr) 280px;
     gap:22px;
     padding:25px 55px;
+    width:100%;
 }
 
 .box{
@@ -84,6 +99,7 @@ body{
     border:1px solid var(--border);
     border-radius:22px;
     padding:18px;
+    width:100%;
 }
 
 .leftbar,
@@ -96,7 +112,10 @@ body{
 .box h3{
     color:var(--green);
     margin-bottom:15px;
+    font-size:22px;
 }
+
+/* GROUPS */
 
 .group{
     padding:14px;
@@ -105,6 +124,7 @@ body{
     cursor:pointer;
     background:var(--card2);
     border:1px solid var(--border);
+    transition:0.3s;
 }
 
 .group:hover,
@@ -121,18 +141,22 @@ body.light-mode .group.active{
 .group h4{
     color:var(--text);
     margin-bottom:5px;
+    font-size:16px;
 }
 
 .group p{
     color:var(--muted);
     font-size:13px;
+    line-height:1.5;
 }
+
+/* HERO */
 
 .hero{
     background:linear-gradient(135deg,#102510,#050505);
     border:1px solid var(--green);
     border-radius:24px;
-    padding:22px;
+    padding:25px;
     margin-bottom:18px;
 }
 
@@ -143,14 +167,17 @@ body.light-mode .hero{
 .hero h1{
     color:var(--green);
     font-size:34px;
-    margin-bottom:8px;
+    margin-bottom:10px;
+    line-height:1.2;
 }
 
 .hero p{
     color:var(--muted);
-    line-height:1.5;
+    line-height:1.7;
     font-size:15px;
 }
+
+/* ASK BOX */
 
 .ask-box{
     margin-bottom:18px;
@@ -159,17 +186,18 @@ body.light-mode .hero{
 .ask-box input,
 .ask-box textarea{
     width:100%;
-    padding:12px 14px;
+    padding:14px;
     border-radius:14px;
     border:1px solid var(--border);
     background:var(--bg);
     color:var(--text);
     outline:none;
     margin-bottom:10px;
+    font-size:15px;
 }
 
 .ask-box textarea{
-    height:72px;
+    height:90px;
     resize:none;
 }
 
@@ -181,21 +209,30 @@ button{
     border-radius:30px;
     font-weight:800;
     cursor:pointer;
+    transition:0.3s;
 }
+
+button:hover{
+    transform:scale(1.03);
+}
+
+/* DISCUSSION */
 
 .discussion{
     background:var(--card);
     border:1px solid var(--border);
     border-radius:22px;
-    padding:17px 20px;
+    padding:20px;
     margin-bottom:14px;
+    width:100%;
 }
 
 .discussion-top{
     display:flex;
     justify-content:space-between;
     gap:15px;
-    margin-bottom:10px;
+    margin-bottom:12px;
+    flex-wrap:wrap;
 }
 
 .tag{
@@ -218,15 +255,18 @@ body.light-mode .tag{
 
 .discussion h2{
     color:var(--text);
-    font-size:21px;
-    margin-bottom:9px;
+    font-size:22px;
+    margin-bottom:10px;
+    line-height:1.4;
+    word-wrap:break-word;
 }
 
 .discussion p{
     color:var(--muted);
-    line-height:1.5;
-    margin-bottom:13px;
+    line-height:1.7;
+    margin-bottom:14px;
     font-size:15px;
+    word-wrap:break-word;
 }
 
 .stats{
@@ -237,6 +277,8 @@ body.light-mode .tag{
     font-size:14px;
     flex-wrap:wrap;
 }
+
+/* REPLIES */
 
 .reply-toggle{
     background:#182218;
@@ -268,6 +310,7 @@ body.light-mode .reply-toggle{
 .reply-input-row{
     display:flex;
     gap:10px;
+    width:100%;
 }
 
 .reply-box input{
@@ -278,10 +321,12 @@ body.light-mode .reply-toggle{
     background:var(--bg);
     color:var(--text);
     outline:none;
+    min-width:0;
 }
 
 .reply-box button{
     padding:10px 18px;
+    white-space:nowrap;
 }
 
 .reply-list{
@@ -298,12 +343,17 @@ body.light-mode .reply-toggle{
     padding:8px 12px;
     border-radius:20px;
     font-size:13px;
+    line-height:1.4;
 }
+
+/* ONLINE MEMBERS */
 
 .online-title{
     display:flex;
     justify-content:space-between;
     align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
 }
 
 .online-count{
@@ -319,6 +369,7 @@ body.light-mode .reply-toggle{
     cursor:pointer;
     padding:10px;
     border-radius:14px;
+    transition:0.3s;
 }
 
 .member:hover{
@@ -327,6 +378,7 @@ body.light-mode .reply-toggle{
 
 .img-box{
     position:relative;
+    flex-shrink:0;
 }
 
 .member img{
@@ -358,6 +410,8 @@ body.light-mode .reply-toggle{
     font-size:12px;
 }
 
+/* PROFILE MENU */
+
 .profile-menu{
     display:none;
     background:var(--bg);
@@ -386,7 +440,10 @@ body.light-mode .profile-menu{
     color:black;
 }
 
-@media(max-width:1000px){
+/* TABLET */
+
+@media(max-width:1100px){
+
     .layout{
         grid-template-columns:1fr;
         padding:20px;
@@ -397,14 +454,100 @@ body.light-mode .profile-menu{
         position:static;
     }
 
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
     .navbar{
-        padding:0 22px;
+        padding:14px 18px;
+        min-height:auto;
     }
 
     .logo{
-        font-size:29px;
+        font-size:26px;
     }
+
+    .home-btn{
+        padding:9px 16px;
+        font-size:14px;
+    }
+
+    .layout{
+        padding:15px;
+        gap:16px;
+    }
+
+    .hero{
+        padding:20px;
+    }
+
+    .hero h1{
+        font-size:28px;
+    }
+
+    .hero p{
+        font-size:14px;
+    }
+
+    .box{
+        padding:16px;
+        border-radius:18px;
+    }
+
+    .discussion{
+        padding:16px;
+    }
+
+    .discussion h2{
+        font-size:19px;
+    }
+
+    .stats{
+        gap:10px;
+        font-size:13px;
+    }
+
+    .reply-input-row{
+        flex-direction:column;
+    }
+
+    .reply-box button{
+        width:100%;
+    }
+
 }
+
+/* EXTRA SMALL */
+
+@media(max-width:480px){
+
+    .navbar{
+        flex-direction:column;
+        justify-content:center;
+        text-align:center;
+    }
+
+    .logo{
+        font-size:24px;
+    }
+
+    .home-btn{
+        width:100%;
+        text-align:center;
+    }
+
+    .hero h1{
+        font-size:24px;
+    }
+
+    .discussion h2{
+        font-size:18px;
+    }
+
+}
+
 </style>
 </head>
 
@@ -418,6 +561,7 @@ body.light-mode .profile-menu{
 <div class="layout">
 
 <div class="leftbar box">
+
     <h3>Tech Groups</h3>
 
     <div class="group active" onclick="changeGroup(this,'Hacking Key')">
@@ -449,12 +593,14 @@ body.light-mode .profile-menu{
         <h4>Project Roast Room</h4>
         <p>Portfolio feedback</p>
     </div>
+
 </div>
 
 <div>
 
     <div class="hero">
         <h1 id="circleName">Hacking Key</h1>
+
         <p>
             Idhu normal post feed illa bro. Group discussion madhiri doubts,
             product opinions, tech comedy, project feedback ellam pesura place.
@@ -462,6 +608,7 @@ body.light-mode .profile-menu{
     </div>
 
     <div class="ask-box box">
+
         <h3>Start Discussion</h3>
 
         <input id="questionTitle" type="text" placeholder="Topic title">
@@ -469,6 +616,7 @@ body.light-mode .profile-menu{
         <textarea id="questionDesc" placeholder="Un doubt / product matter / comedy opinion type pannu..."></textarea>
 
         <button onclick="addDiscussion()">Send to Group</button>
+
     </div>
 
     <div id="discussionArea"></div>
@@ -478,54 +626,29 @@ body.light-mode .profile-menu{
 <div class="rightbar">
 
     <div class="box">
+
         <div class="online-title">
             <h3>Online Friends</h3>
             <span class="online-count">3 online</span>
         </div>
 
         <div class="member" onclick="toggleProfileMenu('arunMenu')">
+
             <div class="img-box">
                 <img src="https://i.pinimg.com/736x/9b/2c/9e/9b2c9ebcade406ceb9ee20063e88332c.jpg">
                 <span class="online-dot"></span>
             </div>
+
             <div>
                 <h4>Arun</h4>
                 <p>Online now</p>
             </div>
+
         </div>
+
         <div class="profile-menu" id="arunMenu">
             <a href="followers-profile.html?user=arun">Open Profile</a>
             <a href="chat.html?user=arun">Message Arun</a>
-        </div>
-
-        <div class="member" onclick="toggleProfileMenu('praveenMenu')">
-            <div class="img-box">
-                <img src="https://i.pinimg.com/736x/8c/ec/d8/8cecd8323cb1bd0d50e67c20daacc078.jpg">
-                <span class="online-dot"></span>
-            </div>
-            <div>
-                <h4>Praveen</h4>
-                <p>Online now</p>
-            </div>
-        </div>
-        <div class="profile-menu" id="praveenMenu">
-            <a href="followers-profile.html?user=praveen">Open Profile</a>
-            <a href="chat.html?user=praveen">Message Praveen</a>
-        </div>
-
-        <div class="member" onclick="toggleProfileMenu('khaleelMenu')">
-            <div class="img-box">
-                <img src="https://i.pinimg.com/736x/1d/90/f4/1d90f4cf24c5bc6362e88b3199d690d5.jpg">
-                <span class="online-dot"></span>
-            </div>
-            <div>
-                <h4>Khaleel</h4>
-                <p>Online now</p>
-            </div>
-        </div>
-        <div class="profile-menu" id="khaleelMenu">
-            <a href="followers-profile.html?user=khaleel">Open Profile</a>
-            <a href="chat.html?user=khaleel">Message Khaleel</a>
         </div>
 
     </div>
@@ -535,7 +658,9 @@ body.light-mode .profile-menu{
 </div>
 
 <script>
+
 function applyTheme(){
+
     var theme = localStorage.getItem("genexTheme");
 
     if(theme == "light"){
@@ -550,133 +675,7 @@ applyTheme();
 
 var currentGroup = "Hacking Key";
 
-var discussions = [
-    {
-        group:"Hacking Key",
-        title:"Password strong ah veikanum na enna rule follow pannanum?",
-        desc:"123456 nu password vechitu hacker vandha shock aaguradhu namma fault dhaan bro. Strong password ku best tips sollunga.",
-        user:"Norbert",
-        replies:[
-            "Minimum 12 characters use pannu bro.",
-            "Uppercase, lowercase, number, symbol mix pannu.",
-            "Same password ella site la use pannatha.",
-            "2FA on pannina account romba safe."
-        ],
-        time:"8 min ago"
-    },
-    {
-        group:"Hacking Key",
-        title:"Phishing link ah identify panna easy trick iruka?",
-        desc:"Offer free phone nu link vandha enaku doubt varudhu. Real link ah fake link ah epdi kandupidikradhu?",
-        user:"Khaleel",
-        replies:[
-            "URL spelling first check pannu bro.",
-            "Login details kekura unknown link avoid pannu.",
-            "Too good offer na mostly trap dhaan.",
-            "HTTPS irundhalum full safe nu artham illa."
-        ],
-        time:"16 min ago"
-    },
-    {
-        group:"PC Game Squad",
-        title:"GTA 5 low end PC la smooth ah run panna tips?",
-        desc:"Game open panna fan helicopter madhiri sound varudhu. FPS increase panna settings enna change pannanum?",
-        user:"Praveen",
-        replies:[
-            "Texture normal la vei bro.",
-            "Shadow low pannina FPS improve agum.",
-            "Background apps close pannu.",
-            "SSD irundha loading konjam fast ah irukum."
-        ],
-        time:"20 min ago"
-    },
-    {
-        group:"PC Game Squad",
-        title:"Gaming keyboard RGB irundha skill improve aguma?",
-        desc:"RGB keyboard vaangiten, aana game la enemy ennaye first paakudhu. RGB ku training kudukanuma bro?",
-        user:"Arun",
-        replies:[
-            "RGB skill ah improve pannaathu bro, room ah mattum disco aakum.",
-            "Mouse DPI correct ah set pannu.",
-            "Keyboard vida practice dhaan main.",
-            "Aana RGB irundha setup mass ah theriyum."
-        ],
-        time:"33 min ago"
-    },
-    {
-        group:"Code Sandai Sabha",
-        title:"CSS center la varala, div ku ego ah?",
-        desc:"justify-content center kuduthen, align-items center kuduthen, aana box side la ukkandhuruku. Enna mistake irukum bro?",
-        user:"Norbert",
-        replies:[
-            "Parent ku height kudutha dhaan vertical center work agum bro.",
-            "Display flex miss panniruka nu check pannu da.",
-            "CSS sometimes namma life madhiri bro, center ku vara time agum."
-        ],
-        time:"40 min ago"
-    },
-    {
-        group:"Code Sandai Sabha",
-        title:"JavaScript localStorage project ku okay va?",
-        desc:"Backend illa frontend project la likes, comments save panna localStorage use panna interview la accept pannuvangala?",
-        user:"Arun",
-        replies:[
-            "Demo project ku localStorage super bro.",
-            "Interview la frontend prototype nu sollu, mass ah irukum.",
-            "Backend illa nu bayapadatha, UI strong ah iruntha podhum."
-        ],
-        time:"55 min ago"
-    },
-    {
-        group:"Gadget Galatta Gang",
-        title:"Samsung phone vanguna charger separate ah vaanganuma?",
-        desc:"Phone box open panna phone mattum dhan iruku. Charger illa. Samsung solludhu environment save nu, aana namma wallet dhaan environment pola empty agudhu.",
-        user:"Praveen",
-        replies:[
-            "Bro charger illa na phone meditation panna use agum.",
-            "Samsung: save planet. Customer: save salary.",
-            "Adapter price paatha battery low aagura munadi namma mood low aagidum.",
-            "Still display and camera nalla irukum, adhan problem."
-        ],
-        time:"1h ago"
-    },
-    {
-        group:"Gadget Galatta Gang",
-        title:"Budget phone la 108MP camera nu sonna nambalama?",
-        desc:"108MP nu box la perusa potrukanga. Photo edutha zoom pannumbodhu painting madhiri iruku bro.",
-        user:"Khaleel",
-        replies:[
-            "MP number perusa irundha mattum quality varathu bro.",
-            "Sensor, processing, light ellam important.",
-            "108MP ah vida clean 12MP sometimes better."
-        ],
-        time:"2h ago"
-    },
-    {
-        group:"AI Tea Kadai",
-        title:"AI tool use panna developer skill kammi aguma?",
-        desc:"AI code kudukkum. Aana namma purinjikaama copy paste panna dhaan problem nu nenakren.",
-        user:"Norbert",
-        replies:[
-            "AI assistant madhiri use pannu, replacement madhiri illa.",
-            "Code purinjitu use panna skill improve agum.",
-            "Prompt podra skill um future la important bro."
-        ],
-        time:"3h ago"
-    },
-    {
-        group:"Project Roast Room",
-        title:"Portfolio la dark theme over ah iruka?",
-        desc:"Green neon theme use panren. Nalla iruka illa konjam professional ah tone down pannanuma?",
-        user:"Arun",
-        replies:[
-            "GeNeX ku neon green identity nalla iruku.",
-            "Spacing and font clean ah irundha professional ah theriyum.",
-            "Too much glow avoid pannu bro."
-        ],
-        time:"4h ago"
-    }
-];
+var discussions = [];
 
 function changeGroup(element, groupName){
 
@@ -701,58 +700,15 @@ function loadDiscussions(){
 
     area.innerHTML = "";
 
-    var found = false;
+    if(discussions.length == 0){
 
-    for(var i = 0; i < discussions.length; i++){
-
-        if(discussions[i].group == currentGroup){
-
-            found = true;
-
-            var box = document.createElement("div");
-
-            box.className = "discussion";
-
-            var replyHTML = "";
-
-            for(var j = 0; j < discussions[i].replies.length; j++){
-                replyHTML += '<span class="reply-chip">Reply: ' + discussions[i].replies[j] + '</span>';
-            }
-
-            box.innerHTML =
-            '<div class="discussion-top">' +
-                '<span class="tag">' + discussions[i].group + '</span>' +
-                '<span class="time">' + discussions[i].time + '</span>' +
-            '</div>' +
-
-            '<h2>' + discussions[i].title + '</h2>' +
-
-            '<p>' + discussions[i].desc + '</p>' +
-
-            '<div class="stats">' +
-                '<span>User: ' + discussions[i].user + '</span>' +
-                '<span>' + discussions[i].replies.length + ' replies</span>' +
-                '<span class="reply-toggle" onclick="openReply(this)">Open replies</span>' +
-            '</div>' +
-
-            '<div class="reply-box">' +
-                '<div class="reply-input-row">' +
-                    '<input type="text" placeholder="Reply type pannu...">' +
-                    '<button onclick="addReply(this,' + i + ')">Send</button>' +
-                '</div>' +
-                '<div class="reply-list">' + replyHTML + '</div>' +
-            '</div>';
-
-            area.appendChild(box);
-        }
-    }
-
-    if(found == false){
         area.innerHTML =
         '<div class="discussion">' +
             '<h2>Inga innum discussion illa bro</h2>' +
             '<p>First topic nee start pannu. Group ah wake up pannalam.</p>' +
         '</div>';
+
+        return;
     }
 }
 
@@ -770,49 +726,23 @@ function addDiscussion(){
     discussions.unshift({
         group:currentGroup,
         title:title,
-        desc:desc,
-        user:"Norbert",
-        replies:[],
-        time:"Just now"
+        desc:desc
     });
 
+    loadDiscussions();
+
+    document.getElementById("discussionArea").innerHTML =
+    '<div class="discussion">' +
+        '<div class="discussion-top">' +
+            '<span class="tag">' + currentGroup + '</span>' +
+            '<span class="time">Just now</span>' +
+        '</div>' +
+        '<h2>' + title + '</h2>' +
+        '<p>' + desc + '</p>' +
+    '</div>';
+
     document.getElementById("questionTitle").value = "";
-
     document.getElementById("questionDesc").value = "";
-
-    loadDiscussions();
-}
-
-function openReply(btn){
-
-    var replyBox = btn.closest(".discussion").querySelector(".reply-box");
-
-    if(replyBox.style.display == "block"){
-        replyBox.style.display = "none";
-        btn.innerText = "Open replies";
-    }
-    else{
-        replyBox.style.display = "block";
-        btn.innerText = "Close replies";
-    }
-}
-
-function addReply(btn,index){
-
-    var input = btn.parentElement.querySelector("input");
-
-    var value = input.value.trim();
-
-    if(value == ""){
-        alert("Reply type pannu bro");
-        return;
-    }
-
-    discussions[index].replies.push(value);
-
-    input.value = "";
-
-    loadDiscussions();
 }
 
 function toggleProfileMenu(id){
@@ -820,6 +750,7 @@ function toggleProfileMenu(id){
     var menus = document.querySelectorAll(".profile-menu");
 
     for(var i = 0; i < menus.length; i++){
+
         if(menus[i].id != id){
             menus[i].style.display = "none";
         }
@@ -836,6 +767,7 @@ function toggleProfileMenu(id){
 }
 
 loadDiscussions();
+
 </script>
 
 </body>
