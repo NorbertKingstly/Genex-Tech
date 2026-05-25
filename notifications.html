@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -9,11 +10,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 
 <style>
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
     font-family:'Outfit',sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
 }
 
 :root{
@@ -42,19 +48,25 @@ body.light-mode{
 body{
     background:var(--bg);
     color:var(--text);
+    overflow-x:hidden;
+    min-height:100vh;
 }
 
+/* NAVBAR */
+
 .navbar{
-    height:78px;
+    width:100%;
+    min-height:78px;
     background:var(--nav);
     border-bottom:1px solid var(--green);
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:0 55px;
+    padding:15px 55px;
     position:sticky;
     top:0;
     z-index:999;
+    gap:15px;
 }
 
 .logo{
@@ -62,6 +74,7 @@ body{
     font-size:34px;
     font-weight:900;
     text-decoration:none;
+    word-break:break-word;
 }
 
 .home-btn{
@@ -71,19 +84,33 @@ body{
     border-radius:30px;
     text-decoration:none;
     font-weight:800;
+    white-space:nowrap;
+    transition:0.3s;
 }
 
-.container{
-    width:760px;
-    max-width:94%;
-    margin:32px auto;
+.home-btn:hover{
+    transform:scale(1.03);
 }
+
+/* CONTAINER */
+
+.container{
+    width:100%;
+    max-width:760px;
+    margin:32px auto;
+    padding:0 18px;
+}
+
+/* TITLE */
 
 .title-row h1{
     color:var(--green);
     font-size:36px;
     margin-bottom:20px;
+    line-height:1.3;
 }
+
+/* TABS */
 
 .tabs{
     display:flex;
@@ -100,6 +127,8 @@ body{
     border-radius:25px;
     cursor:pointer;
     font-weight:800;
+    transition:0.3s;
+    font-size:14px;
 }
 
 .tabs button.active,
@@ -109,31 +138,38 @@ body{
     border-color:var(--green);
 }
 
+/* NOTIFICATION */
+
 .notification{
     background:var(--card);
     border:1px solid var(--border);
     border-radius:20px;
     padding:15px;
-    margin-bottom:12px;
+    margin-bottom:14px;
     display:grid;
-    grid-template-columns:55px 1fr 90px;
+    grid-template-columns:55px minmax(0,1fr) 90px;
     gap:14px;
     align-items:center;
     cursor:pointer;
-    transition:0.2s;
+    transition:0.25s;
+    width:100%;
 }
 
 .notification.no-thumb{
-    grid-template-columns:55px 1fr;
+    grid-template-columns:55px minmax(0,1fr);
 }
 
 .notification:hover{
     background:var(--card2);
     border-color:var(--green);
+    transform:translateY(-2px);
 }
+
+/* PROFILE IMAGE */
 
 .dp-box{
     position:relative;
+    flex-shrink:0;
 }
 
 .dp{
@@ -143,6 +179,8 @@ body{
     object-fit:cover;
     border:2px solid var(--green);
 }
+
+/* ICON */
 
 .icon-badge{
     position:absolute;
@@ -161,11 +199,18 @@ body{
     border:2px solid var(--card);
 }
 
+/* TEXT */
+
+.text{
+    min-width:0;
+}
+
 .text h3{
     color:var(--text);
     font-size:16px;
     margin-bottom:5px;
-    line-height:1.4;
+    line-height:1.5;
+    word-wrap:break-word;
 }
 
 .text h3 span{
@@ -177,6 +222,8 @@ body{
     font-size:13px;
 }
 
+/* THUMB */
+
 .post-thumb{
     width:70px;
     height:70px;
@@ -184,7 +231,10 @@ body{
     object-fit:cover;
     background:var(--card2);
     border:1px solid var(--border);
+    justify-self:end;
 }
+
+/* EMPTY */
 
 .empty{
     background:var(--card);
@@ -194,39 +244,167 @@ body{
     text-align:center;
     color:var(--muted);
     margin-top:20px;
+    line-height:1.6;
 }
 
-@media(max-width:650px){
+/* TABLET */
+
+@media(max-width:768px){
+
     .navbar{
-        padding:0 18px;
+        padding:15px 22px;
     }
 
     .logo{
-        font-size:29px;
+        font-size:30px;
+    }
+
+    .container{
+        margin:24px auto;
+    }
+
+    .title-row h1{
+        font-size:30px;
+    }
+
+}
+
+/* MOBILE */
+
+@media(max-width:650px){
+
+    .navbar{
+        padding:14px 16px;
+        min-height:auto;
+    }
+
+    .logo{
+        font-size:26px;
     }
 
     .home-btn{
-        padding:9px 13px;
+        padding:9px 14px;
         font-size:13px;
+    }
+
+    .title-row h1{
+        font-size:28px;
     }
 
     .notification,
     .notification.no-thumb{
-        grid-template-columns:50px 1fr;
+        grid-template-columns:50px minmax(0,1fr);
+        padding:14px;
     }
 
     .post-thumb{
         display:none;
     }
+
+    .text h3{
+        font-size:15px;
+    }
+
+    .text p{
+        font-size:12px;
+    }
+
+    .dp{
+        width:48px;
+        height:48px;
+    }
+
 }
+
+/* EXTRA SMALL */
+
+@media(max-width:480px){
+
+    .navbar{
+        flex-direction:column;
+        justify-content:center;
+        text-align:center;
+    }
+
+    .logo{
+        font-size:24px;
+    }
+
+    .home-btn{
+        width:100%;
+        text-align:center;
+    }
+
+    .container{
+        padding:0 14px;
+    }
+
+    .title-row h1{
+        font-size:24px;
+        margin-bottom:18px;
+    }
+
+    .tabs{
+        gap:8px;
+    }
+
+    .tabs button{
+        flex:1;
+        min-width:100px;
+        padding:10px;
+        font-size:13px;
+    }
+
+    .notification{
+        gap:12px;
+        border-radius:18px;
+    }
+
+    .text h3{
+        font-size:14px;
+    }
+
+}
+
+/* ULTRA SMALL */
+
+@media(max-width:360px){
+
+    .tabs button{
+        width:100%;
+    }
+
+    .notification,
+    .notification.no-thumb{
+        grid-template-columns:1fr;
+        text-align:center;
+    }
+
+    .dp-box{
+        margin:auto;
+    }
+
+    .icon-badge{
+        right:0;
+    }
+
+}
+
 </style>
 </head>
 
 <body>
 
 <div class="navbar">
-    <a href="ProjectFRE.html" class="logo">GeNeX</a>
-    <a href="ProjectFRE.html" class="home-btn">← Home</a>
+
+    <a href="ProjectFRE.html" class="logo">
+        GeNeX
+    </a>
+
+    <a href="ProjectFRE.html" class="home-btn">
+        ← Home
+    </a>
+
 </div>
 
 <div class="container">
@@ -236,10 +414,23 @@ body{
     </div>
 
     <div class="tabs">
-        <button class="active" onclick="filterNoti('all',this)">All</button>
-        <button onclick="filterNoti('like',this)">Likes</button>
-        <button onclick="filterNoti('comment',this)">Comments</button>
-        <button onclick="filterNoti('follow',this)">Follows</button>
+
+        <button class="active" onclick="filterNoti('all',this)">
+            All
+        </button>
+
+        <button onclick="filterNoti('like',this)">
+            Likes
+        </button>
+
+        <button onclick="filterNoti('comment',this)">
+            Comments
+        </button>
+
+        <button onclick="filterNoti('follow',this)">
+            Follows
+        </button>
+
     </div>
 
     <div id="notificationArea"></div>
@@ -247,16 +438,20 @@ body{
 </div>
 
 <script>
+
 var currentFilter = "all";
 
 function applyTheme(){
+
     var savedTheme = localStorage.getItem("genexTheme");
 
     if(savedTheme == "light"){
+
         document.body.classList.add("light");
         document.body.classList.add("light-mode");
     }
     else{
+
         document.body.classList.remove("light");
         document.body.classList.remove("light-mode");
     }
@@ -265,6 +460,7 @@ function applyTheme(){
 applyTheme();
 
 var notifications = [
+
     {
         type:"like",
         key:"arun",
@@ -274,6 +470,7 @@ var notifications = [
         time:"2m ago",
         thumb:"https://i.pinimg.com/736x/6c/98/58/6c985826696085dca8d1927ebf548c93.jpg"
     },
+
     {
         type:"comment",
         key:"praveen",
@@ -283,6 +480,7 @@ var notifications = [
         time:"10m ago",
         thumb:""
     },
+
     {
         type:"follow",
         key:"khaleel",
@@ -292,6 +490,7 @@ var notifications = [
         time:"30m ago",
         thumb:""
     },
+
     {
         type:"like",
         key:"kalai",
@@ -301,15 +500,22 @@ var notifications = [
         time:"1h ago",
         thumb:"https://i.pinimg.com/736x/3b/90/99/3b9099967d6de26aa22256efb6efb515.jpg"
     }
+
 ];
 
-localStorage.setItem("gennexNotifications", JSON.stringify(notifications));
+localStorage.setItem(
+    "gennexNotifications",
+    JSON.stringify(notifications)
+);
 
 function openProfile(key){
-    window.location.href = "followers-profile.html?user=" + key;
+
+    window.location.href =
+    "followers-profile.html?user=" + key;
 }
 
 function getIcon(type){
+
     if(type == "like"){
         return "♥";
     }
@@ -322,15 +528,20 @@ function getIcon(type){
 }
 
 function loadNotifications(){
-    var area = document.getElementById("notificationArea");
+
+    var area =
+    document.getElementById("notificationArea");
+
     area.innerHTML = "";
 
     var count = 0;
 
     for(var i = 0; i < notifications.length; i++){
+
         var n = notifications[i];
 
         if(currentFilter == "all" || n.type == currentFilter){
+
             count++;
 
             var box = document.createElement("div");
@@ -342,24 +553,43 @@ function loadNotifications(){
                 box.className = "notification no-thumb";
             }
 
-            box.setAttribute("onclick","openProfile('" + n.key + "')");
+            box.setAttribute(
+                "onclick",
+                "openProfile('" + n.key + "')"
+            );
 
             var rightSide = "";
 
             if(n.thumb && n.thumb != ""){
+
                 rightSide =
                 '<img class="post-thumb" src="' + n.thumb + '" onerror="this.style.display=\'none\'; this.closest(\'.notification\').classList.add(\'no-thumb\');">';
             }
 
             box.innerHTML =
+
             '<div class="dp-box">' +
+
                 '<img class="dp" src="' + n.image + '">' +
-                '<div class="icon-badge">' + getIcon(n.type) + '</div>' +
+
+                '<div class="icon-badge">' +
+                    getIcon(n.type) +
+                '</div>' +
+
             '</div>' +
 
             '<div class="text">' +
-                '<h3><span>' + n.user + '</span> ' + n.message + '</h3>' +
-                '<p>' + n.time + '</p>' +
+
+                '<h3><span>' +
+                    n.user +
+                '</span> ' +
+                    n.message +
+                '</h3>' +
+
+                '<p>' +
+                    n.time +
+                '</p>' +
+
             '</div>' +
 
             rightSide;
@@ -369,16 +599,21 @@ function loadNotifications(){
     }
 
     if(count == 0){
-        area.innerHTML = '<div class="empty">No notifications found</div>';
+
+        area.innerHTML =
+        '<div class="empty">No notifications found</div>';
     }
 }
 
 function filterNoti(type,btn){
+
     currentFilter = type;
 
-    var buttons = document.querySelectorAll(".tabs button");
+    var buttons =
+    document.querySelectorAll(".tabs button");
 
     for(var i = 0; i < buttons.length; i++){
+
         buttons[i].classList.remove("active");
     }
 
@@ -388,6 +623,7 @@ function filterNoti(type,btn){
 }
 
 loadNotifications();
+
 </script>
 
 </body>
