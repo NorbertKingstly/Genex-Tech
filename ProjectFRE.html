@@ -8,9 +8,28 @@
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&family=Short+Stack&display=swap" rel="stylesheet">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{background:#000;color:white;font-family:'Outfit',sans-serif;}
-html{scroll-behavior:smooth;}
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#000;
+    color:white;
+    font-family:'Outfit',sans-serif;
+    overflow-x:hidden;
+    width:100%;
+}
+
+img{
+    max-width:100%;
+    height:auto;
+}
 
 .navbar{
     width:100%;
@@ -31,6 +50,7 @@ html{scroll-behavior:smooth;}
     font-size:34px;
     font-weight:900;
     text-decoration:none;
+    white-space:nowrap;
 }
 
 .profile-pic{
@@ -39,6 +59,7 @@ html{scroll-behavior:smooth;}
     border-radius:50%;
     object-fit:cover;
     border:2px solid #39ff14;
+    flex-shrink:0;
 }
 
 /* CENTER SLIDING MENU */
@@ -82,21 +103,25 @@ html{scroll-behavior:smooth;}
 
 .layout{
     max-width:950px;
+    width:100%;
     margin:auto;
     padding:25px 18px;
 }
 
 .hero{
-    height:75px;
+    min-height:75px;
     display:flex;
     justify-content:center;
     align-items:center;
     margin-bottom:18px;
+    text-align:center;
 }
 
 .hero-text{
     font-family:'Short Stack',cursive;
     font-size:32px;
+    line-height:1.4;
+    word-break:break-word;
 }
 
 .green{color:#39ff14;}
@@ -124,12 +149,14 @@ html{scroll-behavior:smooth;}
     display:flex;
     justify-content:space-between;
     align-items:center;
+    gap:10px;
 }
 
 .left{
     display:flex;
     align-items:center;
     gap:11px;
+    min-width:0;
 }
 
 .dp{
@@ -138,22 +165,26 @@ html{scroll-behavior:smooth;}
     border-radius:50%;
     object-fit:cover;
     border:2px solid #39ff14;
+    flex-shrink:0;
 }
 
 .user{
     font-size:16px;
     font-weight:700;
+    word-break:break-word;
 }
 
 .time{
     font-size:12px;
     color:#888;
     margin-top:3px;
+    word-break:break-word;
 }
 
 .dots{
     font-size:24px;
     cursor:pointer;
+    flex-shrink:0;
 }
 
 .menu{
@@ -195,12 +226,14 @@ html{scroll-behavior:smooth;}
     color:#39ff14;
     font-size:21px;
     margin-bottom:7px;
+    word-break:break-word;
 }
 
 .content p{
     color:#ddd;
     line-height:1.6;
     font-size:15px;
+    word-break:break-word;
 }
 
 .actions{
@@ -214,6 +247,7 @@ html{scroll-behavior:smooth;}
 .left-actions{
     display:flex;
     gap:22px;
+    flex-wrap:wrap;
 }
 
 .action,.save-icon{
@@ -236,12 +270,14 @@ html{scroll-behavior:smooth;}
     display:none;
     padding:65px 60px;
     min-height:650px;
+    width:100%;
 }
 
 .page h1{
     color:#39ff14;
     font-size:40px;
     margin-bottom:22px;
+    word-break:break-word;
 }
 
 .post-input,.post-textarea{
@@ -273,9 +309,13 @@ html{scroll-behavior:smooth;}
     cursor:pointer;
 }
 
+/* MOBILE RESPONSIVE */
+
 @media(max-width:650px){
+
     .navbar{
         padding:0 18px;
+        height:72px;
     }
 
     .logo{
@@ -290,6 +330,7 @@ html{scroll-behavior:smooth;}
     .menu-slider{
         padding:11px 16px;
         text-align:left;
+        top:72px;
     }
 
     .menu-slider a{
@@ -298,19 +339,76 @@ html{scroll-behavior:smooth;}
     }
 
     .layout{
-        padding:20px 15px;
+        padding:20px 12px;
     }
 
     .hero{
-        height:85px;
+        min-height:85px;
     }
 
     .hero-text{
         font-size:24px;
     }
 
+    .feed{
+        padding:12px;
+        border-radius:18px;
+    }
+
+    .post{
+        border-radius:18px;
+    }
+
+    .post-top{
+        padding:14px;
+        gap:10px;
+    }
+
+    .content{
+        padding:14px;
+    }
+
+    .content h2{
+        font-size:18px;
+    }
+
+    .content p{
+        font-size:14px;
+        line-height:1.5;
+    }
+
+    .actions{
+        padding:12px 14px;
+    }
+
+    .left-actions{
+        gap:18px;
+    }
+
+    .action,
+    .save-icon{
+        font-size:21px;
+    }
+
+    .likes{
+        padding:0 14px 14px;
+        font-size:13px;
+    }
+
     .page{
         padding:45px 20px;
+    }
+
+    .page h1{
+        font-size:32px;
+    }
+
+    .post-btn{
+        width:100%;
+    }
+
+    .main-img{
+        max-height:420px;
     }
 }
 
