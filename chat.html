@@ -162,6 +162,24 @@ body.light-mode .chat-box{
     position:relative;
 }
 
+.header-left{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.back-btn{
+    display:none;
+    width:40px;
+    height:40px;
+    border:none;
+    border-radius:50%;
+    background:var(--card2);
+    color:var(--text);
+    font-size:22px;
+    cursor:pointer;
+}
+
 .profile{
     display:flex;
     align-items:center;
@@ -403,24 +421,153 @@ body.light-mode .other{
 }
 
 @media(max-width:850px){
-    .chat-page{
-        grid-template-columns:1fr;
-    }
 
-    .chat-list{
-        display:none;
-    }
-
-    .msg{
-        max-width:85%;
+    body{
+        overflow:auto;
     }
 
     .navbar{
-        padding:0 18px;
+        height:65px;
+        padding:0 16px;
     }
 
     .logo{
-        font-size:29px;
+        font-size:28px;
+    }
+
+    .chat-page{
+        display:block;
+        height:auto;
+    }
+
+    .chat-list{
+        width:100%;
+        height:calc(100vh - 65px);
+        border-right:none;
+        display:block;
+    }
+
+    .chat-title{
+        padding:18px;
+        font-size:26px;
+    }
+
+    .search{
+        margin:0 15px 14px;
+    }
+
+    .search input{
+        padding:13px;
+        font-size:14px;
+    }
+
+    .chat-user{
+        padding:14px 15px;
+        gap:12px;
+    }
+
+    .chat-user img{
+        width:54px;
+        height:54px;
+    }
+
+    .chat-info h3{
+        font-size:16px;
+    }
+
+    .chat-info p{
+        font-size:13px;
+    }
+
+    .chat-box{
+        position:fixed;
+        top:65px;
+        left:0;
+        width:100%;
+        height:calc(100vh - 65px);
+        z-index:9999;
+        display:none;
+    }
+
+    .chat-box.active{
+        display:flex;
+    }
+
+    .back-btn{
+        display:block;
+    }
+
+    .chat-header{
+        height:68px;
+        padding:0 14px;
+    }
+
+    .profile{
+        gap:10px;
+    }
+
+    .profile img{
+        width:44px;
+        height:44px;
+    }
+
+    .profile h3{
+        font-size:17px;
+    }
+
+    .profile p{
+        font-size:12px;
+    }
+
+    .header-icons{
+        gap:16px;
+        font-size:22px;
+    }
+
+    .messages{
+        padding:16px 12px 90px;
+        background-size:180px;
+    }
+
+    .msg{
+        max-width:88%;
+        font-size:14px;
+        padding:11px 12px 6px;
+    }
+
+    .msg img{
+        max-width:100%;
+    }
+
+    .input-area{
+        padding:10px;
+        gap:8px;
+    }
+
+    .plus-btn{
+        width:42px;
+        height:42px;
+        font-size:26px;
+    }
+
+    .input-area input[type="text"]{
+        height:42px;
+        font-size:14px;
+        padding:0 14px;
+    }
+
+    .send{
+        padding:11px 18px;
+        font-size:14px;
+    }
+
+    .search-tab{
+        width:230px;
+        right:10px;
+    }
+
+    .more-tab{
+        right:10px;
     }
 }
 </style>
@@ -446,10 +593,12 @@ body.light-mode .other{
     <a href="chat-profile.html?user=arun" class="profile-link" onclick="event.stopPropagation()">
         <img src="https://i.pinimg.com/736x/9b/2c/9e/9b2c9ebcade406ceb9ee20063e88332c.jpg">
     </a>
+
     <div class="chat-info">
         <h3>Arun</h3>
         <p></p>
     </div>
+
     <span class="small-time"></span>
 </div>
 
@@ -457,77 +606,54 @@ body.light-mode .other{
     <a href="chat-profile.html?user=praveen" class="profile-link" onclick="event.stopPropagation()">
         <img src="https://i.pinimg.com/736x/8c/ec/d8/8cecd8323cb1bd0d50e67c20daacc078.jpg">
     </a>
+
     <div class="chat-info">
         <h3>Praveen</h3>
         <p></p>
     </div>
-    <span class="small-time"></span>
-</div>
 
-<div class="chat-user" data-name="khaleel" data-user="khaleel" onclick="openChatByKey('khaleel')">
-    <a href="chat-profile.html?user=khaleel" class="profile-link" onclick="event.stopPropagation()">
-        <img src="https://i.pinimg.com/736x/1d/90/f4/1d90f4cf24c5bc6362e88b3199d690d5.jpg">
-    </a>
-    <div class="chat-info">
-        <h3>Khaleel</h3>
-        <p></p>
-    </div>
-    <span class="small-time"></span>
-</div>
-
-<div class="chat-user" data-name="kalai" data-user="kalai" onclick="openChatByKey('kalai')">
-    <a href="chat-profile.html?user=kalai" class="profile-link" onclick="event.stopPropagation()">
-        <img src="https://i.pinimg.com/736x/d8/ce/17/d8ce170ff9a9ab7e8c7e496aec03db33.jpg">
-    </a>
-    <div class="chat-info">
-        <h3>Kalai</h3>
-        <p></p>
-    </div>
-    <span class="small-time"></span>
-</div>
-
-<div class="chat-user" data-name="norbert" data-user="norbert" onclick="openChatByKey('norbert')">
-    <a href="chat-profile.html?user=norbert" class="profile-link" onclick="event.stopPropagation()">
-        <img src="https://i.pinimg.com/736x/bf/a4/23/bfa42356138c4e4cb30e407ccf9b6bec.jpg">
-    </a>
-    <div class="chat-info">
-        <h3>Norbert</h3>
-        <p></p>
-    </div>
     <span class="small-time"></span>
 </div>
 
 </div>
 
-<div class="chat-box">
+<div class="chat-box" id="chatBox">
 
 <div class="chat-header">
 
-    <div class="profile">
-        <a id="headerProfileLink" href="chat-profile.html?user=arun">
-            <img id="profileImg" src="">
-        </a>
+<div class="header-left">
 
-        <div>
-            <h3 id="chatName"></h3>
-            <p id="chatStatus"></p>
-        </div>
-    </div>
+<button class="back-btn" onclick="closeChat()">←</button>
 
-    <div class="header-icons">
-        <span onclick="toggleSearchTab()">⌕</span>
-        <span onclick="toggleMoreTab()">⋮</span>
-    </div>
+<div class="profile">
 
-    <div class="search-tab" id="searchTab">
-        <p id="searchText"></p>
-        <input type="text" placeholder="Search message...">
-    </div>
+<a id="headerProfileLink" href="chat-profile.html?user=arun">
+<img id="profileImg" src="">
+</a>
 
-    <div class="more-tab" id="moreTab">
-        <p onclick="blockUser()">Block</p>
-        <p onclick="reportUser()">Report</p>
-    </div>
+<div>
+<h3 id="chatName"></h3>
+<p id="chatStatus"></p>
+</div>
+
+</div>
+
+</div>
+
+<div class="header-icons">
+    <span onclick="toggleSearchTab()">⌕</span>
+    <span onclick="toggleMoreTab()">⋮</span>
+</div>
+
+<div class="search-tab" id="searchTab">
+    <p id="searchText"></p>
+    <input type="text" placeholder="Search message...">
+</div>
+
+<div class="more-tab" id="moreTab">
+    <p onclick="blockUser()">Block</p>
+    <p onclick="reportUser()">Report</p>
+</div>
 
 </div>
 
@@ -535,19 +661,19 @@ body.light-mode .other{
 
 <div class="input-area">
 
-    <button class="plus-btn" onclick="toggleFileMenu()">+</button>
+<button class="plus-btn" onclick="toggleFileMenu()">+</button>
 
-    <div class="file-menu" id="fileMenu">
-        <label for="imageFile">Image</label>
-        <label for="docFile">Document</label>
-    </div>
+<div class="file-menu" id="fileMenu">
+    <label for="imageFile">Image</label>
+    <label for="docFile">Document</label>
+</div>
 
-    <input type="file" id="imageFile" accept="image/*" onchange="sendImage(event)">
-    <input type="file" id="docFile" onchange="sendDocument(event)">
+<input type="file" id="imageFile" accept="image/*" onchange="sendImage(event)">
+<input type="file" id="docFile" onchange="sendDocument(event)">
 
-    <input type="text" id="messageInput" placeholder="Type a message" onkeypress="enterSend(event)">
+<input type="text" id="messageInput" placeholder="Type a message" onkeypress="enterSend(event)">
 
-    <button class="send" onclick="sendMessage()">Send</button>
+<button class="send" onclick="sendMessage()">Send</button>
 
 </div>
 
@@ -557,6 +683,7 @@ body.light-mode .other{
 
 <script>
 function applyTheme(){
+
     var theme = localStorage.getItem("genexTheme");
 
     if(theme == "light"){
@@ -570,93 +697,70 @@ function applyTheme(){
 applyTheme();
 
 var chats = {
+
     arun:{
         name:"Arun",
         status:"online",
         img:"https://i.pinimg.com/736x/9b/2c/9e/9b2c9ebcade406ceb9ee20063e88332c.jpg",
         messages:[
             {type:"other", text:"Bro laptop review pathiya?", time:"11:45"},
-            {type:"me", text:"Aama bro specs semma", time:"11:46 ✓✓"},
-            {type:"other", text:"Gaming ku nalla iruka?", time:"11:47"},
-            {type:"me", text:"Normal gaming ku okay bro.", time:"11:49 ✓✓"}
+            {type:"me", text:"Aama bro specs semma", time:"11:46 ✓✓"}
         ]
     },
+
     praveen:{
         name:"Praveen",
         status:"offline",
         img:"https://i.pinimg.com/736x/8c/ec/d8/8cecd8323cb1bd0d50e67c20daacc078.jpg",
         messages:[
-            {type:"other", text:"Oke bro", time:"8:10"},
-            {type:"me", text:"Project chat page almost ready da.", time:"8:12 ✓✓"},
-            {type:"other", text:"UI clean ah iruku bro.", time:"8:13"},
-            {type:"me", text:"Innum features add panren.", time:"8:15 ✓✓"}
-        ]
-    },
-    khaleel:{
-        name:"Khaleel",
-        status:"offline",
-        img:"https://i.pinimg.com/736x/1d/90/f4/1d90f4cf24c5bc6362e88b3199d690d5.jpg",
-        messages:[
-            {type:"other", text:"Trusted links share pannunga.", time:"3:04"},
-            {type:"me", text:"Fake links avoid pannuvom bro.", time:"3:06 ✓✓"},
-            {type:"other", text:"Amazon verified link mattum podu.", time:"3:07"},
-            {type:"me", text:"Athu dhaan GeNeX main idea.", time:"3:09 ✓✓"}
-        ]
-    },
-    kalai:{
-        name:"Kalai",
-        status:"offline",
-        img:"https://i.pinimg.com/736x/d8/ce/17/d8ce170ff9a9ab7e8c7e496aec03db33.jpg",
-        messages:[
-            {type:"other", text:"Frontend ideas discuss pannalam.", time:"12:45"},
-            {type:"me", text:"Chat page la feature add panniten.", time:"12:46 ✓✓"},
-            {type:"other", text:"Search and profile page work agutha?", time:"12:48"},
-            {type:"me", text:"Aama profile touch panna open agum.", time:"12:50 ✓✓"}
-        ]
-    },
-    norbert:{
-        name:"Norbert",
-        status:"offline",
-        img:"https://i.pinimg.com/736x/bf/a4/23/bfa42356138c4e4cb30e407ccf9b6bec.jpg",
-        messages:[
-            {type:"other", text:"GeNeX update ready", time:"Now"},
-            {type:"me", text:"Nice bro chat UI semma ah iruku.", time:"21:10 ✓✓"},
-            {type:"other", text:"Next product page pannalama?", time:"21:11"},
-            {type:"me", text:"Yes next product page panlam.", time:"21:12 ✓✓"}
+            {type:"other", text:"UI semma bro", time:"10:10"},
+            {type:"me", text:"Thanks bro", time:"10:11 ✓✓"}
         ]
     }
+
 };
 
 var currentUserKey = "arun";
 
 function getTime(){
+
     var now = new Date();
+
     var h = now.getHours();
     var m = now.getMinutes();
 
-    if(h < 10){ h = "0" + h; }
-    if(m < 10){ m = "0" + m; }
+    if(h < 10){
+        h = "0" + h;
+    }
+
+    if(m < 10){
+        m = "0" + m;
+    }
 
     return h + ":" + m;
 }
 
-function cleanPreview(text){
-    return text.replace(/<[^>]*>/g, "");
-}
-
 function updateChatListPreview(){
+
     var users = document.querySelectorAll(".chat-user");
 
     users.forEach(function(user){
-        var key = user.getAttribute("data-user");
-        var lastMsg = chats[key].messages[chats[key].messages.length - 1];
 
-        user.querySelector(".chat-info p").innerText = cleanPreview(lastMsg.text);
-        user.querySelector(".small-time").innerText = lastMsg.time.replace("✓✓","");
+        var key = user.getAttribute("data-user");
+
+        var lastMsg =
+        chats[key].messages[chats[key].messages.length - 1];
+
+        user.querySelector(".chat-info p").innerText =
+        lastMsg.text.replace(/<[^>]*>/g,'');
+
+        user.querySelector(".small-time").innerText =
+        lastMsg.time.replace("✓✓","");
     });
 }
 
 function openChatByKey(key){
+
     currentUserKey = key;
 
     var chat = chats[key];
@@ -664,12 +768,22 @@ function openChatByKey(key){
     document.getElementById("chatName").innerText = chat.name;
     document.getElementById("chatStatus").innerText = chat.status;
     document.getElementById("profileImg").src = chat.img;
-    document.getElementById("headerProfileLink").href = "chat-profile.html?user=" + key;
-    document.getElementById("searchText").innerText = "Search messages with " + chat.name;
+
+    document.getElementById("headerProfileLink").href =
+    "chat-profile.html?user=" + key;
+
+    document.getElementById("searchText").innerText =
+    "Search messages with " + chat.name;
+
+    loadMessages(key);
+
+    document.getElementById("searchTab").style.display = "none";
+    document.getElementById("moreTab").style.display = "none";
 
     var users = document.querySelectorAll(".chat-user");
 
     users.forEach(function(user){
+
         user.classList.remove("active");
 
         if(user.getAttribute("data-user") == key){
@@ -677,35 +791,57 @@ function openChatByKey(key){
         }
     });
 
-    loadMessages(key);
+    if(window.innerWidth <= 850){
+        document.getElementById("chatBox").classList.add("active");
+    }
+}
 
-    document.getElementById("searchTab").style.display = "none";
-    document.getElementById("moreTab").style.display = "none";
+function closeChat(){
+
+    if(window.innerWidth <= 850){
+
+        document
+        .getElementById("chatBox")
+        .classList.remove("active");
+    }
 }
 
 function loadMessages(key){
-    var messages = document.getElementById("messages");
+
+    var messages =
+    document.getElementById("messages");
+
     var chat = chats[key];
 
-    messages.innerHTML = '<div class="date-line">Today</div>';
+    messages.innerHTML =
+    '<div class="date-line">Today</div>';
 
     for(var i=0;i<chat.messages.length;i++){
+
         messages.innerHTML +=
-        '<div class="msg ' + chat.messages[i].type + '">' +
+
+        '<div class="msg ' +
+        chat.messages[i].type +
+        '">' +
+
         chat.messages[i].text +
-        '<span class="msg-time">' + chat.messages[i].time + '</span>' +
-        '</div>';
+
+        '<span class="msg-time">' +
+        chat.messages[i].time +
+        '</span></div>';
     }
 
-    messages.scrollTop = messages.scrollHeight;
+    messages.scrollTop =
+    messages.scrollHeight;
 }
 
 function sendMessage(){
-    var input = document.getElementById("messageInput");
+
+    var input =
+    document.getElementById("messageInput");
 
     if(input.value.trim() == ""){
-        alert("Type message first");
-        return false;
+        return;
     }
 
     chats[currentUserKey].messages.push({
@@ -717,12 +853,24 @@ function sendMessage(){
     input.value = "";
 
     loadMessages(currentUserKey);
+
     updateChatListPreview();
 }
 
+function enterSend(event){
+
+    if(event.key == "Enter"){
+        sendMessage();
+    }
+}
+
 function toggleSearchTab(){
-    var searchTab = document.getElementById("searchTab");
-    var moreTab = document.getElementById("moreTab");
+
+    var searchTab =
+    document.getElementById("searchTab");
+
+    var moreTab =
+    document.getElementById("moreTab");
 
     moreTab.style.display = "none";
 
@@ -735,8 +883,12 @@ function toggleSearchTab(){
 }
 
 function toggleMoreTab(){
-    var moreTab = document.getElementById("moreTab");
-    var searchTab = document.getElementById("searchTab");
+
+    var moreTab =
+    document.getElementById("moreTab");
+
+    var searchTab =
+    document.getElementById("searchTab");
 
     searchTab.style.display = "none";
 
@@ -749,17 +901,23 @@ function toggleMoreTab(){
 }
 
 function blockUser(){
+
     alert(chats[currentUserKey].name + " blocked");
+
     document.getElementById("moreTab").style.display = "none";
 }
 
 function reportUser(){
+
     alert(chats[currentUserKey].name + " reported");
+
     document.getElementById("moreTab").style.display = "none";
 }
 
 function toggleFileMenu(){
-    var menu = document.getElementById("fileMenu");
+
+    var menu =
+    document.getElementById("fileMenu");
 
     if(menu.style.display == "block"){
         menu.style.display = "none";
@@ -770,12 +928,15 @@ function toggleFileMenu(){
 }
 
 function sendImage(event){
+
     var file = event.target.files[0];
 
     if(file){
+
         var reader = new FileReader();
 
         reader.onload = function(e){
+
             chats[currentUserKey].messages.push({
                 type:"me",
                 text:'<img src="' + e.target.result + '">',
@@ -783,6 +944,7 @@ function sendImage(event){
             });
 
             loadMessages(currentUserKey);
+
             updateChatListPreview();
         };
 
@@ -790,39 +952,45 @@ function sendImage(event){
     }
 
     document.getElementById("fileMenu").style.display = "none";
+
     event.target.value = "";
 }
 
 function sendDocument(event){
+
     var file = event.target.files[0];
 
     if(file){
+
         chats[currentUserKey].messages.push({
             type:"me",
-            text:'<div class="doc-box"><span class="doc-icon">Document</span><div><b>' + file.name + '</b><br><small>Document selected</small></div></div>',
+            text:'<div class="doc-box"><span class="doc-icon">📄</span><div><b>' + file.name + '</b></div></div>',
             time:getTime() + " ✓✓"
         });
 
         loadMessages(currentUserKey);
+
         updateChatListPreview();
     }
 
     document.getElementById("fileMenu").style.display = "none";
+
     event.target.value = "";
 }
 
-function enterSend(event){
-    if(event.key == "Enter"){
-        sendMessage();
-    }
-}
-
 function searchChat(){
-    var search = document.getElementById("searchInput").value.toLowerCase();
-    var users = document.querySelectorAll(".chat-user");
+
+    var search =
+    document.getElementById("searchInput")
+    .value.toLowerCase();
+
+    var users =
+    document.querySelectorAll(".chat-user");
 
     users.forEach(function(user){
-        var name = user.getAttribute("data-name");
+
+        var name =
+        user.getAttribute("data-name");
 
         if(name.includes(search)){
             user.style.display = "flex";
@@ -835,15 +1003,7 @@ function searchChat(){
 
 updateChatListPreview();
 
-var params = new URLSearchParams(window.location.search);
-var startUser = params.get("user") || "arun";
-
-if(chats[startUser]){
-    openChatByKey(startUser);
-}
-else{
-    openChatByKey("arun");
-}
+openChatByKey("arun");
 </script>
 
 </body>
