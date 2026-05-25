@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Create Account</title>
+
+<title>GeNeX Create Account</title>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 
@@ -16,171 +20,391 @@
 
 :root{
     --bg:#000;
-    --text:white;
-    --nav:#0b0b0b;
+    --text:#fff;
     --card:#101010;
     --card2:#151515;
     --border:#222;
     --green:#39ff14;
-    --muted:#aaa;
+    --muted:#9f9f9f;
+    --danger:#ff4d4d;
 }
 
 body.light-mode{
     --bg:#f4f4f4;
     --text:#111;
-    --nav:#ffffff;
     --card:#ffffff;
     --card2:#f7f7f7;
-    --border:#ddd;
-    --green:#39ff14;
+    --border:#dddddd;
     --muted:#555;
 }
 
 body{
     min-height:100vh;
-    background:radial-gradient(circle,#123d12,#0d0d0d 60%);
+    background:
+    radial-gradient(circle at top left,rgba(57,255,20,0.22),transparent 35%),
+    radial-gradient(circle at bottom right,rgba(57,255,20,0.14),transparent 35%),
+    #000;
     display:flex;
     justify-content:center;
     align-items:center;
+    padding:30px 18px;
+    overflow-x:hidden;
     color:var(--text);
-    padding:40px 0;
 }
 
 body.light-mode{
     background:#f4f4f4;
 }
 
-.container{
+.bg-glow{
+    position:fixed;
     width:450px;
-    background:var(--card);
+    height:450px;
+    background:rgba(57,255,20,0.08);
+    filter:blur(100px);
+    border-radius:50%;
+    top:-120px;
+    right:-100px;
+    z-index:0;
+}
+
+.bg-glow2{
+    position:fixed;
+    width:380px;
+    height:380px;
+    background:rgba(57,255,20,0.05);
+    filter:blur(100px);
+    border-radius:50%;
+    bottom:-100px;
+    left:-80px;
+    z-index:0;
+}
+
+.container{
+    width:100%;
+    max-width:520px;
+    background:rgba(16,16,16,0.92);
     border:1px solid var(--border);
-    border-radius:25px;
-    padding:35px;
-    box-shadow:0 0 30px rgba(57,255,20,0.25);
+    border-radius:34px;
+    padding:38px;
+    position:relative;
+    z-index:2;
+    backdrop-filter:blur(18px);
+    box-shadow:
+    0 0 45px rgba(57,255,20,0.12),
+    inset 0 0 0 1px rgba(255,255,255,0.02);
 }
 
 body.light-mode .container{
-    box-shadow:0 0 35px rgba(0,0,0,0.12);
+    background:rgba(255,255,255,0.95);
+    box-shadow:0 10px 40px rgba(0,0,0,0.08);
+}
+
+.top{
+    text-align:center;
+    margin-bottom:28px;
 }
 
 .logo{
-    text-align:center;
-    font-size:42px;
     color:var(--green);
+    font-size:52px;
     font-weight:900;
-    margin-bottom:20px;
+    letter-spacing:1px;
+    margin-bottom:8px;
 }
 
-h2{
-    text-align:center;
-    margin-bottom:8px;
-    color:var(--text);
+.top h2{
+    font-size:34px;
+    margin-bottom:10px;
 }
 
 .subtitle{
-    text-align:center;
     color:var(--muted);
-    margin-bottom:25px;
+    font-size:15px;
+    line-height:1.7;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+}
+
+.input-box{
+    margin-bottom:16px;
+}
+
+.full{
+    grid-column:1/3;
+}
+
+label{
+    display:block;
+    margin-bottom:8px;
+    font-size:14px;
+    color:var(--muted);
+    font-weight:600;
 }
 
 input,
 select{
     width:100%;
-    padding:15px;
-    margin-bottom:16px;
-    border-radius:12px;
+    height:58px;
+    border-radius:18px;
     border:1px solid var(--border);
-    outline:none;
-    background:var(--bg);
+    background:var(--card2);
     color:var(--text);
+    padding:0 18px;
+    outline:none;
     font-size:15px;
+    transition:0.25s;
 }
 
 input:focus,
 select:focus{
-    border:1px solid var(--green);
-    box-shadow:0 0 10px rgba(57,255,20,0.3);
+    border-color:var(--green);
+    box-shadow:0 0 0 4px rgba(57,255,20,0.12);
 }
 
 .phone-box{
     display:flex;
-    gap:10px;
+    gap:12px;
 }
 
 .country{
-    width:80px;
+    width:95px;
 }
 
-button{
+.password-wrap{
+    position:relative;
+}
+
+.toggle-pass{
+    position:absolute;
+    right:16px;
+    top:18px;
+    cursor:pointer;
+    color:var(--muted);
+    font-size:14px;
+    font-weight:700;
+}
+
+.password-strength{
+    margin-top:10px;
+    display:flex;
+    gap:8px;
+}
+
+.password-strength span{
+    flex:1;
+    height:6px;
+    border-radius:20px;
+    background:#2a2a2a;
+    transition:0.3s;
+}
+
+.terms{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    margin-top:5px;
+    margin-bottom:22px;
+}
+
+.terms input{
+    width:auto;
+    margin-top:4px;
+}
+
+.terms p{
+    color:var(--muted);
+    font-size:14px;
+    line-height:1.6;
+}
+
+.create-btn{
     width:100%;
-    padding:15px;
+    height:58px;
     border:none;
-    border-radius:30px;
-    background:var(--green);
+    border-radius:40px;
+    background:linear-gradient(135deg,#39ff14,#22c400);
     color:black;
     font-size:17px;
-    font-weight:800;
+    font-weight:900;
     cursor:pointer;
-    margin-top:8px;
+    transition:0.3s;
 }
 
-button:hover{
-    box-shadow:0 0 20px var(--green);
+.create-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 25px rgba(57,255,20,0.25);
 }
 
 .rules{
-    margin-top:22px;
-    background:var(--bg);
-    border:1px solid var(--border);
-    padding:18px;
-    border-radius:15px;
-}
-
-body.light-mode .rules{
+    margin-top:28px;
     background:var(--card2);
+    border:1px solid var(--border);
+    border-radius:24px;
+    padding:24px;
 }
 
 .rules h3{
     color:var(--green);
-    margin-bottom:12px;
-    font-size:16px;
-}
-
-.rules p{
-    color:var(--muted);
-    margin-bottom:10px;
-    font-size:14px;
-}
-
-.show-pass{
-    color:var(--muted);
-    font-size:14px;
-    margin-top:-5px;
     margin-bottom:18px;
+    font-size:18px;
+}
+
+.rule{
     display:flex;
     align-items:center;
-    gap:8px;
+    gap:10px;
+    margin-bottom:12px;
+    color:var(--muted);
+    font-size:14px;
 }
 
-.show-pass input{
-    width:auto;
-    margin:0;
+.dot{
+    width:9px;
+    height:9px;
+    border-radius:50%;
+    background:var(--green);
 }
 
-.back{
-    display:block;
+.error{
+    color:var(--danger);
     text-align:center;
-    margin-top:25px;
+    margin-top:18px;
+    font-size:14px;
+    font-weight:600;
+}
+
+.login-link{
+    text-align:center;
+    margin-top:28px;
+    color:var(--muted);
+    font-size:15px;
+}
+
+.login-link a{
     color:var(--green);
     text-decoration:none;
     font-weight:800;
 }
 
-.error{
-    color:#ff4d4d;
-    font-size:14px;
-    margin-top:15px;
+.success-popup{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.7);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+    padding:20px;
+}
+
+.popup-card{
+    width:100%;
+    max-width:400px;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:28px;
+    padding:35px;
     text-align:center;
+    animation:popup 0.35s ease;
+}
+
+@keyframes popup{
+    from{
+        transform:scale(0.7);
+        opacity:0;
+    }
+    to{
+        transform:scale(1);
+        opacity:1;
+    }
+}
+
+.popup-icon{
+    width:85px;
+    height:85px;
+    border-radius:50%;
+    background:rgba(57,255,20,0.14);
+    color:var(--green);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin:auto;
+    font-size:42px;
+    margin-bottom:20px;
+}
+
+.popup-card h2{
+    margin-bottom:12px;
+}
+
+.popup-card p{
+    color:var(--muted);
+    line-height:1.7;
+    margin-bottom:24px;
+}
+
+.popup-btn{
+    width:100%;
+    border:none;
+    height:52px;
+    border-radius:30px;
+    background:var(--green);
+    color:black;
+    font-weight:900;
+    cursor:pointer;
+    font-size:15px;
+}
+
+@media(max-width:650px){
+
+    .container{
+        padding:28px 22px;
+        border-radius:28px;
+    }
+
+    .logo{
+        font-size:42px;
+    }
+
+    .top h2{
+        font-size:28px;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .full{
+        grid-column:auto;
+    }
+
+    .phone-box{
+        flex-direction:column;
+    }
+
+    .country{
+        width:100%;
+    }
+
+    input,
+    select{
+        height:54px;
+        font-size:14px;
+    }
+
+    .create-btn{
+        height:54px;
+        font-size:15px;
+    }
+
+    .rules{
+        padding:20px;
+    }
 }
 
 </style>
@@ -188,105 +412,223 @@ body.light-mode .rules{
 
 <body>
 
+<div class="bg-glow"></div>
+<div class="bg-glow2"></div>
+
 <div class="container">
 
-    <div class="logo">GeNeX</div>
+    <div class="top">
 
-    <h2>Create Account</h2>
+        <div class="logo">GeNeX</div>
 
-    <p class="subtitle">
-        Join the GeNeX tech community
-    </p>
+        <h2>Create Account</h2>
 
-    <input type="text"
-           id="fname"
-           placeholder="First Name">
-
-    <input type="text"
-           id="lname"
-           placeholder="Last Name">
-
-    <input type="text"
-           id="username"
-           placeholder="Create unique username">
-
-    <input type="email"
-           id="gmail"
-           placeholder="Enter Gmail">
-
-    <div class="phone-box">
-
-        <select class="country" id="country">
-
-            <option value="+91">+91</option>
-            <option value="+1">+1</option>
-            <option value="+44">+44</option>
-            <option value="+971">+971</option>
-
-        </select>
-
-        <input type="tel"
-               id="phone"
-               maxlength="10"
-               placeholder="Phone Number"
-               oninput="limitPhone(this)">
+        <p class="subtitle">
+            Join the trusted tech community for reviews,
+            discussions and verified product sharing.
+        </p>
 
     </div>
 
-    <input type="password"
-           id="password"
-           placeholder="Create Password">
+    <div class="form-grid">
 
-    <input type="password"
-           id="repassword"
-           placeholder="Retype Password">
+        <div class="input-box">
+            <label>First Name</label>
 
-    <label class="show-pass">
+            <input type="text"
+            id="fname"
+            placeholder="Enter first name">
+        </div>
 
-        <input type="checkbox"
-               onclick="showPassword()">
+        <div class="input-box">
+            <label>Last Name</label>
 
-        Show Password
+            <input type="text"
+            id="lname"
+            placeholder="Enter last name">
+        </div>
 
-    </label>
+        <div class="input-box full">
+            <label>Username</label>
 
-    <button onclick="createAccount()">
+            <input type="text"
+            id="username"
+            placeholder="Create unique username">
+        </div>
+
+        <div class="input-box full">
+            <label>Email Address</label>
+
+            <input type="email"
+            id="gmail"
+            placeholder="Enter Gmail address">
+        </div>
+
+        <div class="input-box full">
+
+            <label>Phone Number</label>
+
+            <div class="phone-box">
+
+                <select class="country" id="country">
+
+                    <option value="+91">+91</option>
+                    <option value="+1">+1</option>
+                    <option value="+44">+44</option>
+                    <option value="+971">+971</option>
+
+                </select>
+
+                <input type="tel"
+                id="phone"
+                maxlength="10"
+                placeholder="Phone number"
+                oninput="limitPhone(this)">
+
+            </div>
+
+        </div>
+
+        <div class="input-box full">
+
+            <label>Password</label>
+
+            <div class="password-wrap">
+
+                <input type="password"
+                id="password"
+                placeholder="Create password"
+                onkeyup="checkStrength()">
+
+                <span class="toggle-pass"
+                onclick="togglePassword()">
+                    Show
+                </span>
+
+            </div>
+
+            <div class="password-strength">
+                <span id="line1"></span>
+                <span id="line2"></span>
+                <span id="line3"></span>
+            </div>
+
+        </div>
+
+        <div class="input-box full">
+
+            <label>Confirm Password</label>
+
+            <input type="password"
+            id="repassword"
+            placeholder="Retype password">
+
+        </div>
+
+    </div>
+
+    <div class="terms">
+
+        <input type="checkbox" id="terms">
+
+        <p>
+            I agree to the GeNeX community rules
+            and privacy guidelines.
+        </p>
+
+    </div>
+
+    <button class="create-btn"
+    onclick="createAccount()">
+
         Create Account
+
     </button>
-
-    <div class="rules">
-
-        <h3>Password must contain:</h3>
-
-        <p>• Minimum 8 characters</p>
-
-        <p>• One uppercase letter</p>
-
-        <p>• One lowercase letter</p>
-
-        <p>• One number</p>
-
-        <p>• One special symbol</p>
-
-    </div>
 
     <div class="error" id="error"></div>
 
-    <a href="login.html" class="back">
-        ⬅ Back to Login
-    </a>
+    <div class="rules">
+
+        <h3>Password Requirements</h3>
+
+        <div class="rule">
+            <div class="dot"></div>
+            Minimum 8 characters
+        </div>
+
+        <div class="rule">
+            <div class="dot"></div>
+            One uppercase letter
+        </div>
+
+        <div class="rule">
+            <div class="dot"></div>
+            One lowercase letter
+        </div>
+
+        <div class="rule">
+            <div class="dot"></div>
+            One number
+        </div>
+
+        <div class="rule">
+            <div class="dot"></div>
+            One special symbol
+        </div>
+
+    </div>
+
+    <div class="login-link">
+
+        Already have an account?
+
+        <a href="login.html">
+            Login
+        </a>
+
+    </div>
+
+</div>
+
+<div class="success-popup" id="successPopup">
+
+    <div class="popup-card">
+
+        <div class="popup-icon">✓</div>
+
+        <h2>Account Created</h2>
+
+        <p>
+            Welcome to GeNeX community.
+            Your account was created successfully.
+        </p>
+
+        <button class="popup-btn"
+        onclick="goLogin()">
+
+            Continue to Login
+
+        </button>
+
+    </div>
 
 </div>
 
 <script>
+
 function applyTheme(){
+
     var theme = localStorage.getItem("genexTheme");
 
     if(theme == "light"){
+
         document.body.classList.add("light-mode");
+
     }
     else{
+
         document.body.classList.remove("light-mode");
+
     }
 }
 
@@ -298,7 +640,7 @@ function limitPhone(input){
     input.value.replace(/[^0-9]/g,'').slice(0,10);
 }
 
-function showPassword(){
+function togglePassword(){
 
     var pass =
     document.getElementById("password");
@@ -306,38 +648,81 @@ function showPassword(){
     var repass =
     document.getElementById("repassword");
 
+    var btn =
+    document.querySelector(".toggle-pass");
+
     if(pass.type == "password"){
 
         pass.type = "text";
         repass.type = "text";
-    }
 
+        btn.innerText = "Hide";
+    }
     else{
 
         pass.type = "password";
         repass.type = "password";
+
+        btn.innerText = "Show";
+    }
+}
+
+function checkStrength(){
+
+    var password =
+    document.getElementById("password").value;
+
+    var line1 =
+    document.getElementById("line1");
+
+    var line2 =
+    document.getElementById("line2");
+
+    var line3 =
+    document.getElementById("line3");
+
+    line1.style.background = "#2a2a2a";
+    line2.style.background = "#2a2a2a";
+    line3.style.background = "#2a2a2a";
+
+    if(password.length > 3){
+
+        line1.style.background = "#ff4d4d";
+    }
+
+    if(password.length > 7){
+
+        line2.style.background = "#ffd000";
+    }
+
+    if(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$!%*?&]).{8,}$/
+        .test(password)
+    ){
+
+        line3.style.background = "#39ff14";
     }
 }
 
 function createAccount(){
 
     var fname =
-    document.getElementById("fname").value;
+    document.getElementById("fname").value.trim();
 
     var lname =
-    document.getElementById("lname").value;
+    document.getElementById("lname").value.trim();
 
     var username =
-    document.getElementById("username").value;
+    document.getElementById("username").value.trim();
 
     var gmail =
-    document.getElementById("gmail").value;
+    document.getElementById("gmail").value.trim();
 
     var country =
     document.getElementById("country").value;
 
     var phone =
-    document.getElementById("phone").value;
+    document.getElementById("phone").value.trim();
 
     var password =
     document.getElementById("password").value;
@@ -345,11 +730,19 @@ function createAccount(){
     var repassword =
     document.getElementById("repassword").value;
 
+    var terms =
+    document.getElementById("terms").checked;
+
     var error =
     document.getElementById("error");
 
+    error.innerText = "";
+
     var passwordPattern =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$!%*?&]).{8,}$/;
+
+    var gmailPattern =
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if(
         fname == "" ||
@@ -361,35 +754,68 @@ function createAccount(){
         repassword == ""
     ){
 
-        error.innerHTML =
+        error.innerText =
         "Please fill all fields";
 
-        return false;
+        return;
+    }
+
+    if(!gmailPattern.test(gmail)){
+
+        error.innerText =
+        "Enter valid email address";
+
+        return;
     }
 
     if(phone.length != 10){
 
-        error.innerHTML =
-        "Phone number must be 10 digits";
+        error.innerText =
+        "Phone number must contain 10 digits";
 
-        return false;
+        return;
     }
 
     if(!passwordPattern.test(password)){
 
-        error.innerHTML =
+        error.innerText =
         "Password format not matched";
 
-        return false;
+        return;
     }
 
     if(password != repassword){
 
-        error.innerHTML =
+        error.innerText =
         "Passwords do not match";
 
-        return false;
+        return;
     }
+
+    if(terms == false){
+
+        error.innerText =
+        "Accept community rules first";
+
+        return;
+    }
+
+    var account = {
+
+        fname:fname,
+        lname:lname,
+        username:username,
+        gmail:gmail,
+        country:country,
+        phone:phone,
+        password:password
+
+    };
+
+    localStorage.setItem(
+        "genexAccount",
+        JSON.stringify(account)
+    );
 
     localStorage.setItem(
         "techhiveEmail",
@@ -406,11 +832,15 @@ function createAccount(){
         username
     );
 
-    alert("Account Created Successfully");
-
-    window.location.href =
-    "login.html";
+    document.getElementById("successPopup")
+    .style.display = "flex";
 }
+
+function goLogin(){
+
+    window.location.href = "login.html";
+}
+
 </script>
 
 </body>
