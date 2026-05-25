@@ -1,16 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>GeNeX Login</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 
 <style>
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
     font-family:'Outfit',sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
 }
 
 :root{
@@ -36,12 +45,14 @@ body.light-mode{
 }
 
 body{
-    height:100vh;
+    min-height:100vh;
     background:radial-gradient(circle,#123d12,#0d0d0d 60%);
     display:flex;
     justify-content:center;
     align-items:center;
+    padding:20px;
     color:var(--text);
+    overflow-x:hidden;
 }
 
 body.light-mode{
@@ -49,16 +60,29 @@ body.light-mode{
 }
 
 .container{
-    width:430px;
+    width:100%;
+    max-width:430px;
     background:var(--card);
     border:1px solid var(--border);
     border-radius:25px;
     padding:35px;
     box-shadow:0 0 30px rgba(57,255,20,0.25);
+    animation:fadeUp 0.5s ease;
 }
 
 body.light-mode .container{
     box-shadow:0 0 35px rgba(0,0,0,0.12);
+}
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(30px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
 }
 
 .logo{
@@ -67,30 +91,39 @@ body.light-mode .container{
     color:var(--green);
     font-weight:900;
     margin-bottom:20px;
+    word-break:break-word;
 }
 
 h2{
     text-align:center;
     margin-bottom:8px;
     color:var(--text);
+    font-size:30px;
 }
 
 .subtitle{
     text-align:center;
     color:var(--muted);
     margin-bottom:25px;
+    line-height:1.6;
+    font-size:15px;
+}
+
+.input-box{
+    width:100%;
+    margin-bottom:16px;
 }
 
 input{
     width:100%;
     padding:15px;
-    margin-bottom:16px;
-    border-radius:12px;
+    border-radius:14px;
     border:1px solid var(--border);
     outline:none;
     background:var(--bg);
     color:var(--text);
     font-size:15px;
+    transition:0.3s;
 }
 
 input:focus{
@@ -106,11 +139,13 @@ input:focus{
     display:flex;
     align-items:center;
     gap:8px;
+    flex-wrap:wrap;
 }
 
 .show-pass input{
     width:auto;
     margin:0;
+    accent-color:var(--green);
 }
 
 button{
@@ -124,10 +159,12 @@ button{
     font-weight:800;
     cursor:pointer;
     margin-top:8px;
+    transition:0.3s;
 }
 
 button:hover{
     box-shadow:0 0 20px var(--green);
+    transform:translateY(-2px);
 }
 
 .links{
@@ -142,15 +179,118 @@ button:hover{
     text-decoration:none;
     font-size:15px;
     font-weight:700;
+    transition:0.3s;
+    word-break:break-word;
+}
+
+.links a:hover{
+    transform:scale(1.02);
 }
 
 .error{
     color:#ff4d4d;
     text-align:center;
-    margin-top:10px;
+    margin-top:12px;
     font-size:14px;
+    line-height:1.5;
+    min-height:20px;
 }
+
+/* TABLET */
+
+@media(max-width:768px){
+
+    body{
+        padding:18px;
+        align-items:center;
+    }
+
+    .container{
+        padding:28px;
+        border-radius:22px;
+    }
+
+    .logo{
+        font-size:38px;
+    }
+
+    h2{
+        font-size:28px;
+    }
+
+}
+
+/* MOBILE */
+
+@media(max-width:550px){
+
+    body{
+        padding:15px;
+    }
+
+    .container{
+        padding:24px 20px;
+        border-radius:20px;
+    }
+
+    .logo{
+        font-size:34px;
+        margin-bottom:16px;
+    }
+
+    h2{
+        font-size:24px;
+    }
+
+    .subtitle{
+        font-size:14px;
+        margin-bottom:22px;
+    }
+
+    input{
+        padding:14px;
+        font-size:14px;
+    }
+
+    button{
+        padding:14px;
+        font-size:15px;
+    }
+
+    .links a{
+        font-size:14px;
+    }
+
+}
+
+/* EXTRA SMALL */
+
+@media(max-width:380px){
+
+    .container{
+        padding:20px 16px;
+    }
+
+    .logo{
+        font-size:30px;
+    }
+
+    h2{
+        font-size:22px;
+    }
+
+    .subtitle{
+        font-size:13px;
+    }
+
+    .show-pass{
+        font-size:13px;
+    }
+
+}
+
 </style>
+
 </head>
 
 <body>
@@ -165,17 +305,35 @@ button:hover{
         Login to your GeNeX account
     </p>
 
-    <input type="text"
-           id="loginUser"
-           placeholder="Username or Gmail">
+    <div class="input-box">
 
-    <input type="password"
-           id="loginPass"
-           placeholder="Password">
+        <input
+            type="text"
+            id="loginUser"
+            placeholder="Username or Gmail"
+        >
+
+    </div>
+
+    <div class="input-box">
+
+        <input
+            type="password"
+            id="loginPass"
+            placeholder="Password"
+        >
+
+    </div>
 
     <label class="show-pass">
-        <input type="checkbox" onclick="showPassword()">
+
+        <input
+            type="checkbox"
+            onclick="showPassword()"
+        >
+
         Show Password
+
     </label>
 
     <button onclick="loginUser()">
@@ -203,7 +361,9 @@ button:hover{
 </div>
 
 <script>
+
 function applyTheme(){
+
     var theme = localStorage.getItem("genexTheme");
 
     if(theme == "light"){
@@ -231,33 +391,51 @@ function showPassword(){
 function loginUser(){
 
     var username = document.getElementById("loginUser").value.toLowerCase().trim();
+
     var password = document.getElementById("loginPass").value;
+
     var error = document.getElementById("error");
 
     var savedUser = localStorage.getItem("techhiveUsername");
+
     var savedEmail = localStorage.getItem("techhiveEmail");
+
     var savedPass = localStorage.getItem("techhivePassword");
 
     if(username == "" || password == ""){
+
         error.innerHTML = "Please fill all fields";
+
         return false;
     }
 
     if(savedUser == null || savedEmail == null || savedPass == null){
+
         error.innerHTML = "No account found. Please create account first";
+
         return false;
     }
 
-    if((username == savedUser.toLowerCase().trim() || username == savedEmail.toLowerCase().trim()) && password == savedPass){
+    if(
+        (
+            username == savedUser.toLowerCase().trim()
+            ||
+            username == savedEmail.toLowerCase().trim()
+        )
+        &&
+        password == savedPass
+    ){
 
         alert("Login Successful");
 
         window.location.href = "ProjectFRE.html";
     }
     else{
+
         error.innerHTML = "Invalid username or password";
     }
 }
+
 </script>
 
 </body>
